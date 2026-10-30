@@ -6,9 +6,9 @@ import { VocabularyService } from '../../core/services/vocabulary.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WordFormComponent } from '../../shared/components/word-form.component';
 import { ToastService } from '../../core/services/toast.service';
-import { Word, Domain, VocabSet } from '../../core/models/vocabulary.models';
+import { Word, Domain, VocabSet, PronunciationPattern } from '../../core/models/vocabulary.models';
 
-type ManageTab = 'words' | 'domains' | 'sets' | 'io';
+type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
 
 @Component({
   selector: 'app-manage',
@@ -171,6 +171,49 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'io';
         </div>
       </div>
 
+      <!-- ── PRONUNCIATION PATTERNS tab ─────────────────── -->
+      <div *ngIf="activeTab() === 'patterns'">
+        <div class="section-header">
+          <div>
+            <h2>Patrones de pronunciación</h2>
+            <p class="muted">Catálogo reutilizable para ch, sch, ei y otras peculiaridades.</p>
+          </div>
+          <button class="btn btn--primary btn--sm" (click)="showPatternForm.set(true); resetPatternForm()">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> Añadir patrón
+          </button>
+        </div>
+
+        <div class="app-modal-overlay" *ngIf="showPatternForm()" (click)="showPatternForm.set(false)">
+          <div class="app-modal" (click)="$event.stopPropagation()">
+            <div class="app-modal__header">
+              <h3>Añadir patrón de pronunciación</h3>
+              <button class="btn-icon" (click)="showPatternForm.set(false)" aria-label="Cerrar"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+            </div>
+            <div class="inline-form">
+              <input class="form-input" [(ngModel)]="patternForm.grapheme" placeholder="Grafema, por ejemplo ch" />
+              <input class="form-input" [(ngModel)]="patternForm.sound" placeholder="Sonido IPA, por ejemplo /ç/" />
+              <textarea class="form-input" [(ngModel)]="patternForm.description" placeholder="Descripción"></textarea>
+              <div class="form-actions">
+                <button class="btn btn--ghost" (click)="showPatternForm.set(false)">Cancelar</button>
+                <button class="btn btn--primary" (click)="savePattern()" [disabled]="!patternForm.grapheme || !patternForm.sound">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="manage-list">
+          <div class="manage-item" *ngFor="let pattern of patterns()">
+            <div class="manage-item__content">
+              <span class="manage-item__name">{{ pattern.grapheme }}</span>
+              <span class="muted">{{ pattern.sound }} — {{ pattern.description }}</span>
+            </div>
+            <button class="icon-btn icon-btn--danger" (click)="deletePattern(pattern)" [attr.aria-label]="'Eliminar ' + pattern.grapheme" title="Eliminar">
+              <i class="bi bi-trash3" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- ── I/O tab ─────────────────────────────── -->
       <div *ngIf="activeTab() === 'io'" class="io-panel">
         <div class="io-card">
@@ -209,12 +252,19 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'io';
       border-radius: var(--radius-md);
       font-size: 0.8rem; font-weight: 500;
     }
-    .tab-nav { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); }
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
     .tab-btn {
       padding: 0.6rem 1.25rem; border: none; background: transparent;
       cursor: pointer; font-size: 0.9rem; color: var(--color-text-muted);
       border-bottom: 2px solid transparent; margin-bottom: -1px;
-      transition: all 0.15s;
+      transition: all 0.15s; white-space: normal; flex: 1 1 auto;
+      min-width: max-content;
     }
     .tab-btn--active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
@@ -231,6 +281,7 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'io';
     .manage-word-item__actions, .manage-item { gap: 0.5rem; }
     .manage-item { gap: 0.5rem; }
     .manage-item__name { font-weight: 500; }
+    .manage-item__content { min-width: 0; display: flex; align-items: baseline; gap: 0.5rem; }
     .muted { color: var(--color-text-muted); font-size: 0.875rem; }
     .article-badge {
       font-size: 0.75rem; font-weight: 700; padding: 0.1rem 0.4rem;
@@ -245,7 +296,7 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'io';
     }
     .app-modal {
       background: var(--color-surface); border-radius: var(--radius-xl);
-      padding: 1.5rem 2rem; min-width: 320px; max-width: 90vw;
+      padding: 1.5rem 2rem; width: min(700px, calc(100vw - 2rem)); min-width: 0; max-width: 100%;
       box-shadow: var(--shadow-xl); max-height: 90vh; overflow-y: auto;
     }
     .app-modal--lg { width: 700px; }
@@ -282,6 +333,24 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'io';
     }
     .new-word-panel__header h2 { margin: 0; font-size: 1.15rem; }
     .new-word-panel__header p { margin: 0.25rem 0 0; }
+    @media (max-width: 640px) {
+      .manage-page { width: 100%; }
+      .page__header, .section-header { align-items: stretch; }
+      .section-header { flex-direction: column; gap: 0.75rem; }
+      .section-header .btn { width: 100%; }
+      .manage-word-item, .manage-item { align-items: flex-start; padding: 0.75rem; }
+      .manage-word-item__info { min-width: 0; flex-wrap: wrap; }
+      .manage-word-item__info strong, .manage-item__content { overflow-wrap: anywhere; }
+      .manage-item__content { flex-direction: column; gap: 0.15rem; }
+      .app-modal-overlay { padding: 1rem; align-items: flex-end; }
+      .app-modal { border-radius: var(--radius-lg); padding: 1rem; max-height: calc(100dvh - 2rem); }
+      .form-actions { flex-direction: column-reverse; }
+      .form-actions .btn { width: 100%; }
+      .new-word-panel { padding: 0.75rem; }
+      .new-word-panel__header { padding: 0 0 0.75rem; align-items: flex-start; flex-direction: column; }
+      .tab-nav { gap: 0.15rem; }
+      .tab-btn { flex: 1 1 calc(50% - 0.15rem); padding: 0.55rem 0.4rem; font-size: 0.78rem; }
+    }
   `],
 })
 export class ManageComponent implements OnInit {
@@ -294,6 +363,7 @@ export class ManageComponent implements OnInit {
   showWordForm = signal(false);
   showDomainForm = signal(false);
   showSetForm = signal(false);
+  showPatternForm = signal(false);
   editingWord = signal<Word | undefined>(undefined);
   importError = signal<string | null>(null);
   isNewWordPage = false;
@@ -306,11 +376,13 @@ export class ManageComponent implements OnInit {
 
   domainForm: { name: string; parentId: string | null } = { name: '', parentId: null };
   setForm: { name: string; description: string } = { name: '', description: '' };
+  patternForm: { grapheme: string; sound: string; description: string } = { grapheme: '', sound: '', description: '' };
 
   tabs = [
     { id: 'words' as ManageTab, labelKey: 'manage.words_section' },
     { id: 'domains' as ManageTab, labelKey: 'manage.domains_section' },
     { id: 'sets' as ManageTab, labelKey: 'manage.sets_section' },
+    { id: 'patterns' as ManageTab, labelKey: 'manage.patterns' },
     { id: 'io' as ManageTab, labelKey: 'manage.export' },
   ];
 
@@ -379,6 +451,31 @@ export class ManageComponent implements OnInit {
   deleteSet(id: string): void {
     this.vocab.deleteSet(id);
     this.toast.show('Conjunto eliminado.', 'success');
+  }
+
+  resetPatternForm(): void { this.patternForm = { grapheme: '', sound: '', description: '' }; }
+  savePattern(): void {
+    const grapheme = this.patternForm.grapheme.trim();
+    const id = grapheme.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '_');
+    if (this.patterns().some(pattern => pattern.id === id)) {
+      this.toast.show('Ese patrón ya existe.', 'warning');
+      return;
+    }
+    const pattern: PronunciationPattern = {
+      id,
+      grapheme,
+      sound: this.patternForm.sound.trim(),
+      description: this.patternForm.description.trim(),
+    };
+    this.vocab.addPronunciationPattern(pattern);
+    this.showPatternForm.set(false);
+    this.toast.show('Patrón de pronunciación creado.', 'success');
+  }
+  deletePattern(pattern: PronunciationPattern): void {
+    if (confirm(`¿Eliminar el patrón "${pattern.grapheme}"?`)) {
+      this.vocab.deletePronunciationPattern(pattern.id);
+      this.toast.show('Patrón de pronunciación eliminado.', 'success');
+    }
   }
 
   // I/O

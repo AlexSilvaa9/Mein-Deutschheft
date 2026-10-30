@@ -98,6 +98,7 @@
     "unsaved_changes": "Tienes cambios sin exportar",
     "add_domain": "Añadir dominio",
     "add_set": "Añadir conjunto",
+    "patterns": "Patrones de pronunciación",
     "domain_name": "Nombre del dominio",
     "set_name": "Nombre del conjunto",
     "set_description": "Descripción",

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Word, Domain, VocabSet, PronunciationPattern } from '../../core/models/vocabulary.models';
 import { TranslatePipe } from '../pipes/translate.pipe';
+import { HighlightService } from '../../core/services/highlight.service';
 
 @Component({
   selector: 'app-word-card',
@@ -12,7 +13,9 @@ import { TranslatePipe } from '../pipes/translate.pipe';
     <div class="word-card" [class.compact]="compact">
       <div class="word-card__header">
         <span class="article-badge article-badge--{{ word.article }}">{{ word.article }}</span>
-        <h3 class="word-card__lemma">{{ word.lemma }}</h3>
+        <h3 class="word-card__lemma">
+          <span *ngFor="let letter of highlightedLetters(word)" [style.color]="letter.color">{{ letter.character }}</span>
+        </h3>
         <span class="level-badge">{{ word.level }}</span>
         <div class="word-card__actions" *ngIf="showActions">
           <a class="icon-btn" [routerLink]="['/vocabulary', word.id]"
@@ -41,7 +44,9 @@ import { TranslatePipe } from '../pipes/translate.pipe';
 
         <!-- Vowel quantities -->
         <ng-container *ngFor="let v of uniqueVowelQuantities">
-          <span class="tag tag--pronunciation">{{ v | translate }}</span>
+          <span class="tag tag--pronunciation">
+            {{ v | translate }}
+          </span>
         </ng-container>
 
         <!-- Patterns -->
@@ -136,13 +141,14 @@ import { TranslatePipe } from '../pipes/translate.pipe';
     }
     .tag--morphology { background: var(--color-tag-morphology); color: var(--color-tag-morphology-text); }
     .tag--umlaut { background: var(--color-tag-umlaut); color: var(--color-tag-umlaut-text); }
-    .tag--pronunciation { background: var(--color-tag-pronunciation); color: var(--color-tag-pronunciation-text); }
-    .tag--pattern { background: var(--color-tag-pattern); color: var(--color-tag-pattern-text); }
+    .tag--pronunciation { background: var(--highlight-color, var(--color-tag-pronunciation)); color: var(--color-tag-pronunciation-text); }
+    .tag--pattern { background: var(--highlight-color, var(--color-tag-pattern)); color: var(--color-tag-pattern-text); }
     .tag--structure { background: var(--color-tag-structure); color: var(--color-tag-structure-text); }
     .tag--domain { background: var(--color-tag-domain); color: var(--color-tag-domain-text); }
   `],
 })
 export class WordCardComponent {
+  private highlights = inject(HighlightService);
   @Input({ required: true }) word!: Word;
   @Input() domains: Domain[] = [];
   @Input() patterns: PronunciationPattern[] = [];
@@ -170,9 +176,13 @@ export class WordCardComponent {
 
   get wordPatternLabels(): string[] {
     return this.word.pronunciation.patterns
-      .map(p => this.patterns.find(pat => pat.id === p.patternId)?.grapheme)
+      .map(p => this.patterns.find(pat => pat.id === p.patternId)?.grapheme ?? p.patternId)
       .filter((g): g is string => !!g)
       .filter((v, i, a) => a.indexOf(v) === i);
+  }
+
+  highlightedLetters(word: Word) {
+    return this.highlights.lettersFor(word);
   }
 
   onDelete(): void {

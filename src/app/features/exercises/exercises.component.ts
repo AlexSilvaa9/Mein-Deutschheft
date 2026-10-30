@@ -5,6 +5,7 @@ import { VocabularyService } from '../../core/services/vocabulary.service';
 import { ExerciseService } from '../../core/services/exercise.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { TranslatorService } from '../../core/services/translator.service';
+import { HighlightService } from '../../core/services/highlight.service';
 import {
   ExerciseType, FilterState, DEFAULT_FILTER, Article
 } from '../../core/models/vocabulary.models';
@@ -84,7 +85,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
             <p class="question-prompt">{{ 'exercises.translation_prompt' | translate }}</p>
             <div class="word-display">
               <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma">{{ currentWord()!.lemma }}</span>
+              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
             </div>
             <input class="answer-input" type="text" [(ngModel)]="userAnswer"
               [placeholder]="'exercises.type_answer' | translate"
@@ -95,7 +96,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
           <ng-container *ngIf="selectedType() === 'article'">
             <p class="question-prompt">{{ 'exercises.article_prompt' | translate }}</p>
             <div class="word-display">
-              <span class="word-display__lemma">{{ currentWord()!.lemma }}</span>
+              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
             </div>
             <div class="article-buttons">
               <button *ngFor="let a of articles" class="article-btn article-btn--{{ a }}"
@@ -113,7 +114,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
             <p class="question-prompt">{{ 'exercises.plural_prompt' | translate }}</p>
             <div class="word-display">
               <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma">{{ currentWord()!.lemma }}</span>
+              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
             </div>
             <input class="answer-input" type="text" [(ngModel)]="userAnswer"
               [placeholder]="'exercises.type_answer' | translate"
@@ -125,7 +126,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
             <p class="question-prompt">{{ currentPronunciationQuestion() }}</p>
             <div class="word-display">
               <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma">{{ currentWord()!.lemma }}</span>
+              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
             </div>
             <div class="article-buttons">
               <button class="article-btn" [class.article-btn--selected]="userAnswer === 'Sí'"
@@ -232,7 +233,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
       display: flex; align-items: center; gap: 0.75rem;
       margin-bottom: 1.5rem; justify-content: center;
     }
-    .word-display__lemma { font-size: 2rem; font-weight: 700; color: var(--color-text); }
+    .word-display__lemma { color: var(--color-text); font-size: 2rem; font-weight: 700; }
     .article-badge {
       font-size: 1rem; font-weight: 700; padding: 0.2rem 0.6rem;
       border-radius: var(--radius-sm); color: white;
@@ -290,12 +291,25 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
     .answer-item__expected { color: var(--color-danger); font-weight: 500; }
     .result-actions { display: flex; justify-content: center; }
     .btn--lg { padding: 0.75rem 2rem; font-size: 1rem; }
+    @media (max-width: 600px) {
+      .setup-card, .question-card, .result-card { padding: 1rem; border-radius: var(--radius-lg); }
+      .exercise-types { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .type-btn { padding: 0.75rem 0.4rem; font-size: 0.8rem; }
+      .filter-row { align-items: stretch; flex-direction: column; gap: 0.25rem; }
+      .filter-row label { min-width: 0; }
+      .word-display { margin: 1.25rem 0; }
+      .word-display__lemma { font-size: 1.6rem; overflow-wrap: anywhere; }
+      .answer-item { align-items: flex-start; flex-wrap: wrap; }
+      .answer-item__lemma { min-width: 0; width: 100%; }
+      .question-actions .btn { width: 100%; }
+    }
   `],
 })
 export class ExercisesComponent {
   private vocab = inject(VocabularyService);
   private exerciseSvc = inject(ExerciseService);
   private translator = inject(TranslatorService);
+  private highlights = inject(HighlightService);
 
   step = signal<ExerciseStep>('setup');
   selectedType = signal<ExerciseType>('translation');
@@ -323,6 +337,10 @@ export class ExercisesComponent {
   );
 
   currentWord = computed(() => this.exerciseSvc.getCurrentWord());
+
+  highlightedLetters(word: import('../../core/models/vocabulary.models').Word) {
+    return this.highlights.lettersFor(word);
+  }
 
   questionNumber = computed(() => {
     const s = this.session();

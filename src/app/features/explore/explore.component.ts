@@ -1,5 +1,6 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { VocabularyService } from '../../core/services/vocabulary.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
@@ -11,7 +12,7 @@ import {
 @Component({
   selector: 'app-explore',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe, WordCardComponent],
+  imports: [CommonModule, RouterLink, FormsModule, TranslatePipe, WordCardComponent],
   template: `
     <div class="page explore-page">
       <div class="explore-layout">
@@ -134,6 +135,7 @@ import {
               [word]="word"
               [domains]="domains()"
               [patterns]="patterns()"
+              [routerLink]="['/vocabulary', word.id]"
             />
           </div>
 
@@ -209,6 +211,11 @@ import {
     @media (max-width: 768px) {
       .explore-layout { grid-template-columns: 1fr; }
       .filters-panel { position: static; max-height: none; }
+      .word-grid { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .filters-panel { padding: 0.75rem; }
+      .results-header { align-items: flex-start; flex-direction: column; gap: 0.2rem; }
     }
   `],
 })

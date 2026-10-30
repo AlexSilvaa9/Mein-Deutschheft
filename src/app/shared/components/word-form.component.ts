@@ -74,6 +74,12 @@ import { TranslatePipe } from '../pipes/translate.pipe';
           <input type="number" formControlName="stress" class="form-input" min="1" />
         </div>
 
+        <div class="form-group form-group--full">
+          <label>Vocales y cantidad</label>
+          <input formControlName="vowels" class="form-input" placeholder="a:corta, au:larga" />
+          <small class="form-hint">Escribe cada vocal como <strong>grafema:cantidad</strong>, separada por comas. Usa corta o larga.</small>
+        </div>
+
         <!-- Domains -->
         <div class="form-group form-group--full">
           <label>{{ 'word_form.domains' | translate }}</label>
@@ -210,6 +216,9 @@ export class WordFormComponent implements OnInit {
       pluralUmlaut: [this.word?.plural.umlaut ?? false],
       syllables: [this.word?.pronunciation.syllables.join('·') ?? ''],
       stress: [this.word?.pronunciation.stress ?? 1],
+      vowels: [this.word?.pronunciation.vowels.map(vowel =>
+        `${vowel.grapheme}:${vowel.quantity === 'long' ? 'larga' : 'corta'}`,
+      ).join(', ') ?? ''],
       notes: [this.word?.notes ?? ''],
     });
   }
@@ -255,6 +264,7 @@ export class WordFormComponent implements OnInit {
     const syllables = v.syllables
       ? v.syllables.split('·').map((s: string) => s.trim()).filter(Boolean)
       : [];
+    const vowels = this.parseVowels(v.vowels, syllables);
 
     const word: Word = {
       id: this.word?.id ?? '',
@@ -273,13 +283,8 @@ export class WordFormComponent implements OnInit {
       pronunciation: {
         syllables,
         stress: v.stress,
-        vowels: this.word?.pronunciation.vowels ?? [],
-        patterns: this.selectedPatterns.map(patternId => ({
-          patternId,
-          start: 1,
-          end: 1,
-          syllable: 1,
-        })),
+        vowels,
+        patterns: this.buildPatternOccurrences(syllables),
       },
       notes: v.notes,
     };
@@ -288,4 +293,38 @@ export class WordFormComponent implements OnInit {
   }
 
   onCancel(): void { this.cancelled.emit(); }
+
+  private parseVowels(value: string, syllables: string[]): Word['pronunciation']['vowels'] {
+    if (!value?.trim()) return [];
+    return value.split(',').map((item: string) => item.trim()).filter(Boolean).flatMap((item: string) => {
+      const [graphemeValue, quantityValue] = item.split(':').map(part => part.trim());
+      const grapheme = graphemeValue?.toLowerCase() ?? '';
+      const normalizedQuantity = quantityValue?.toLowerCase();
+      if (!grapheme || !['corta', 'larga', 'short', 'long'].includes(normalizedQuantity)) return [];
+      const syllable = Math.max(1, syllables.findIndex(part => part.toLowerCase().includes(grapheme)) + 1);
+      return [{
+        grapheme,
+        syllable,
+        quantity: normalizedQuantity === 'larga' || normalizedQuantity === 'long' ? 'long' as const : 'short' as const,
+      }];
+    });
+  }
+
+  private buildPatternOccurrences(syllables: string[]): Word['pronunciation']['patterns'] {
+    const unique = [...new Set(this.selectedPatterns)];
+    return unique.flatMap(patternId => {
+      const grapheme = this.pronunciationPatterns.find(pattern => pattern.id === patternId)?.grapheme ?? patternId;
+      const start = this.word?.lemma.toLowerCase().indexOf(grapheme.toLowerCase()) ?? -1;
+      const currentLemma = this.form.get('lemma')?.value?.toLowerCase() ?? '';
+      const currentStart = currentLemma.indexOf(grapheme.toLowerCase());
+      const position = currentStart >= 0 ? currentStart : start;
+      if (position < 0) return [];
+      return [{
+        patternId,
+        start: position + 1,
+        end: position + grapheme.length,
+        syllable: Math.max(1, syllables.findIndex(part => part.toLowerCase().includes(grapheme.toLowerCase())) + 1),
+      }];
+    });
+  }
 }

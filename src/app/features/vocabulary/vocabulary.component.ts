@@ -123,6 +123,11 @@ import { ToastService } from '../../core/services/toast.service';
       box-shadow: var(--shadow-xl);
     }
     .modal__actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
+    @media (max-width: 640px) {
+      .word-grid { grid-template-columns: 1fr; }
+      .modal__actions { flex-direction: column-reverse; }
+      .modal__actions .btn { width: 100%; }
+    }
   `],
 })
 export class VocabularyComponent {

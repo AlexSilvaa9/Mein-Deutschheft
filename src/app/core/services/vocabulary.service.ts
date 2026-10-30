@@ -222,6 +222,30 @@ export class VocabularyService {
     this.persist();
   }
 
+  addPronunciationPattern(pattern: PronunciationPattern): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, pronunciationPatterns: [...data.pronunciationPatterns, pattern] });
+    this.persist();
+  }
+
+  deletePronunciationPattern(id: string): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({
+      ...data,
+      pronunciationPatterns: data.pronunciationPatterns.filter(pattern => pattern.id !== id),
+      words: data.words.map(word => ({
+        ...word,
+        pronunciation: {
+          ...word.pronunciation,
+          patterns: word.pronunciation.patterns.filter(pattern => pattern.patternId !== id),
+        },
+      })),
+    });
+    this.persist();
+  }
+
   // ─── Domain helpers ───────────────────────────────────────────────────────
   getDescendantDomainIds(domainId: string): string[] {
     const domains = this.domains();

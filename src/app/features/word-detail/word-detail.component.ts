@@ -6,6 +6,7 @@ import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WordFormComponent } from '../../shared/components/word-form.component';
 import { Word } from '../../core/models/vocabulary.models';
 import { ToastService } from '../../core/services/toast.service';
+import { HighlightService } from '../../core/services/highlight.service';
 
 @Component({
   selector: 'app-word-detail',
@@ -43,23 +44,27 @@ import { ToastService } from '../../core/services/toast.service';
       <!-- View mode -->
       <div *ngIf="!editing" class="detail-content">
         <!-- Header -->
-        <div class="detail-header">
+        <section class="detail-hero">
           <span class="article-badge-lg article-badge-lg--{{ word()!.article }}">{{ word()!.article }}</span>
-          <h1 class="detail-lemma">{{ word()!.lemma }}</h1>
-          <span class="level-badge">{{ word()!.level }}</span>
-        </div>
-
-        <!-- Translations -->
-        <div class="detail-translations">
-          <span *ngFor="let t of word()!.translations" class="translation-item">
-            <span class="lang-flag">{{ t.language.toUpperCase() }}</span>
-            {{ t.text }}
-          </span>
-        </div>
+          <div class="detail-hero__main">
+            <div class="detail-hero__title">
+              <h1 class="detail-lemma">
+                <span *ngFor="let letter of highlightedLetters(word()!)" [style.color]="letter.color">{{ letter.character }}</span>
+              </h1>
+              <span class="level-badge">{{ word()!.level }}</span>
+            </div>
+            <div class="detail-translations">
+              <span *ngFor="let t of word()!.translations" class="translation-item">
+                <span class="lang-flag">{{ t.language.toUpperCase() }}</span>
+                {{ t.text }}
+              </span>
+            </div>
+          </div>
+        </section>
 
         <div class="detail-grid">
           <!-- Morphology -->
-          <div class="detail-card">
+          <div class="detail-card detail-card--morphology">
             <h2 class="detail-card__title">{{ 'word_detail.morphology' | translate }}</h2>
             <dl class="detail-dl">
               <dt>{{ 'vocabulary.plural' | translate }}</dt>
@@ -81,7 +86,7 @@ import { ToastService } from '../../core/services/toast.service';
           </div>
 
           <!-- Pronunciation -->
-          <div class="detail-card">
+          <div class="detail-card detail-card--pronunciation">
             <h2 class="detail-card__title">{{ 'word_detail.pronunciation' | translate }}</h2>
             <dl class="detail-dl">
               <dt>{{ 'word_detail.syllables' | translate }}</dt>
@@ -121,7 +126,7 @@ import { ToastService } from '../../core/services/toast.service';
           </div>
 
           <!-- Domains & Sets -->
-          <div class="detail-card">
+          <div class="detail-card detail-card--classification">
             <h2 class="detail-card__title">{{ 'vocabulary.domains' | translate }}</h2>
             <div class="tag-cloud">
               <span *ngFor="let d of word()!.domains" class="tag tag--domain">{{ getDomainName(d) }}</span>
@@ -136,7 +141,7 @@ import { ToastService } from '../../core/services/toast.service';
           </div>
 
           <!-- Notes -->
-          <div class="detail-card" *ngIf="word()!.notes">
+          <div class="detail-card detail-card--notes" *ngIf="word()!.notes">
             <h2 class="detail-card__title">{{ 'vocabulary.notes' | translate }}</h2>
             <p class="notes-text">{{ word()!.notes }}</p>
           </div>
@@ -152,7 +157,7 @@ import { ToastService } from '../../core/services/toast.service';
     </ng-template>
   `,
   styles: [`
-    .word-detail-page { max-width: 900px; margin: 0 auto; }
+    .word-detail-page { max-width: 1040px; margin: 0 auto; }
     .detail-actions { display: flex; gap: 0.5rem; }
     .icon-btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -161,11 +166,14 @@ import { ToastService } from '../../core/services/toast.service';
     }
     .icon-btn:hover { background: var(--color-primary-light); color: var(--color-primary); }
     .icon-btn--danger:hover { background: var(--color-danger-light); color: var(--color-danger); }
-    .detail-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1rem;
+    .detail-hero {
+      align-items: center; background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); display: flex;
+      gap: 1.25rem; margin-bottom: 1rem; padding: 1.5rem 1.75rem;
     }
-    .detail-lemma { font-size: 2.5rem; font-weight: 800; margin: 0; }
+    .detail-hero__main { min-width: 0; }
+    .detail-hero__title { align-items: center; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .detail-lemma { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.04em; margin: 0; }
     .article-badge-lg {
       font-size: 1.1rem; font-weight: 700;
       padding: 0.25rem 0.75rem; border-radius: var(--radius-md);
@@ -178,23 +186,22 @@ import { ToastService } from '../../core/services/toast.service';
       font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted);
       border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0.15rem 0.5rem;
     }
-    .detail-translations {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .translation-item { display: flex; align-items: center; gap: 0.4rem; font-size: 1.1rem; }
-    .lang-flag { font-size: 1.2rem; }
+    .detail-translations { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .translation-item { align-items: center; background: var(--color-surface-hover); border: 1px solid var(--color-border); border-radius: 999px; display: flex; gap: 0.4rem; font-size: 0.9rem; padding: 0.3rem 0.65rem; }
+    .lang-flag { color: var(--color-primary); font-size: 0.7rem; font-weight: 700; }
     .detail-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
     .detail-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-xl);
-      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm); padding: 1.35rem 1.5rem;
     }
+    .detail-card--pronunciation { grid-row: span 2; }
+    .detail-card--notes { grid-column: 1 / -1; }
     .detail-card__title {
       font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.06em; color: var(--color-text-muted);
@@ -225,6 +232,11 @@ import { ToastService } from '../../core/services/toast.service';
       background: var(--color-surface); border: 1px solid var(--color-border);
       border-radius: var(--radius-xl); margin-top: 1rem;
     }
+    @media (max-width: 700px) {
+      .detail-hero { align-items: flex-start; padding: 1.25rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-card--pronunciation, .detail-card--notes { grid-column: auto; grid-row: auto; }
+    }
   `],
 })
 export class WordDetailComponent implements OnInit {
@@ -232,6 +244,7 @@ export class WordDetailComponent implements OnInit {
   private router = inject(Router);
   private vocab = inject(VocabularyService);
   private toast = inject(ToastService);
+  private highlights = inject(HighlightService);
 
   editing = false;
 
@@ -251,6 +264,10 @@ export class WordDetailComponent implements OnInit {
   getPatternLabel(id: string): string {
     const p = this.patterns().find(pat => pat.id === id);
     return p ? `${p.grapheme} ${p.sound}` : id;
+  }
+
+  highlightedLetters(word: Word) {
+    return this.highlights.lettersFor(word);
   }
 
   onSaved(w: Word): void {

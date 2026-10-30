@@ -233,3 +233,23 @@ h1, h2, h3, h4 { line-height: 1.25; }
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.9em;
 }
+
+/* ── Responsive foundation ───────────────────────────────────────── */
+.main-content {
+  min-width: 0;
+  width: 100%;
+}
+
+button, input, select, textarea {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-content { padding: 1rem; }
+  .page__title { font-size: 1.3rem; }
+}
+
+@media (max-width: 480px) {
+  .main-content { padding: 0.75rem; }
+  .btn { max-width: 100%; }
+}

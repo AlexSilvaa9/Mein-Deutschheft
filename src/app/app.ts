@@ -5,6 +5,7 @@ import { TranslatorService, AppLanguage } from './core/services/translator.servi
 import { VocabularyService } from './core/services/vocabulary.service';
 import { TranslatePipe } from './shared/pipes/translate.pipe';
 import { ToastService } from './core/services/toast.service';
+import { HighlightRule, HighlightService } from './core/services/highlight.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,10 @@ import { ToastService } from './core/services/toast.service';
             <span class="nav-link__label">{{ 'nav.manage' | translate }}</span>
             <span class="nav-link__badge" *ngIf="hasChanges()" aria-label="Cambios sin guardar"></span>
           </a>
+          <a class="nav-link" routerLink="/info" routerLinkActive="nav-link--active">
+            <i class="bi bi-info-circle nav-link__icon" aria-hidden="true"></i>
+            <span class="nav-link__label">Info</span>
+          </a>
         </nav>
 
         <div class="topbar__actions">
@@ -47,6 +52,32 @@ import { ToastService } from './core/services/toast.service';
             [title]="darkMode() ? 'Modo claro' : 'Modo oscuro'">
             <i class="bi" [class.bi-sun]="darkMode()" [class.bi-moon-stars]="!darkMode()" aria-hidden="true"></i>
           </button>
+          <div class="highlight-menu" (click)="$event.stopPropagation()">
+            <button class="theme-toggle" type="button" (click)="highlightMenuOpen.set(!highlightMenuOpen())"
+              aria-label="Configurar resaltados" title="Resaltados" [attr.aria-expanded]="highlightMenuOpen()">
+              <i class="bi bi-highlighter" aria-hidden="true"></i>
+            </button>
+            <div class="highlight-menu__panel" *ngIf="highlightMenuOpen()">
+              <strong>Resaltado persistente</strong>
+              <span class="highlight-menu__hint">Se aplica a tarjetas, detalle y ejercicios.</span>
+              <label class="highlight-option" *ngFor="let option of highlightOptions">
+                <input type="checkbox" [checked]="highlights.isActive(option.rule)"
+                  (change)="toggleHighlight(option.rule)">
+                <span>{{ option.label }}</span>
+                <input class="highlight-color" type="color" [value]="getColor(option.rule)"
+                  (input)="changeHighlightColor(option.rule, $event)" [disabled]="!highlights.isActive(option.rule)"
+                  aria-label="Color del resaltado">
+              </label>
+              <label class="highlight-pattern" *ngFor="let pattern of pronunciationPatterns()">
+                <input type="checkbox" [checked]="highlights.isActive(patternRule(pattern.id))"
+                  (change)="toggleHighlight(patternRule(pattern.id))">
+                <span>{{ pattern.grapheme }} <small>{{ pattern.sound }}</small></span>
+                <input class="highlight-color" type="color" [value]="getColor(patternRule(pattern.id))"
+                  (input)="changeHighlightColor(patternRule(pattern.id), $event)"
+                  [disabled]="!highlights.isActive(patternRule(pattern.id))" aria-label="Color del resaltado">
+              </label>
+            </div>
+          </div>
           <div class="language-dropdown" (click)="$event.stopPropagation()">
             <button class="language-dropdown__toggle" type="button" (click)="languageMenuOpen.set(!languageMenuOpen())"
               [attr.aria-expanded]="languageMenuOpen()" aria-haspopup="listbox">
@@ -163,6 +194,14 @@ import { ToastService } from './core/services/toast.service';
     .language-option--active { color: var(--color-primary); font-weight: 600; }
     .language-option__check { margin-left: auto; }
     .language-flag { font-size: 1.1rem; line-height: 1; }
+    .highlight-menu { position: relative; }
+    .highlight-menu__panel { position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 200; width: 18rem; padding: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .highlight-menu__hint { display: block; color: var(--color-text-muted); font-size: 0.75rem; margin: 0.25rem 0 0.75rem; }
+    .highlight-option, .highlight-pattern { display: flex; align-items: center; gap: 0.5rem; color: var(--color-text); font-size: 0.8rem; padding: 0.35rem 0; }
+    .highlight-option span, .highlight-pattern span { flex: 1; }
+    .highlight-pattern { border-top: 1px solid var(--color-border); }
+    .highlight-pattern small { color: var(--color-text-muted); }
+    .highlight-color { width: 1.5rem; height: 1.5rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
     .state-banner { text-align: center; padding: 0.5rem; font-size: 0.85rem; }
     .state-banner--loading { background: var(--color-primary-light); color: var(--color-primary); }
     .state-banner--error { background: var(--color-danger-light); color: var(--color-danger); }
@@ -182,10 +221,26 @@ import { ToastService } from './core/services/toast.service';
     .app-toast--info { border-color: var(--color-primary); color: var(--color-primary); }
     .app-toast span { color: var(--color-text); flex: 1; }
     .app-toast__close { border: 0; background: transparent; color: var(--color-text-muted); cursor: pointer; font-size: 1.1rem; }
-    @media (max-width: 640px) {
+    @media (max-width: 900px) {
+      .topbar { gap: 0.5rem; padding: 0 1rem; }
+      .nav-link { padding: 0.45rem 0.55rem; }
       .nav-link__label { display: none; }
+      .topbar__nav { gap: 0; }
+      .topbar__actions { gap: 0.4rem; }
+      .language-dropdown__toggle { min-width: 0; }
+      .language-label { display: none; }
+    }
+    @media (max-width: 640px) {
+      .topbar { min-height: 56px; height: auto; padding: 0.4rem 0.65rem; }
+      .topbar__brand { margin-right: auto; }
       .brand-name { display: none; }
-      .topbar { padding: 0 0.75rem; }
+      .topbar__nav { order: 3; flex: 1 0 100%; justify-content: space-around; border-top: 1px solid var(--color-border); padding-top: 0.35rem; }
+      .topbar { flex-wrap: wrap; }
+      .nav-link { padding: 0.35rem 0.65rem; }
+      .nav-link__icon { font-size: 1.05rem; }
+      .theme-toggle { width: 2rem; height: 2rem; }
+      .highlight-menu__panel { position: fixed; top: 4.25rem; right: 0.75rem; left: 0.75rem; width: auto; max-height: calc(100dvh - 5rem); overflow-y: auto; }
+      .language-dropdown__menu { right: 0; }
     }
   `],
 })
@@ -193,12 +248,19 @@ export class App {
   private translator = inject(TranslatorService);
   private vocab = inject(VocabularyService);
   private toast = inject(ToastService);
+  highlights = inject(HighlightService);
 
   currentLang = this.translator.language;
   loading = this.vocab.loading;
   error = this.vocab.error;
   hasChanges = this.vocab.hasUnsavedChanges;
   toasts = this.toast.messages;
+  highlightMenuOpen = signal(false);
+  pronunciationPatterns = this.vocab.pronunciationPatterns;
+  highlightOptions: { rule: HighlightRule; label: string }[] = [
+    { rule: { id: 'long-vowel', color: '#f59e0b' }, label: 'Vocal larga' },
+    { rule: { id: 'short-vowel', color: '#3b82f6' }, label: 'Vocal corta' },
+  ];
   darkMode = signal(this.getInitialTheme());
 
   languageMenuOpen = signal(false);
@@ -220,6 +282,29 @@ export class App {
 
   dismissToast(id: number): void {
     this.toast.dismiss(id);
+  }
+
+  patternRule(patternId: string): HighlightRule {
+    return { id: 'pattern', patternId, color: '#8b5cf6' };
+  }
+
+  toggleHighlight(rule: HighlightRule): void {
+    this.highlights.toggle(rule);
+  }
+
+  getColor(rule: HighlightRule): string {
+    return this.highlights.rules().find(current =>
+      current.id === rule.id && current.patternId === rule.patternId,
+    )?.color ?? rule.color;
+  }
+
+  changeHighlightColor(rule: HighlightRule, event: Event): void {
+    this.highlights.updateColor(rule, (event.target as HTMLInputElement).value);
+  }
+
+  @HostListener('document:click')
+  closeHighlightMenu(): void {
+    this.highlightMenuOpen.set(false);
   }
 
   @HostListener('document:click')

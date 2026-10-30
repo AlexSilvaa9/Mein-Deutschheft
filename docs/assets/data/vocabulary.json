@@ -1,0 +1,289 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "id": "word_001",
+      "lemma": "Apfel",
+      "article": "der",
+      "translations": [
+        { "text": "manzana", "language": "es" },
+        { "text": "apple", "language": "en" }
+      ],
+      "domains": ["food", "fruit"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Äpfel",
+        "suffix": "",
+        "umlaut": true,
+        "vowelChanges": [{ "from": "a", "to": "ä" }]
+      },
+      "pronunciation": {
+        "syllables": ["Ap", "fel"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "a", "syllable": 1, "quantity": "short" },
+          { "grapheme": "e", "syllable": 2, "quantity": "short" }
+        ],
+        "patterns": []
+      },
+      "notes": ""
+    },
+    {
+      "id": "word_002",
+      "lemma": "Schule",
+      "article": "die",
+      "translations": [
+        { "text": "escuela", "language": "es" },
+        { "text": "school", "language": "en" }
+      ],
+      "domains": ["education", "places"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Schulen",
+        "suffix": "en",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": ["Schu", "le"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "u", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": [
+          { "patternId": "sch", "start": 1, "end": 3, "syllable": 1 }
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "id": "word_003",
+      "lemma": "Haus",
+      "article": "das",
+      "translations": [
+        { "text": "casa", "language": "es" },
+        { "text": "house", "language": "en" }
+      ],
+      "domains": ["places", "home"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Häuser",
+        "suffix": "er",
+        "umlaut": true,
+        "vowelChanges": [{ "from": "a", "to": "ä" }]
+      },
+      "pronunciation": {
+        "syllables": ["Haus"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "au", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": []
+      },
+      "notes": ""
+    },
+    {
+      "id": "word_004",
+      "lemma": "Straße",
+      "article": "die",
+      "translations": [
+        { "text": "calle", "language": "es" },
+        { "text": "street", "language": "en" }
+      ],
+      "domains": ["places"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Straßen",
+        "suffix": "en",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": ["Stra", "ße"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "a", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": []
+      },
+      "notes": "La ß equivale a ss"
+    },
+    {
+      "id": "word_005",
+      "lemma": "Buch",
+      "article": "das",
+      "translations": [
+        { "text": "libro", "language": "es" },
+        { "text": "book", "language": "en" }
+      ],
+      "domains": ["education", "objects"],
+      "sets": ["unit_01", "exam_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Bücher",
+        "suffix": "er",
+        "umlaut": true,
+        "vowelChanges": [{ "from": "u", "to": "ü" }]
+      },
+      "pronunciation": {
+        "syllables": ["Buch"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "u", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": [
+          { "patternId": "ch", "start": 3, "end": 4, "syllable": 1 }
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "id": "word_006",
+      "lemma": "Fisch",
+      "article": "der",
+      "translations": [
+        { "text": "pescado / pez", "language": "es" },
+        { "text": "fish", "language": "en" }
+      ],
+      "domains": ["food", "animals"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Fische",
+        "suffix": "e",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": ["Fisch"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "i", "syllable": 1, "quantity": "short" }
+        ],
+        "patterns": [
+          { "patternId": "sch", "start": 3, "end": 5, "syllable": 1 }
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "id": "word_007",
+      "lemma": "Fleisch",
+      "article": "das",
+      "translations": [
+        { "text": "carne", "language": "es" },
+        { "text": "meat", "language": "en" }
+      ],
+      "domains": ["food"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": ["Fleisch"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "ei", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": [
+          { "patternId": "ei", "start": 3, "end": 4, "syllable": 1 },
+          { "patternId": "sch", "start": 5, "end": 7, "syllable": 1 }
+        ]
+      },
+      "notes": "Sustantivo no contable en alemán"
+    },
+    {
+      "id": "word_008",
+      "lemma": "Tier",
+      "article": "das",
+      "translations": [
+        { "text": "animal", "language": "es" },
+        { "text": "animal", "language": "en" }
+      ],
+      "domains": ["animals"],
+      "sets": ["unit_01"],
+      "level": "A1",
+      "plural": {
+        "form": "Tiere",
+        "suffix": "e",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": ["Tier"],
+        "stress": 1,
+        "vowels": [
+          { "grapheme": "ie", "syllable": 1, "quantity": "long" }
+        ],
+        "patterns": [
+          { "patternId": "ie", "start": 2, "end": 3, "syllable": 1 }
+        ]
+      },
+      "notes": ""
+    }
+  ],
+  "domains": [
+    { "id": "food", "name": "Alimentación", "nameEn": "Food", "nameDe": "Essen", "parentId": null },
+    { "id": "fruit", "name": "Frutas", "nameEn": "Fruit", "nameDe": "Obst", "parentId": "food" },
+    { "id": "vegetables", "name": "Verduras", "nameEn": "Vegetables", "nameDe": "Gemüse", "parentId": "food" },
+    { "id": "animals", "name": "Animales", "nameEn": "Animals", "nameDe": "Tiere", "parentId": null },
+    { "id": "places", "name": "Lugares", "nameEn": "Places", "nameDe": "Orte", "parentId": null },
+    { "id": "home", "name": "Hogar", "nameEn": "Home", "nameDe": "Zuhause", "parentId": "places" },
+    { "id": "education", "name": "Educación", "nameEn": "Education", "nameDe": "Bildung", "parentId": null },
+    { "id": "objects", "name": "Objetos", "nameEn": "Objects", "nameDe": "Gegenstände", "parentId": null }
+  ],
+  "sets": [
+    { "id": "unit_01", "name": "Unidad 1", "description": "Primeras palabras de alemán" },
+    { "id": "exam_01", "name": "Examen de noviembre", "description": "Palabras que debo repasar" }
+  ],
+  "pronunciationPatterns": [
+    {
+      "id": "sch",
+      "grapheme": "sch",
+      "sound": "/ʃ/",
+      "description": "Sonido similar a la sh inglesa.",
+      "descriptionEn": "Sound similar to English sh.",
+      "descriptionDe": "Klingt wie das englische sh."
+    },
+    {
+      "id": "ei",
+      "grapheme": "ei",
+      "sound": "/aɪ̯/",
+      "description": "Diptongo con sonido aproximado ai.",
+      "descriptionEn": "Diphthong approximating the sound ai.",
+      "descriptionDe": "Diphthong mit dem Laut ai."
+    },
+    {
+      "id": "ie",
+      "grapheme": "ie",
+      "sound": "/iː/",
+      "description": "Representa normalmente una i larga.",
+      "descriptionEn": "Usually represents a long i sound.",
+      "descriptionDe": "Steht normalerweise für ein langes i."
+    },
+    {
+      "id": "ch",
+      "grapheme": "ch",
+      "sound": "/x/ o /ç/",
+      "description": "Sonido velar (nach a,o,u) o palatal (nach e,i,ä,ö,ü).",
+      "descriptionEn": "Velar sound (after a,o,u) or palatal (after e,i,ä,ö,ü).",
+      "descriptionDe": "Velarer Laut (nach a,o,u) oder palataler Laut (nach e,i,ä,ö,ü)."
+    },
+    {
+      "id": "au",
+      "grapheme": "au",
+      "sound": "/aʊ̯/",
+      "description": "Diptongo con sonido aproximado au.",
+      "descriptionEn": "Diphthong approximating the sound ow.",
+      "descriptionDe": "Diphthong mit dem Laut au."
+    }
+  ]
+}

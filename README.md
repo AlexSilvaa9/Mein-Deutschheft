@@ -10,6 +10,7 @@ Cuaderno personal de vocabulario alemán — aplicación web estática construid
 | **Explorar** | Filtros combinables: dominio semántico, conjunto, género, Umlaut, vocales, patrones, sílabas |
 | **Ejercicios** | Traducción, artículo, plural y pronunciación; generados desde los filtros activos |
 | **Gestionar** | Añadir/editar/eliminar palabras, dominios y conjuntos; exportar e importar JSON |
+| **Información** | Guía de uso y documentación técnica de la aplicación |
 
 ## Tecnología
 
@@ -91,6 +92,8 @@ npm run build    # Compilación de producción → dist/
 3. **Exportar** → descarga `vocabulary.json` actualizado
 4. **Importar** → carga un JSON exportado
 5. **Restaurar** → borra `localStorage` y carga el JSON inicial
+
+La explicación completa para usuarios y desarrolladores está disponible dentro de la aplicación, en **Información**. La pestaña de uso describe las pantallas y el flujo recomendado; la pestaña técnica documenta el modelo de datos, la persistencia local y las decisiones de diseño.
 
 ## Flujo de trabajo recomendado
 
