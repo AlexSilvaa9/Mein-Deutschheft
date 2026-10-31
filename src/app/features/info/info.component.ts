@@ -61,14 +61,21 @@ type InfoTab = 'guide' | 'technical';
           <article class="info-card">
             <div class="info-card__icon"><i class="bi bi-bullseye" aria-hidden="true"></i></div>
             <h2>Ejercicios</h2>
-            <p>Elige traducción, artículo, plural o pronunciación. Puedes limitar las palabras por dominio o conjunto antes de empezar.</p>
+            <p>Elige traducción, artículos, plural, pronunciación o ejercicios de <em>ein/kein</em>. Puedes limitar las palabras por dominio, conjunto o tipo de palabra antes de empezar.</p>
             <p>La sesión mezcla las palabras y muestra el resultado al terminar.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="info-card__icon"><i class="bi bi-journal-bookmark" aria-hidden="true"></i></div>
+            <h2>Lecciones</h2>
+            <p>Estudia contenidos preparados por bloques: fundamentos, gramática, verbos, pronunciación, vocabulario temático y números.</p>
+            <p>Cada bloque se divide en subtemas. Las palabras detectadas dentro de los ejemplos conservan el resaltado de pronunciación y muestran su traducción al pasar el cursor.</p>
           </article>
 
           <article class="info-card">
             <div class="info-card__icon"><i class="bi bi-pencil-square" aria-hidden="true"></i></div>
             <h2>Gestionar</h2>
-            <p>Añade y edita palabras, crea dominios y organiza conjuntos. Las palabras nuevas necesitan al menos un lema.</p>
+            <p>Añade y edita palabras, crea dominios semánticos jerárquicos y organiza conjuntos. Las palabras nuevas necesitan al menos un lema.</p>
             <p>Los botones de exportar, importar y restaurar están en la pestaña de datos.</p>
           </article>
         </div>
@@ -104,9 +111,15 @@ type InfoTab = 'guide' | 'technical';
           <p>El documento raíz es un <code>VocabularyData</code> versionado:</p>
           <pre><code>{{ dataModel }}</code></pre>
           <p>Las palabras relacionan dominios, conjuntos y patrones mediante sus identificadores. Así se evita repetir nombres y una edición de catálogo se refleja en todas las palabras relacionadas.</p>
+          <p>Los dominios son exclusivamente semánticos y forman un árbol con <code>parentId</code>. El tipo de palabra (<code>noun</code>, <code>verb</code>, <code>adjective</code>, <code>phrase</code> o <code>number</code>) se guarda por separado. El artículo puede ser nulo cuando la palabra no tiene género, como un verbo o la interjección <em>Hallo</em>.</p>
         </article>
 
         <div class="info-grid">
+          <article class="info-card">
+            <h2>Lecciones jerárquicas</h2>
+            <p>Las lecciones se organizan en tres niveles: categoría, subcategoría y lección. Esto permite añadir nuevos bloques sin mezclar contenidos y mantener una ruta de estudio progresiva.</p>
+            <p>Cada lección guarda nivel CEFR, resumen, explicación, ejemplos y orden. El contenido se puede editar desde la propia pantalla de Lecciones.</p>
+          </article>
           <article class="info-card">
             <h2>Pronunciación</h2>
             <p>Cada palabra guarda sílabas, posición del acento, vocales con cantidad corta/larga y ocurrencias de patrones. Las posiciones son 1-indexadas para que sean legibles y consistentes con las sílabas.</p>

@@ -6,7 +6,7 @@ import { VocabularyService } from '../../core/services/vocabulary.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WordCardComponent } from '../../shared/components/word-card.component';
 import {
-  Article, CefrLevel, FilterState, DEFAULT_FILTER, VowelQuantity
+  Article, CefrLevel, FilterState, DEFAULT_FILTER, VowelQuantity, WordType
 } from '../../core/models/vocabulary.models';
 
 @Component({
@@ -28,23 +28,27 @@ import {
           <!-- Domain filter -->
           <div class="filter-group">
             <h3 class="filter-group__title">{{ 'explore.filter_domain' | translate }}</h3>
-            <label class="checkbox-item" *ngFor="let d of rootDomains()">
-              <input type="checkbox" [checked]="isDomainSelected(d.id)" (change)="toggleDomain(d.id, $event)" />
-              {{ d.name }}
-            </label>
-            <!-- Subdomains if parent selected -->
-            <ng-container *ngFor="let d of rootDomains()">
-              <ng-container *ngIf="isDomainSelected(d.id)">
-                <label class="checkbox-item checkbox-item--child" *ngFor="let child of getChildren(d.id)">
-                  <input type="checkbox" [checked]="isDomainSelected(child.id)" (change)="toggleDomain(child.id, $event)" />
-                  {{ child.name }}
-                </label>
-              </ng-container>
-            </ng-container>
-            <label class="checkbox-item checkbox-item--toggle">
-              <input type="checkbox" [ngModel]="filter().includeSubdomains" (ngModelChange)="setFilter({ includeSubdomains: $event })" />
-              {{ 'explore.include_subdomains' | translate }}
-            </label>
+            <ng-container *ngTemplateOutlet="domainTree; context: { parentId: null, level: 0 }"></ng-container>
+            <ng-template #domainTree let-parentId="parentId" let-level="level">
+              <div *ngFor="let d of domainsFor(parentId)" class="domain-node" [style.padding-left.rem]="level * 1.1">
+                <div class="domain-row">
+                  <button *ngIf="hasChildren(d.id)" type="button" class="domain-toggle"
+                    (click)="toggleDomainExpanded(d.id)"
+                    [attr.aria-label]="isDomainExpanded(d.id) ? 'Ocultar subdominios' : 'Mostrar subdominios'">
+                    <i class="bi" [class.bi-chevron-down]="isDomainExpanded(d.id)"
+                      [class.bi-chevron-right]="!isDomainExpanded(d.id)" aria-hidden="true"></i>
+                  </button>
+                  <span *ngIf="!hasChildren(d.id)" class="domain-toggle-spacer"></span>
+                  <label class="checkbox-item">
+                    <input type="checkbox" [checked]="isDomainSelected(d.id)" (change)="toggleDomain(d.id, $event)" />
+                    {{ d.name }}
+                  </label>
+                </div>
+                <ng-container *ngIf="isDomainExpanded(d.id)">
+                  <ng-container *ngTemplateOutlet="domainTree; context: { parentId: d.id, level: level + 1 }"></ng-container>
+                </ng-container>
+              </div>
+            </ng-template>
           </div>
 
           <!-- Sets filter -->
@@ -62,6 +66,15 @@ import {
             <label class="checkbox-item" *ngFor="let a of articles">
               <input type="checkbox" [checked]="isArticleSelected(a)" (change)="toggleArticle(a, $event)" />
               <span class="article-badge article-badge--{{ a }}">{{ a }}</span>
+            </label>
+          </div>
+
+          <!-- Word type filter -->
+          <div class="filter-group">
+            <h3 class="filter-group__title">{{ 'explore.filter_word_type' | translate }}</h3>
+            <label class="checkbox-item" *ngFor="let type of wordTypes">
+              <input type="checkbox" [checked]="isWordTypeSelected(type)" (change)="toggleWordType(type, $event)" />
+              {{ ('word_types.' + type) | translate }}
             </label>
           </div>
 
@@ -185,8 +198,16 @@ import {
       cursor: pointer;
       color: var(--color-text);
     }
-    .checkbox-item--child { padding-left: 1.25rem; }
-    .checkbox-item--toggle { margin-top: 0.5rem; color: var(--color-text-muted); font-size: 0.8rem; }
+    .domain-row { display: flex; align-items: center; min-height: 1.8rem; }
+    .domain-toggle, .domain-toggle-spacer {
+      width: 1.25rem; height: 1.5rem; flex: 0 0 1.25rem;
+    }
+    .domain-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 0; padding: 0; background: transparent; color: var(--color-text-muted);
+      cursor: pointer;
+    }
+    .domain-toggle:hover { color: var(--color-primary); }
     .article-badge {
       font-size: 0.8rem; font-weight: 700;
       padding: 0.1rem 0.4rem;
@@ -229,17 +250,26 @@ export class ExploreComponent {
   patterns = this.vocab.pronunciationPatterns;
 
   articles: Article[] = ['der', 'die', 'das'];
+  wordTypes: WordType[] = ['noun', 'verb', 'adjective', 'phrase', 'number'];
 
-  rootDomains = computed(() => this.domains().filter(d => !d.parentId));
-  getChildren = (parentId: string) => this.domains().filter(d => d.parentId === parentId);
+  expandedDomains = signal<Set<string>>(new Set());
 
   setFilter(partial: Partial<FilterState>): void { this.vocab.setFilter(partial); }
   clearFilters(): void { this.vocab.clearFilter(); }
 
   isDomainSelected(id: string): boolean { return this.filter().domains.includes(id); }
+  domainsFor(parentId: string | null) { return this.domains().filter(d => d.parentId === parentId); }
+  hasChildren(id: string): boolean { return this.domains().some(d => d.parentId === id); }
+  isDomainExpanded(id: string): boolean { return this.expandedDomains().has(id); }
+  toggleDomainExpanded(id: string): void {
+    const expanded = new Set(this.expandedDomains());
+    expanded.has(id) ? expanded.delete(id) : expanded.add(id);
+    this.expandedDomains.set(expanded);
+  }
   isSetSelected(id: string): boolean { return this.filter().sets.includes(id); }
   isArticleSelected(a: Article): boolean { return this.filter().articles.includes(a); }
   isPatternSelected(id: string): boolean { return this.filter().patternIds.includes(id); }
+  isWordTypeSelected(type: WordType): boolean { return this.filter().wordTypes.includes(type); }
 
   toggleDomain(id: string, event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
@@ -263,5 +293,13 @@ export class ExploreComponent {
     const checked = (event.target as HTMLInputElement).checked;
     const patternIds = checked ? [...this.filter().patternIds, id] : this.filter().patternIds.filter(p => p !== id);
     this.vocab.setFilter({ patternIds });
+  }
+
+  toggleWordType(type: WordType, event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    const wordTypes = checked
+      ? [...this.filter().wordTypes, type]
+      : this.filter().wordTypes.filter(current => current !== type);
+    this.vocab.setFilter({ wordTypes });
   }
 }

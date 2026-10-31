@@ -1,17 +1,20 @@
 import { Component, inject, computed, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { map } from 'rxjs';
 import { VocabularyService } from '../../core/services/vocabulary.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WordFormComponent } from '../../shared/components/word-form.component';
 import { Word } from '../../core/models/vocabulary.models';
 import { ToastService } from '../../core/services/toast.service';
 import { HighlightService } from '../../core/services/highlight.service';
+import { TranslatorService } from '../../core/services/translator.service';
 
 @Component({
   selector: 'app-word-detail',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, WordFormComponent],
+  imports: [CommonModule, TranslatePipe, WordFormComponent, RouterLink],
   template: `
     <div class="page word-detail-page" *ngIf="word(); else notFound">
       <div class="page__header">
@@ -45,7 +48,7 @@ import { HighlightService } from '../../core/services/highlight.service';
       <div *ngIf="!editing" class="detail-content">
         <!-- Header -->
         <section class="detail-hero">
-          <span class="article-badge-lg article-badge-lg--{{ word()!.article }}">{{ word()!.article }}</span>
+          <span *ngIf="word()!.article" class="article-badge-lg article-badge-lg--{{ word()!.article }}">{{ word()!.article }}</span>
           <div class="detail-hero__main">
             <div class="detail-hero__title">
               <h1 class="detail-lemma">
@@ -54,11 +57,12 @@ import { HighlightService } from '../../core/services/highlight.service';
               <span class="level-badge">{{ word()!.level }}</span>
             </div>
             <div class="detail-translations">
-              <span *ngFor="let t of word()!.translations" class="translation-item">
+              <span *ngFor="let t of orderedTranslations()" class="translation-item">
                 <span class="lang-flag">{{ t.language.toUpperCase() }}</span>
                 {{ t.text }}
               </span>
             </div>
+            <span class="tag tag--structure word-type">{{ ('word_types.' + (word()!.wordType ?? 'noun')) | translate }}</span>
           </div>
         </section>
 
@@ -145,6 +149,26 @@ import { HighlightService } from '../../core/services/highlight.service';
             <h2 class="detail-card__title">{{ 'vocabulary.notes' | translate }}</h2>
             <p class="notes-text">{{ word()!.notes }}</p>
           </div>
+          <div class="detail-card detail-card--notes" *ngIf="word()!.compoundParts?.length">
+            <h2 class="detail-card__title">{{ 'word_detail.compound_parts' | translate }}</h2>
+            <div class="compound-parts">
+              <ng-container *ngFor="let part of word()!.compoundParts; let last = last">
+                <a class="tag tag--structure compound-part compound-part--link"
+                  *ngIf="findCompoundWord(part.lemma) as linkedWord; else undefinedPart"
+                  [routerLink]="['/vocabulary', linkedWord.id]"
+                  (click)="openCompoundWord($event, linkedWord)"
+                  [title]="compoundTranslation(linkedWord)">
+                  {{ part.lemma }} ({{ compoundTranslation(linkedWord) }})
+                </a>
+                <ng-template #undefinedPart>
+                  <span class="tag tag--structure compound-part compound-part--undefined">
+                    {{ part.lemma }} — {{ 'word_detail.not_in_vocabulary' | translate }}
+                  </span>
+                </ng-template>
+                <span class="compound-part__separator" *ngIf="!last" aria-hidden="true">+</span>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -202,6 +226,11 @@ import { HighlightService } from '../../core/services/highlight.service';
     }
     .detail-card--pronunciation { grid-row: span 2; }
     .detail-card--notes { grid-column: 1 / -1; }
+    .compound-parts { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
+    .compound-part { text-decoration: none; }
+    .compound-part--link:hover { filter: brightness(.95); text-decoration: underline; }
+    .compound-part--undefined { opacity: .8; }
+    .compound-part__separator { color: var(--color-text-muted); font-weight: 700; }
     .detail-card__title {
       font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.06em; color: var(--color-text-muted);
@@ -245,13 +274,28 @@ export class WordDetailComponent implements OnInit {
   private vocab = inject(VocabularyService);
   private toast = inject(ToastService);
   private highlights = inject(HighlightService);
+  private translator = inject(TranslatorService);
 
   editing = false;
 
+  private routeWordId = toSignal(
+    this.route.paramMap.pipe(map(params => params.get('id'))),
+    { initialValue: this.route.snapshot.paramMap.get('id') },
+  );
+
   word = computed(() => {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.routeWordId();
     return id ? this.vocab.getWordById(id) : undefined;
   });
+
+  orderedTranslations(): Word['translations'] {
+    const currentWord = this.word();
+    if (!currentWord) return [];
+    const language = this.translator.language();
+    return [...currentWord.translations].sort((a, b) =>
+      Number(b.language === language) - Number(a.language === language),
+    );
+  }
 
   domains = this.vocab.domains;
   sets = this.vocab.sets;
@@ -268,6 +312,26 @@ export class WordDetailComponent implements OnInit {
 
   highlightedLetters(word: Word) {
     return this.highlights.lettersFor(word);
+  }
+
+  findCompoundWord(lemma: string): Word | undefined {
+    const normalized = lemma.trim().replace(/^(der|die|das)\s+/i, '').toLocaleLowerCase();
+    return this.vocab.words().find(word =>
+      word.lemma.trim().replace(/^(der|die|das)\s+/i, '').toLocaleLowerCase() === normalized,
+    );
+  }
+
+  openCompoundWord(event: Event, word: Word): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.router.navigate(['/vocabulary', word.id]);
+  }
+
+  compoundTranslation(word: Word): string {
+    const language = this.translator.language();
+    return word.translations.find(translation => translation.language === language)?.text
+      ?? word.translations[0]?.text
+      ?? word.lemma;
   }
 
   onSaved(w: Word): void {

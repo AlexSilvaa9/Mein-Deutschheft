@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Word, Article, CefrLevel, Domain, VocabSet, PronunciationPattern } from '../../core/models/vocabulary.models';
+import { Word, Article, CefrLevel, Domain, VocabSet, PronunciationPattern, WordType } from '../../core/models/vocabulary.models';
 import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
@@ -19,9 +19,17 @@ import { TranslatePipe } from '../pipes/translate.pipe';
         </div>
 
         <div class="form-group">
-          <label>{{ 'word_form.article' | translate }} *</label>
+          <label>{{ 'word_form.article' | translate }}</label>
           <select formControlName="article" class="form-select">
+            <option [ngValue]="null">—</option>
             <option *ngFor="let a of articles" [value]="a">{{ a }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'word_form.word_type' | translate }}</label>
+          <select formControlName="wordType" class="form-select">
+            <option *ngFor="let type of wordTypes" [value]="type">{{ ('word_types.' + type) | translate }}</option>
           </select>
         </div>
 
@@ -52,7 +60,7 @@ import { TranslatePipe } from '../pipes/translate.pipe';
 
         <div class="form-group">
           <label>{{ 'word_form.plural_suffix' | translate }}</label>
-          <input formControlName="pluralSuffix" class="form-input" placeholder="-e, -er, -en..." />
+          <input formControlName="pluralSuffix" class="form-input" [placeholder]="'word_form.plural_suffix_placeholder' | translate" />
         </div>
 
         <div class="form-group form-group--checkbox">
@@ -65,8 +73,8 @@ import { TranslatePipe } from '../pipes/translate.pipe';
         <!-- Pronunciation -->
         <div class="form-group">
           <label>{{ 'word_form.syllables' | translate }}</label>
-          <input formControlName="syllables" class="form-input" placeholder="Ap·fel" />
-          <small class="form-hint">Separa con · (punto medio)</small>
+          <input formControlName="syllables" class="form-input" [placeholder]="'word_form.syllables_placeholder' | translate" />
+          <small class="form-hint">{{ 'word_form.syllables_hint' | translate }}</small>
         </div>
 
         <div class="form-group">
@@ -75,9 +83,9 @@ import { TranslatePipe } from '../pipes/translate.pipe';
         </div>
 
         <div class="form-group form-group--full">
-          <label>Vocales y cantidad</label>
-          <input formControlName="vowels" class="form-input" placeholder="a:corta, au:larga" />
-          <small class="form-hint">Escribe cada vocal como <strong>grafema:cantidad</strong>, separada por comas. Usa corta o larga.</small>
+          <label>{{ 'word_form.vowels_quantity' | translate }}</label>
+          <input formControlName="vowels" class="form-input" [placeholder]="'word_form.vowels_placeholder' | translate" />
+          <small class="form-hint">{{ 'word_form.vowels_hint' | translate }}</small>
         </div>
 
         <!-- Domains -->
@@ -194,6 +202,7 @@ export class WordFormComponent implements OnInit {
   form!: FormGroup;
 
   articles: Article[] = ['der', 'die', 'das'];
+  wordTypes: WordType[] = ['noun', 'verb', 'adjective', 'phrase', 'number'];
   levels: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   private selectedDomains: string[] = [];
@@ -207,7 +216,8 @@ export class WordFormComponent implements OnInit {
 
     this.form = this.fb.group({
       lemma: [this.word?.lemma ?? '', Validators.required],
-      article: [this.word?.article ?? 'der', Validators.required],
+      article: [this.word?.article ?? null],
+      wordType: [this.word?.wordType ?? 'noun', Validators.required],
       translationEs: [this.word?.translations.find(t => t.language === 'es')?.text ?? ''],
       translationEn: [this.word?.translations.find(t => t.language === 'en')?.text ?? ''],
       level: [this.word?.level ?? 'A1'],
@@ -264,12 +274,12 @@ export class WordFormComponent implements OnInit {
     const syllables = v.syllables
       ? v.syllables.split('·').map((s: string) => s.trim()).filter(Boolean)
       : [];
-    const vowels = this.parseVowels(v.vowels, syllables);
+    const vowels = this.parseVowels(v.vowels, syllables, v.lemma);
 
     const word: Word = {
       id: this.word?.id ?? '',
       lemma: v.lemma,
-      article: v.article,
+      article: v.article ?? null,
       translations,
       domains: this.selectedDomains,
       sets: this.selectedSets,
@@ -287,6 +297,8 @@ export class WordFormComponent implements OnInit {
         patterns: this.buildPatternOccurrences(syllables),
       },
       notes: v.notes,
+      wordType: v.wordType,
+      compoundParts: this.word?.compoundParts,
     };
 
     this.saved.emit(word);
@@ -294,16 +306,22 @@ export class WordFormComponent implements OnInit {
 
   onCancel(): void { this.cancelled.emit(); }
 
-  private parseVowels(value: string, syllables: string[]): Word['pronunciation']['vowels'] {
+  private parseVowels(value: string, syllables: string[], lemma: string): Word['pronunciation']['vowels'] {
     if (!value?.trim()) return [];
+    let searchFrom = 0;
     return value.split(',').map((item: string) => item.trim()).filter(Boolean).flatMap((item: string) => {
       const [graphemeValue, quantityValue] = item.split(':').map(part => part.trim());
       const grapheme = graphemeValue?.toLowerCase() ?? '';
       const normalizedQuantity = quantityValue?.toLowerCase();
       if (!grapheme || !['corta', 'larga', 'short', 'long'].includes(normalizedQuantity)) return [];
       const syllable = Math.max(1, syllables.findIndex(part => part.toLowerCase().includes(grapheme)) + 1);
+      const start = lemma.toLowerCase().indexOf(grapheme, searchFrom);
+      if (start < 0) return [];
+      searchFrom = start + grapheme.length;
       return [{
         grapheme,
+        start: start + 1,
+        end: start + grapheme.length,
         syllable,
         quantity: normalizedQuantity === 'larga' || normalizedQuantity === 'long' ? 'long' as const : 'short' as const,
       }];

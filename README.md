@@ -1,6 +1,6 @@
 # 📖 Mein Deutschheft
 
-Cuaderno personal de vocabulario alemán — aplicación web estática construida con **Angular 21**.
+Cuaderno personal de vocabulario, pronunciación y lecciones de alemán — aplicación web estática construida con **Angular 21**.
 
 ## Características
 
@@ -8,9 +8,23 @@ Cuaderno personal de vocabulario alemán — aplicación web estática construid
 |---|---|
 | **Mi vocabulario** | Lista de palabras con etiquetas visuales por género, Umlaut, vocal corta/larga y patrones |
 | **Explorar** | Filtros combinables: dominio semántico, conjunto, género, Umlaut, vocales, patrones, sílabas |
-| **Ejercicios** | Traducción, artículo, plural y pronunciación; generados desde los filtros activos |
-| **Gestionar** | Añadir/editar/eliminar palabras, dominios y conjuntos; exportar e importar JSON |
+| **Ejercicios** | Traducción, artículos, plural, pronunciación y `ein/eine/kein/keine`; generados desde los filtros activos |
+| **Lecciones** | Contenidos jerárquicos por fundamentos, gramática, verbos, pronunciación, vocabulario y números |
+| **Gestionar** | Añadir/editar/eliminar palabras, dominios semánticos jerárquicos, conjuntos y patrones; exportar e importar JSON |
 | **Información** | Guía de uso y documentación técnica de la aplicación |
+
+## Lecciones
+
+La sección **Lecciones** está preparada para crecer por unidades didácticas:
+
+- **Fundamentos A1**: saludos, presentaciones, mayúsculas, género y plural.
+- **Gramática A1**: artículos, `ein/kein`, posesivos, orden de la frase y compuestas.
+- **Verbos y frases**: conjugación básica, cambios vocálicos y `gern`.
+- **Pronunciación**: vocales, Umlauts, diptongos, `sp/st/sch/tsch`, `ch`, `z`, `w` y ensordecimiento final.
+- **Vocabulario por temas**: personas, tiempo, ciudad, transporte, casa, comida y naturaleza.
+- **Números y cantidades**: números hasta `999999`, precios y cantidades.
+
+Cada lección incluye nivel CEFR, objetivo, explicación y ejemplos. Las palabras reconocidas dentro de los ejemplos se enlazan conceptualmente con el vocabulario: muestran traducción al pasar el cursor y respetan el resaltado de pronunciación configurado.
 
 ## Tecnología
 
@@ -41,7 +55,9 @@ src/
 │       ├── vocabulary/     # Vista principal
 │       ├── explore/        # Filtros combinables
 │       ├── exercises/      # Motor de ejercicios
+│       ├── lessons/        # Lecciones jerárquicas y ejemplos interactivos
 │       ├── manage/         # CRUD + I/O JSON
+│       ├── info/           # Guía de uso y documentación técnica
 │       └── word-detail/    # Ficha completa de palabra
 ├── assets/
 │   ├── data/vocabulary.json    # Base de datos principal
@@ -56,14 +72,21 @@ src/
 
 ```json
 {
-  "version": 1,
-  "words": [{ "id", "lemma", "article", "translations", "domains", "sets",
-              "level", "plural", "pronunciation", "notes" }],
+  "version": 6,
+  "words": [{ "id", "lemma", "article|null", "wordType", "translations",
+              "domains", "sets", "level", "plural", "pronunciation",
+              "compoundParts", "notes" }],
   "domains": [{ "id", "name", "parentId" }],
   "sets": [{ "id", "name", "description" }],
-  "pronunciationPatterns": [{ "id", "grapheme", "sound", "description" }]
+  "pronunciationPatterns": [{ "id", "grapheme", "sound", "description" }],
+  "lessonCategories": [{ "id", "name", "order" }],
+  "lessonSubcategories": [{ "id", "categoryId", "name", "order" }],
+  "lessons": [{ "id", "categoryId", "subcategoryId", "title",
+                "summary", "content", "level", "order" }]
 }
 ```
+
+`article` es `null` para palabras sin género gramatical, como verbos, adjetivos, números e interjecciones. Los dominios son agrupaciones semánticas; `wordType` clasifica la función gramatical por separado.
 
 ## Sistema de colores
 
@@ -97,7 +120,8 @@ La explicación completa para usuarios y desarrolladores está disponible dentro
 
 ## Flujo de trabajo recomendado
 
-1. Añade palabras en **Gestionar** → exporta el JSON
-2. Estudia con **Explorar** usando filtros combinados
-3. Practica con **Ejercicios** filtrados por dominio o conjunto
-4. Exporta el JSON periódicamente como copia de seguridad
+1. Revisa una unidad en **Lecciones** para aprender la explicación y los ejemplos
+2. Añade o corrige palabras en **Gestionar** → exporta el JSON
+3. Estudia con **Explorar** usando filtros combinados
+4. Practica con **Ejercicios** filtrados por dominio, conjunto o tipo de palabra
+5. Exporta el JSON periódicamente como copia de seguridad

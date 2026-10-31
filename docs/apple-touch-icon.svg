@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Mein Deutschheft">
+  <rect width="180" height="180" rx="38" fill="#2563eb"/>
+  <!-- Cuaderno amigable, con esquinas suaves y tapa azul -->
+  <rect x="23" y="27" width="121" height="127" rx="18" fill="#1e40af"/>
+  <rect x="31" y="21" width="116" height="127" rx="17" fill="#ffffff" stroke="#172554" stroke-width="5"/>
+  <path d="M49 21v127" stroke="#bfdbfe" stroke-width="5"/>
+  <path d="M66 54h56M66 72h56M66 90h44" stroke="#dbeafe" stroke-width="5" stroke-linecap="round"/>
+  <path d="M66 113h31" stroke="#60a5fa" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="42" cy="44" r="4" fill="#2563eb"/>
+  <circle cx="42" cy="65" r="4" fill="#2563eb"/>
+  <circle cx="42" cy="86" r="4" fill="#2563eb"/>
+  <circle cx="42" cy="107" r="4" fill="#2563eb"/>
+  <!-- Insignia de la bandera en el borde del cuaderno -->
+  <circle cx="137" cy="121" r="29" fill="#ffffff" stroke="#172554" stroke-width="5"/>
+  <clipPath id="flag">
+    <circle cx="137" cy="121" r="20"/>
+  </clipPath>
+  <g clip-path="url(#flag)">
+    <rect x="117" y="101" width="40" height="13" fill="#111827"/>
+    <rect x="117" y="114" width="40" height="14" fill="#dc2626"/>
+    <rect x="117" y="128" width="40" height="13" fill="#facc15"/>
+  </g>
+</svg>

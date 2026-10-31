@@ -3,11 +3,30 @@
     "vocabulary": "My Vocabulary",
     "explore": "Explore",
     "exercises": "Exercises",
-    "manage": "Manage"
+    "lessons": "Lessons",
+    "manage": "Manage",
+    "info": "Info"
+  },
+  "word_types": {
+    "noun": "Noun",
+    "verb": "Verb",
+    "adjective": "Adjective/adverb",
+    "phrase": "Phrase",
+    "number": "Number"
   },
   "app": {
     "title": "Mein Deutschheft",
     "subtitle": "Personal German vocabulary notebook"
+    ,"enable_light_mode": "Enable light mode"
+    ,"enable_dark_mode": "Enable dark mode"
+    ,"light_mode": "Light mode"
+    ,"dark_mode": "Dark mode"
+    ,"configure_highlights": "Configure highlights"
+    ,"highlights": "Highlights"
+    ,"persistent_highlights": "Persistent highlighting"
+    ,"highlights_hint": "Applied to cards, details and exercises."
+    ,"highlight_color": "Highlight color"
+    ,"unsaved_changes": "Unsaved changes"
   },
   "articles": {
     "der": "der",
@@ -32,6 +51,7 @@
   "word_detail": {
     "morphology": "Morphology",
     "pronunciation": "Pronunciation",
+    "indefinite_article": "ein / kein",
     "syllables": "Syllable breakdown",
     "stress": "Stress",
     "syllable_stress": "Syllable {{n}}",
@@ -41,6 +61,8 @@
     "vowel_long": "Long vowel",
     "vowel_short": "Short vowel",
     "syllable_count": "{{n}} syllable(s)"
+    ,"compound_parts": "Compound word made of"
+    ,"not_in_vocabulary": "not defined in the vocabulary"
   },
   "explore": {
     "title": "Explore",
@@ -53,16 +75,21 @@
     "filter_pattern": "Pronunciation pattern",
     "filter_syllables": "Number of syllables",
     "filter_level": "CEFR Level",
+    "filter_word_type": "Word type",
     "include_subdomains": "Include subdomains",
     "clear_filters": "Clear filters",
     "results": "Results",
-    "any": "Any"
+    "any": "Any",
+    "show_subdomains": "Show subdomains",
+    "hide_subdomains": "Hide subdomains"
   },
   "exercises": {
     "title": "Exercises",
     "select_type": "Exercise type",
     "translation": "Translation",
     "article": "Article",
+    "word_type": "Word type",
+    "indefinite_article": "ein / kein",
     "plural": "Plural",
     "pronunciation": "Pronunciation",
     "start": "Start",
@@ -77,14 +104,69 @@
     "your_answer": "Your answer",
     "type_answer": "Type your answer...",
     "translation_prompt": "What does this word mean?",
+    "translation_plural_prompt": "Fill in the meaning of this word in plural:",
+    "article_fill_prompt": "Fill the gap with the correct definite article:",
     "article_prompt": "Which article is correct?",
+    "indefinite_article_prompt": "Choose the correct indefinite article (ein/eine):",
+    "negative_article_prompt": "Choose the correct negative article (kein/keine):",
     "plural_prompt": "What is the plural?",
+    "singular_to_plural_prompt": "Write the plural to complete the sentence:",
+    "plural_to_singular_prompt": "Write the singular to complete the sentence:",
     "pronunciation_long": "Does it have a long vowel?",
     "pronunciation_short": "Does it have a short vowel?",
     "pronunciation_umlaut": "Does it have Umlaut in the plural?",
     "pronunciation_pattern": "Does it contain the pattern «{{pattern}}»?",
+    "pronunciation_long_fill": "Fill the gap: the main vowel is ___:",
+    "pronunciation_umlaut_fill": "Fill the gap: the plural has ___:",
+    "pronunciation_short_fill": "Fill the gap: the word has ___:",
+    "word_selection": "Word selection",
+    "singular_sentence": "Das ist {{article}}",
+    "plural_sentence": "Das sind {{article}}",
+    "indefinite_singular_sentence": "Das ist",
+    "indefinite_plural_sentence": "Das sind",
+    "plural_sentence_start": "Das sind",
+    "pronunciation_option_long": "long",
+    "pronunciation_option_short": "short",
+    "pronunciation_option_umlaut": "Umlaut",
+    "pronunciation_option_no_umlaut": "no Umlaut",
+    "pronunciation_option_no_short": "no short vowel",
     "no_words": "Not enough words with the selected filters",
     "restart": "Restart"
+  },
+  "lessons": {
+    "title": "My lessons",
+    "subtitle": "Organize your German notes in a two-level hierarchy.",
+    "new_lesson": "New lesson",
+    "edit_lesson": "Edit lesson",
+    "structure": "Structure",
+    "add_category": "Add category",
+    "add_subcategory": "Add subcategory",
+    "delete_category": "Delete category",
+    "delete_subcategory": "Delete subcategory",
+    "category_name": "Category name",
+    "subcategory_name": "Subcategory name",
+    "no_categories": "Create a category, for example “Verbs”.",
+    "no_subcategories": "Add a second level.",
+    "no_lessons": "There are no lessons here yet.",
+    "filter_level": "Level",
+    "all_levels": "All",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "choose_category": "Choose a category",
+    "choose_subcategory": "Choose a subcategory",
+    "level": "CEFR level",
+    "lesson_title": "Title",
+    "summary": "Summary",
+    "content": "Content",
+    "editor_hint": "Write your notes; line breaks are supported.",
+    "saved": "Lesson saved."
+    ,"clear_filters": "Clear filters"
+    ,"delete_lesson": "Delete lesson"
+    ,"confirm_delete": "Delete “{{title}}”?"
+    ,"confirm_delete_category": "Delete “{{name}}” and its lessons?"
+    ,"confirm_delete_subcategory": "Delete “{{name}}” and its lessons?"
+    ,"feature_info": "Information about vocabulary highlighting"
+    ,"feature_info_text": "Words in your lessons that are also in My vocabulary are highlighted automatically."
   },
   "manage": {
     "title": "Manage",
@@ -96,6 +178,7 @@
     "reset": "Reset to initial data",
     "confirm_reset": "Reset all data? You will lose local changes.",
     "unsaved_changes": "You have unsaved changes",
+    "word_form_hint": "Complete the word details and save your changes.",
     "add_domain": "Add domain",
     "add_set": "Add set",
     "patterns": "Pronunciation patterns",
@@ -117,22 +200,36 @@
     "level": "CEFR Level",
     "plural_form": "Plural form",
     "plural_suffix": "Suffix",
+    "plural_suffix_placeholder": "-e, -er, -en...",
     "plural_umlaut": "Umlaut in plural?",
     "syllables": "Syllables (separated by ·)",
+    "syllables_placeholder": "Ap·fel",
+    "syllables_hint": "Separate with · (middle dot)",
     "stress": "Stressed syllable (number)",
     "notes": "Notes",
     "domains": "Domains",
     "sets": "Sets",
     "patterns": "Pronunciation patterns",
+    "vowels_quantity": "Vowels and quantity",
+    "vowels_placeholder": "a:short, au:long",
+    "vowels_hint": "Write each vowel as grapheme:quantity, separated by commas. Use short or long.",
     "required": "Required field",
     "save": "Save",
     "cancel": "Cancel"
   },
   "common": {
+    "add": "Add",
     "loading": "Loading...",
     "error": "Error loading data",
     "close": "Close",
     "back": "Back",
-    "language": "Language"
+    "save": "Save",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "language": "Language",
+    "spanish": "Spanish",
+    "english": "English",
+    "german": "German"
   }
 }

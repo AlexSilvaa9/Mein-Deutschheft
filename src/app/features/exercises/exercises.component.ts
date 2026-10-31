@@ -5,7 +5,6 @@ import { VocabularyService } from '../../core/services/vocabulary.service';
 import { ExerciseService } from '../../core/services/exercise.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { TranslatorService } from '../../core/services/translator.service';
-import { HighlightService } from '../../core/services/highlight.service';
 import {
   ExerciseType, FilterState, DEFAULT_FILTER, Article
 } from '../../core/models/vocabulary.models';
@@ -37,13 +36,44 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
 
           <!-- Quick filter for exercises -->
           <div class="exercise-filters">
-            <h3>Selección de palabras</h3>
+            <h3>{{ 'exercises.word_selection' | translate }}</h3>
             <div class="filter-row">
               <label>{{ 'explore.filter_domain' | translate }}</label>
-              <select class="form-select" [(ngModel)]="exerciseDomainId" (ngModelChange)="updateExerciseFilter()">
-                <option value="">{{ 'explore.any' | translate }}</option>
-                <option *ngFor="let d of domains()" [value]="d.id">{{ d.name }}</option>
-              </select>
+              <div class="exercise-domain-picker">
+                <button type="button" class="domain-picker-trigger" (click)="exerciseDomainMenuOpen.set(!exerciseDomainMenuOpen())"
+                  [attr.aria-expanded]="exerciseDomainMenuOpen()">
+                  <span>{{ selectedExerciseDomainName() }}</span>
+                  <i class="bi" [class.bi-chevron-down]="!exerciseDomainMenuOpen()" [class.bi-chevron-up]="exerciseDomainMenuOpen()" aria-hidden="true"></i>
+                </button>
+                <div class="domain-picker-menu" *ngIf="exerciseDomainMenuOpen()">
+                  <label class="domain-option">
+                    <input type="radio" name="exercise-domain" value="" [(ngModel)]="exerciseDomainId" (ngModelChange)="updateExerciseFilter()" />
+                    {{ 'explore.any' | translate }}
+                  </label>
+                  <ng-container *ngTemplateOutlet="exerciseDomainTree; context: { parentId: null, level: 0 }"></ng-container>
+                </div>
+                <ng-template #exerciseDomainTree let-parentId="parentId" let-level="level">
+                  <div *ngFor="let d of exerciseDomainsFor(parentId)" class="exercise-domain-node" [style.padding-left.rem]="level * 0.8">
+                    <div class="exercise-domain-row">
+                      <button *ngIf="exerciseHasChildren(d.id)" type="button" class="domain-toggle"
+                        (click)="toggleExerciseDomainExpanded(d.id); $event.stopPropagation()"
+                        [attr.aria-label]="isExerciseDomainExpanded(d.id) ? ('explore.hide_subdomains' | translate) : ('explore.show_subdomains' | translate)"
+                        [attr.aria-expanded]="isExerciseDomainExpanded(d.id)">
+                        <i class="bi" [class.bi-chevron-down]="isExerciseDomainExpanded(d.id)"
+                          [class.bi-chevron-right]="!isExerciseDomainExpanded(d.id)" aria-hidden="true"></i>
+                      </button>
+                      <span *ngIf="!exerciseHasChildren(d.id)" class="domain-toggle-spacer"></span>
+                      <label class="domain-option">
+                        <input type="radio" name="exercise-domain" [value]="d.id" [(ngModel)]="exerciseDomainId" (ngModelChange)="updateExerciseFilter()" />
+                        {{ d.name }}
+                      </label>
+                    </div>
+                    <ng-container *ngIf="isExerciseDomainExpanded(d.id)">
+                      <ng-container *ngTemplateOutlet="exerciseDomainTree; context: { parentId: d.id, level: level + 1 }"></ng-container>
+                    </ng-container>
+                  </div>
+                </ng-template>
+              </div>
             </div>
             <div class="filter-row">
               <label>{{ 'explore.filter_set' | translate }}</label>
@@ -82,10 +112,10 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
         <div class="question-card">
           <!-- Translation exercise -->
           <ng-container *ngIf="selectedType() === 'translation'">
-            <p class="question-prompt">{{ 'exercises.translation_prompt' | translate }}</p>
-            <div class="word-display">
-              <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
+            <p class="question-prompt">{{ currentTranslationQuestion() }}</p>
+            <div class="exercise-sentence">
+              {{ translationSentence() }}
+              <span class="word-display__lemma">{{ displayLemma() }}</span>.
             </div>
             <input class="answer-input" type="text" [(ngModel)]="userAnswer"
               [placeholder]="'exercises.type_answer' | translate"
@@ -94,9 +124,10 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
 
           <!-- Article exercise -->
           <ng-container *ngIf="selectedType() === 'article'">
-            <p class="question-prompt">{{ 'exercises.article_prompt' | translate }}</p>
-            <div class="word-display">
-              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
+            <p class="question-prompt">{{ currentArticleQuestion() }}</p>
+            <div class="exercise-sentence">
+              <span class="word-display__gap">___</span>
+              <span class="word-display__lemma">{{ displayLemma() }}</span>.
             </div>
             <div class="article-buttons">
               <button *ngFor="let a of articles" class="article-btn article-btn--{{ a }}"
@@ -109,12 +140,32 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
             </div>
           </ng-container>
 
+          <!-- Indefinite and negative article exercise -->
+          <ng-container *ngIf="selectedType() === 'indefinite-article'">
+            <p class="question-prompt">{{ currentIndefiniteArticleQuestion() }}</p>
+            <div class="exercise-sentence">
+              {{ indefiniteSentenceStart() }}
+              <span class="word-display__gap">___</span>
+              <span class="word-display__lemma">{{ displayLemma() }}</span>.
+            </div>
+            <div class="article-buttons">
+              <button *ngFor="let a of indefiniteOptions()" class="article-btn"
+                [class.article-btn--selected]="userAnswer === a"
+                [class.article-btn--correct]="answered() && a === session()!.answers.at(-1)!.expectedAnswer"
+                [class.article-btn--wrong]="answered() && userAnswer === a && a !== session()!.answers.at(-1)!.expectedAnswer"
+                (click)="selectArticle(a)" [disabled]="answered()">
+                {{ a }}
+              </button>
+            </div>
+          </ng-container>
+
           <!-- Plural exercise -->
           <ng-container *ngIf="selectedType() === 'plural'">
-            <p class="question-prompt">{{ 'exercises.plural_prompt' | translate }}</p>
-            <div class="word-display">
-              <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
+            <p class="question-prompt">{{ currentPluralQuestion() }}</p>
+            <div class="exercise-sentence">
+              {{ pluralSentenceStart() }}
+              <span class="word-display__lemma">{{ pluralPromptWord() }}</span>
+              <span class="word-display__gap">→ ___</span>
             </div>
             <input class="answer-input" type="text" [(ngModel)]="userAnswer"
               [placeholder]="'exercises.type_answer' | translate"
@@ -124,22 +175,17 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
           <!-- Pronunciation exercise -->
           <ng-container *ngIf="selectedType() === 'pronunciation'">
             <p class="question-prompt">{{ currentPronunciationQuestion() }}</p>
-            <div class="word-display">
-              <span class="article-badge article-badge--{{ currentWord()!.article }}">{{ currentWord()!.article }}</span>
-              <span class="word-display__lemma"><span *ngFor="let letter of highlightedLetters(currentWord()!)" [style.color]="letter.color">{{ letter.character }}</span></span>
+            <div class="exercise-sentence">
+              <span class="article-badge article-badge--{{ displayArticle() }}">{{ displayArticle() }}</span>
+              <span class="word-display__lemma">{{ displayLemma() }}</span>
             </div>
             <div class="article-buttons">
-              <button class="article-btn" [class.article-btn--selected]="userAnswer === 'Sí'"
-                [class.article-btn--correct]="answered() && session()!.answers.at(-1)!.expectedAnswer === 'Sí'"
-                [class.article-btn--wrong]="answered() && userAnswer === 'Sí' && session()!.answers.at(-1)!.expectedAnswer !== 'Sí'"
-                (click)="selectArticle('Sí')" [disabled]="answered()">
-                {{ 'word_detail.yes' | translate }}
-              </button>
-              <button class="article-btn" [class.article-btn--selected]="userAnswer === 'No'"
-                [class.article-btn--correct]="answered() && session()!.answers.at(-1)!.expectedAnswer === 'No'"
-                [class.article-btn--wrong]="answered() && userAnswer === 'No' && session()!.answers.at(-1)!.expectedAnswer !== 'No'"
-                (click)="selectArticle('No')" [disabled]="answered()">
-                {{ 'word_detail.no' | translate }}
+              <button *ngFor="let option of pronunciationOptions()" class="article-btn"
+                [class.article-btn--selected]="userAnswer === option"
+                [class.article-btn--correct]="answered() && option === session()!.answers.at(-1)!.expectedAnswer"
+                [class.article-btn--wrong]="answered() && userAnswer === option && option !== session()!.answers.at(-1)!.expectedAnswer"
+                (click)="selectArticle(option)" [disabled]="answered()">
+                {{ pronunciationOptionLabel(option) }}
               </button>
             </div>
           </ng-container>
@@ -150,7 +196,7 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
               {{ lastAnswerCorrect() ? ('exercises.correct' | translate) : ('exercises.incorrect' | translate) }}
             </div>
             <p *ngIf="!lastAnswerCorrect()" class="feedback__expected">
-              → {{ session()!.answers.at(-1)!.expectedAnswer }}
+              → {{ expectedAnswerLabel() }}
             </p>
           </div>
 
@@ -223,6 +269,40 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
     .filter-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
     .filter-row label { min-width: 120px; font-size: 0.85rem; }
     .form-select { flex: 1; padding: 0.4rem 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); }
+    .exercise-domain-picker { flex: 1; min-width: 0; position: relative; }
+    .domain-picker-trigger {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+      width: 100%; padding: 0.45rem 0.65rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text);
+      cursor: pointer; text-align: left; font: inherit; font-size: 0.85rem;
+    }
+    .domain-picker-trigger:hover { border-color: var(--color-primary); }
+    .domain-picker-menu {
+      position: absolute; z-index: 20; top: calc(100% + 0.25rem); left: 0; right: 0;
+      max-height: 16rem; overflow-y: auto; padding: 0.45rem;
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-md);
+    }
+    .domain-option { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; padding: 0.3rem 0.25rem; cursor: pointer; }
+    .exercise-domain-row { display: flex; align-items: center; min-height: 1.7rem; }
+    .exercise-domain-picker .domain-toggle,
+    .exercise-domain-picker .domain-toggle-spacer {
+      width: 1.35rem; height: 1.35rem; flex: 0 0 1.35rem;
+    }
+    .exercise-domain-picker .domain-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin: 0 0.1rem 0 0; padding: 0;
+      border: 0; border-radius: 50%;
+      background: transparent; color: var(--color-text-muted);
+      cursor: pointer; font-size: 0.75rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .exercise-domain-picker .domain-toggle:hover,
+    .exercise-domain-picker .domain-toggle:focus-visible {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      outline: none;
+    }
     .exercise-word-count { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.5rem; }
     .no-words-msg { color: var(--color-danger); font-size: 0.85rem; margin-top: 0.5rem; text-align: center; }
     .progress-bar { height: 4px; background: var(--color-border); border-radius: 2px; margin-bottom: 0.75rem; }
@@ -234,6 +314,12 @@ type ExerciseStep = 'setup' | 'playing' | 'result';
       margin-bottom: 1.5rem; justify-content: center;
     }
     .word-display__lemma { color: var(--color-text); font-size: 2rem; font-weight: 700; }
+    .exercise-sentence {
+      display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap;
+      gap: 0.45rem; margin: 1.4rem 0 1.5rem; color: var(--color-text-muted);
+      font-size: 1.05rem;
+    }
+    .word-display__gap { color: var(--color-primary); font-size: 1.3rem; font-weight: 700; }
     .article-badge {
       font-size: 1rem; font-weight: 700; padding: 0.2rem 0.6rem;
       border-radius: var(--radius-sm); color: white;
@@ -309,7 +395,6 @@ export class ExercisesComponent {
   private vocab = inject(VocabularyService);
   private exerciseSvc = inject(ExerciseService);
   private translator = inject(TranslatorService);
-  private highlights = inject(HighlightService);
 
   step = signal<ExerciseStep>('setup');
   selectedType = signal<ExerciseType>('translation');
@@ -317,6 +402,8 @@ export class ExercisesComponent {
   answered = signal(false);
   exerciseDomainId = '';
   exerciseSetId = '';
+  exerciseDomainMenuOpen = signal(false);
+  expandedExerciseDomains = signal<Set<string>>(new Set());
 
   domains = this.vocab.domains;
   sets = this.vocab.sets;
@@ -328,19 +415,100 @@ export class ExercisesComponent {
     { id: 'article' as ExerciseType, labelKey: 'exercises.article', icon: 'bi-bookmark-star' },
     { id: 'plural' as ExerciseType, labelKey: 'exercises.plural', icon: 'bi-collection' },
     { id: 'pronunciation' as ExerciseType, labelKey: 'exercises.pronunciation', icon: 'bi-music-note-beamed' },
+    { id: 'indefinite-article' as ExerciseType, labelKey: 'exercises.indefinite_article', icon: 'bi-journal-text' },
   ];
 
   private exerciseFilter = signal<FilterState>({ ...DEFAULT_FILTER });
 
   exerciseWordCount = computed(() =>
-    this.vocab.getWordsForFilter(this.exerciseFilter()).length
+    this.exerciseSvc.getEligibleWords(this.selectedType(), this.exerciseFilter()).length
   );
+
+  exerciseDomainsFor(parentId: string | null) {
+    return this.domains().filter(domain => domain.parentId === parentId);
+  }
+
+  selectedExerciseDomainName(): string {
+    return this.domains().find(domain => domain.id === this.exerciseDomainId)?.name
+      ?? this.translator.t('explore.any');
+  }
+
+  exerciseHasChildren(id: string): boolean {
+    return this.domains().some(domain => domain.parentId === id);
+  }
+
+  isExerciseDomainExpanded(id: string): boolean {
+    return this.expandedExerciseDomains().has(id);
+  }
+
+  toggleExerciseDomainExpanded(id: string): void {
+    const expanded = new Set(this.expandedExerciseDomains());
+    expanded.has(id) ? expanded.delete(id) : expanded.add(id);
+    this.expandedExerciseDomains.set(expanded);
+  }
 
   currentWord = computed(() => this.exerciseSvc.getCurrentWord());
 
-  highlightedLetters(word: import('../../core/models/vocabulary.models').Word) {
-    return this.highlights.lettersFor(word);
+  displayLemma(): string {
+    const word = this.currentWord();
+    return word ? this.exerciseSvc.getDisplayLemma(word) : '';
   }
+
+  isPluralDisplay(): boolean {
+    return this.exerciseSvc.isPluralQuestion();
+  }
+
+  indefiniteOptions(): string[] {
+    return this.exerciseSvc.isNegativeArticleQuestion()
+      ? ['kein', 'keine']
+      : ['ein', 'eine', '—'];
+  }
+
+  translationSentence(): string {
+    return this.translator.t(
+      this.isPluralDisplay() ? 'exercises.plural_sentence' : 'exercises.singular_sentence',
+      { article: this.displayArticle() },
+    );
+  }
+
+  indefiniteSentenceStart(): string {
+    return this.translator.t(
+      this.isPluralDisplay() ? 'exercises.indefinite_plural_sentence' : 'exercises.indefinite_singular_sentence',
+    );
+  }
+
+  pluralSentenceStart(): string {
+    return this.isPluralDisplay()
+      ? this.translator.t('exercises.plural_sentence_start')
+      : this.displayArticle();
+  }
+
+  displayArticle(): Article {
+    const word = this.currentWord();
+    return word ? this.exerciseSvc.getDisplayArticle(word) : 'der';
+  }
+
+  pluralPromptWord(): string {
+    const word = this.currentWord();
+    if (!word) return '';
+    return this.exerciseSvc.isPluralQuestion() ? word.plural.form : word.lemma;
+  }
+
+  currentTranslationQuestion = computed(() =>
+    this.translator.t(this.exerciseSvc.isPluralQuestion()
+      ? 'exercises.translation_plural_prompt'
+      : 'exercises.translation_prompt')
+  );
+
+  currentArticleQuestion = computed(() =>
+    this.translator.t('exercises.article_fill_prompt')
+  );
+
+  currentPluralQuestion = computed(() =>
+    this.translator.t(this.exerciseSvc.isPluralQuestion()
+      ? 'exercises.plural_to_singular_prompt'
+      : 'exercises.singular_to_plural_prompt')
+  );
 
   questionNumber = computed(() => {
     const s = this.session();
@@ -365,9 +533,37 @@ export class ExercisesComponent {
     const s = this.session();
     if (!s) return '';
     const idx = s.currentIndex % 3;
-    if (idx === 0) return this.translator.t('exercises.pronunciation_long');
-    if (idx === 1) return this.translator.t('exercises.pronunciation_umlaut');
-    return this.translator.t('exercises.pronunciation_short');
+    if (idx === 0) return this.translator.t('exercises.pronunciation_long_fill');
+    if (idx === 1) return this.translator.t('exercises.pronunciation_umlaut_fill');
+    return this.translator.t('exercises.pronunciation_short_fill');
+  });
+
+  pronunciationOptions = computed(() => {
+    const idx = (this.session()?.currentIndex ?? 0) % 3;
+    if (idx === 0) return ['long', 'short'];
+    if (idx === 1) return ['umlaut', 'no_umlaut'];
+    return ['short', 'no_short'];
+  });
+
+  pronunciationOptionLabel(option: string): string {
+    return this.translator.t(`exercises.pronunciation_option_${option}`);
+  }
+
+  expectedAnswerLabel(): string {
+    const answer = this.session()?.answers.at(-1)?.expectedAnswer ?? '';
+    return this.translator.t(`exercises.pronunciation_option_${answer}`) === `exercises.pronunciation_option_${answer}`
+      ? answer
+      : this.translator.t(`exercises.pronunciation_option_${answer}`);
+  }
+
+  currentIndefiniteArticleQuestion = computed(() => {
+    const s = this.session();
+    if (!s) return '';
+    return this.translator.t(
+      s.currentIndex % 2 === 1
+        ? 'exercises.negative_article_prompt'
+        : 'exercises.indefinite_article_prompt',
+    );
   });
 
   updateExerciseFilter(): void {
@@ -375,6 +571,7 @@ export class ExercisesComponent {
     if (this.exerciseDomainId) f.domains = [this.exerciseDomainId];
     if (this.exerciseSetId) f.sets = [this.exerciseSetId];
     this.exerciseFilter.set(f);
+    this.exerciseDomainMenuOpen.set(false);
   }
 
   startExercise(): void {

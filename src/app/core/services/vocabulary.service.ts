@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import {
   VocabularyData, Word, Domain, VocabSet,
   PronunciationPattern, FilterState, DEFAULT_FILTER,
-  Article, CefrLevel, VowelQuantity,
+  Article, CefrLevel, VowelQuantity, Lesson, LessonCategory, LessonSubcategory,
 } from '../models/vocabulary.models';
 
 const STORAGE_KEY = 'mein-deutschheft-data';
+const RESET_MARKER = 'mein-deutschheft-data-reset-2026-10-v7';
 const INITIAL_DATA_URL = 'assets/data/vocabulary.json';
 
 @Injectable({ providedIn: 'root' })
@@ -31,6 +32,9 @@ export class VocabularyService {
   readonly domains = computed(() => this._data()?.domains ?? []);
   readonly sets = computed(() => this._data()?.sets ?? []);
   readonly pronunciationPatterns = computed(() => this._data()?.pronunciationPatterns ?? []);
+  readonly lessonCategories = computed(() => this._data()?.lessonCategories ?? []);
+  readonly lessonSubcategories = computed(() => this._data()?.lessonSubcategories ?? []);
+  readonly lessons = computed(() => this._data()?.lessons ?? []);
 
   // ─── Filtered words ───────────────────────────────────────────────────────
   readonly filteredWords = computed(() => {
@@ -48,11 +52,15 @@ export class VocabularyService {
     this._loading.set(true);
     this._error.set(null);
 
+    if (!localStorage.getItem(RESET_MARKER)) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.setItem(RESET_MARKER, '1');
+    }
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
         const parsed: VocabularyData = JSON.parse(stored);
-        this._data.set(parsed);
+        this._data.set(this.normalizeData(parsed));
         this._loading.set(false);
         return;
       } catch {
@@ -62,7 +70,7 @@ export class VocabularyService {
 
     this.http.get<VocabularyData>(INITIAL_DATA_URL).subscribe({
       next: data => {
-        this._data.set(data);
+        this._data.set(this.normalizeData(data));
         this._loading.set(false);
       },
       error: err => {
@@ -70,6 +78,110 @@ export class VocabularyService {
         this._loading.set(false);
         console.error(err);
       },
+    });
+  }
+
+  private normalizeData(data: VocabularyData): VocabularyData {
+    return {
+      ...data,
+      lessonCategories: data.lessonCategories ?? [],
+      lessonSubcategories: data.lessonSubcategories ?? [],
+      lessons: data.lessons ?? [],
+      words: data.words.map(word => ({
+        ...word,
+        article: word.wordType && word.wordType !== 'noun' ? null : word.article ?? null,
+        pronunciation: {
+          ...word.pronunciation,
+          vowels: this.normalizeVowels(word.lemma, word.pronunciation.syllables, word.pronunciation.vowels),
+        },
+      })),
+    };
+  }
+
+  addLessonCategory(category: LessonCategory): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessonCategories: [...this.lessonCategories(), category] });
+    this.persist();
+  }
+
+  deleteLessonCategory(id: string): void {
+    const data = this._data();
+    if (!data) return;
+    const subcategoryIds = this.lessonSubcategories().filter(item => item.categoryId === id).map(item => item.id);
+    this._data.set({
+      ...data,
+      lessonCategories: this.lessonCategories().filter(item => item.id !== id),
+      lessonSubcategories: this.lessonSubcategories().filter(item => item.categoryId !== id),
+      lessons: this.lessons().filter(item => item.categoryId !== id && !subcategoryIds.includes(item.subcategoryId)),
+    });
+    this.persist();
+  }
+
+  addLessonSubcategory(subcategory: LessonSubcategory): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessonSubcategories: [...this.lessonSubcategories(), subcategory] });
+    this.persist();
+  }
+
+  deleteLessonSubcategory(id: string): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({
+      ...data,
+      lessonSubcategories: this.lessonSubcategories().filter(item => item.id !== id),
+      lessons: this.lessons().filter(item => item.subcategoryId !== id),
+    });
+    this.persist();
+  }
+
+  addLesson(lesson: Lesson): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessons: [...this.lessons(), lesson] });
+    this.persist();
+  }
+
+  updateLesson(lesson: Lesson): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessons: this.lessons().map(item => item.id === lesson.id ? lesson : item) });
+    this.persist();
+  }
+
+  deleteLesson(id: string): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessons: this.lessons().filter(item => item.id !== id) });
+    this.persist();
+  }
+
+  generateLessonId(): string {
+    return `lesson_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  private normalizeVowels(
+    lemma: string,
+    syllables: string[],
+    vowels: Word['pronunciation']['vowels'],
+  ): Word['pronunciation']['vowels'] {
+    let searchFrom = 0;
+    return vowels.flatMap(vowel => {
+      const start = vowel.start
+        ? vowel.start - 1
+        : lemma.toLowerCase().indexOf(vowel.grapheme.toLowerCase(), searchFrom);
+      if (start < 0) return [];
+      searchFrom = start + vowel.grapheme.length;
+      return [{
+        ...vowel,
+        start: start + 1,
+        end: vowel.end ?? start + vowel.grapheme.length,
+        syllable: vowel.syllable || Math.max(
+          1,
+          syllables.findIndex(syllable => syllable.toLowerCase().includes(vowel.grapheme.toLowerCase())) + 1,
+        ),
+      }];
     });
   }
 
@@ -101,8 +213,9 @@ export class VocabularyService {
       reader.onload = e => {
         try {
           const data: VocabularyData = JSON.parse(e.target!.result as string);
-          this._data.set(data);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          const normalized = this.normalizeData(data);
+          this._data.set(normalized);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
           this._hasUnsavedChanges.set(false);
           resolve();
         } catch {
@@ -281,9 +394,7 @@ export class VocabularyService {
 
     // Domain filter (OR within group)
     if (f.domains.length > 0) {
-      const allowedDomains = f.includeSubdomains
-        ? f.domains.flatMap(d => this.getDescendantDomainIds(d))
-        : f.domains;
+      const allowedDomains = f.domains.flatMap(d => this.getDescendantDomainIds(d));
       const domainMatch = word.domains.some(d => allowedDomains.includes(d));
       if (!domainMatch) return false;
     }
@@ -295,7 +406,12 @@ export class VocabularyService {
 
     // Article filter (OR)
     if (f.articles.length > 0) {
-      if (!f.articles.includes(word.article)) return false;
+      if (!word.article || !f.articles.includes(word.article)) return false;
+    }
+
+    // Word type filter (OR)
+    if (f.wordTypes.length > 0 && (!word.wordType || !f.wordTypes.includes(word.wordType))) {
+      return false;
     }
 
     // Level filter (OR)

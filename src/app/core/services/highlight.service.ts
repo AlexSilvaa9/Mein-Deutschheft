@@ -57,7 +57,9 @@ export class HighlightService {
         ? word.pronunciation.patterns
           .filter(pattern => pattern.patternId === rule.patternId)
           .map(pattern => ({ start: pattern.start - 1, end: pattern.end - 1 }))
-        : this.vowelRanges(word, rule);
+        : word.pronunciation.vowels
+          .filter(vowel => vowel.quantity === (rule.id === 'long-vowel' ? 'long' : 'short'))
+          .map(vowel => ({ start: vowel.start - 1, end: vowel.end - 1 }));
 
       for (const range of ranges) {
         for (let index = Math.max(0, range.start); index <= Math.min(letters.length - 1, range.end); index++) {
@@ -76,24 +78,6 @@ export class HighlightService {
     if (rule.id === 'long-vowel') return word.pronunciation.vowels.some(vowel => vowel.quantity === 'long');
     if (rule.id === 'short-vowel') return word.pronunciation.vowels.some(vowel => vowel.quantity === 'short');
     return word.pronunciation.patterns.some(pattern => pattern.patternId === rule.patternId);
-  }
-
-  private vowelRanges(word: Word, rule: HighlightRule): Array<{ start: number; end: number }> {
-    const quantity = rule.id === 'long-vowel' ? 'long' : 'short';
-    const ranges: Array<{ start: number; end: number }> = [];
-    const usedIndexes = new Set<number>();
-    for (const vowel of word.pronunciation.vowels.filter(item => item.quantity === quantity)) {
-      const grapheme = Array.from(vowel.grapheme.toLowerCase());
-      const lemma = Array.from(word.lemma.toLowerCase());
-      const start = lemma.findIndex((_, index) =>
-        !usedIndexes.has(index) && grapheme.every((character, offset) => lemma[index + offset] === character),
-      );
-      if (start >= 0) {
-        for (let index = start; index < start + grapheme.length; index++) usedIndexes.add(index);
-        ranges.push({ start, end: start + grapheme.length - 1 });
-      }
-    }
-    return ranges;
   }
 
   private sameRule(left: HighlightRule, right: HighlightRule): boolean {

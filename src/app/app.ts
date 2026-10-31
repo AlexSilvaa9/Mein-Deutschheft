@@ -35,38 +35,44 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
             <i class="bi bi-bullseye nav-link__icon" aria-hidden="true"></i>
             <span class="nav-link__label">{{ 'nav.exercises' | translate }}</span>
           </a>
+          <a class="nav-link" routerLink="/lessons" routerLinkActive="nav-link--active">
+            <i class="bi bi-journal-text nav-link__icon" aria-hidden="true"></i>
+            <span class="nav-link__label">{{ 'nav.lessons' | translate }}</span>
+          </a>
           <a class="nav-link" routerLink="/manage" routerLinkActive="nav-link--active">
             <i class="bi bi-sliders nav-link__icon" aria-hidden="true"></i>
             <span class="nav-link__label">{{ 'nav.manage' | translate }}</span>
-            <span class="nav-link__badge" *ngIf="hasChanges()" aria-label="Cambios sin guardar"></span>
+            <span class="nav-link__badge" *ngIf="hasChanges()"
+              [attr.aria-label]="'app.unsaved_changes' | translate"></span>
           </a>
           <a class="nav-link" routerLink="/info" routerLinkActive="nav-link--active">
             <i class="bi bi-info-circle nav-link__icon" aria-hidden="true"></i>
-            <span class="nav-link__label">Info</span>
+            <span class="nav-link__label">{{ 'nav.info' | translate }}</span>
           </a>
         </nav>
 
         <div class="topbar__actions">
           <button class="theme-toggle" type="button" (click)="toggleTheme()"
-            [attr.aria-label]="darkMode() ? 'Activar modo claro' : 'Activar modo oscuro'"
-            [title]="darkMode() ? 'Modo claro' : 'Modo oscuro'">
+            [attr.aria-label]="darkMode() ? ('app.enable_light_mode' | translate) : ('app.enable_dark_mode' | translate)"
+            [title]="darkMode() ? ('app.light_mode' | translate) : ('app.dark_mode' | translate)">
             <i class="bi" [class.bi-sun]="darkMode()" [class.bi-moon-stars]="!darkMode()" aria-hidden="true"></i>
           </button>
           <div class="highlight-menu" (click)="$event.stopPropagation()">
             <button class="theme-toggle" type="button" (click)="highlightMenuOpen.set(!highlightMenuOpen())"
-              aria-label="Configurar resaltados" title="Resaltados" [attr.aria-expanded]="highlightMenuOpen()">
+              [attr.aria-label]="'app.configure_highlights' | translate"
+              [title]="'app.highlights' | translate" [attr.aria-expanded]="highlightMenuOpen()">
               <i class="bi bi-highlighter" aria-hidden="true"></i>
             </button>
             <div class="highlight-menu__panel" *ngIf="highlightMenuOpen()">
-              <strong>Resaltado persistente</strong>
-              <span class="highlight-menu__hint">Se aplica a tarjetas, detalle y ejercicios.</span>
+              <strong>{{ 'app.persistent_highlights' | translate }}</strong>
+              <span class="highlight-menu__hint">{{ 'app.highlights_hint' | translate }}</span>
               <label class="highlight-option" *ngFor="let option of highlightOptions">
                 <input type="checkbox" [checked]="highlights.isActive(option.rule)"
                   (change)="toggleHighlight(option.rule)">
-                <span>{{ option.label }}</span>
+                <span>{{ option.labelKey | translate }}</span>
                 <input class="highlight-color" type="color" [value]="getColor(option.rule)"
                   (input)="changeHighlightColor(option.rule, $event)" [disabled]="!highlights.isActive(option.rule)"
-                  aria-label="Color del resaltado">
+                  [attr.aria-label]="'app.highlight_color' | translate">
               </label>
               <label class="highlight-pattern" *ngFor="let pattern of pronunciationPatterns()">
                 <input type="checkbox" [checked]="highlights.isActive(patternRule(pattern.id))"
@@ -74,7 +80,8 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
                 <span>{{ pattern.grapheme }} <small>{{ pattern.sound }}</small></span>
                 <input class="highlight-color" type="color" [value]="getColor(patternRule(pattern.id))"
                   (input)="changeHighlightColor(patternRule(pattern.id), $event)"
-                  [disabled]="!highlights.isActive(patternRule(pattern.id))" aria-label="Color del resaltado">
+                  [disabled]="!highlights.isActive(patternRule(pattern.id))"
+                  [attr.aria-label]="'app.highlight_color' | translate">
               </label>
             </div>
           </div>
@@ -82,7 +89,7 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
             <button class="language-dropdown__toggle" type="button" (click)="languageMenuOpen.set(!languageMenuOpen())"
               [attr.aria-expanded]="languageMenuOpen()" aria-haspopup="listbox">
               <span class="language-flag" aria-hidden="true">{{ selectedLanguage.flag }}</span>
-              <span class="language-label">{{ selectedLanguage.label }}</span>
+              <span class="language-label">{{ selectedLanguage.labelKey | translate }}</span>
               <i class="bi bi-chevron-down" aria-hidden="true"></i>
             </button>
             <div class="language-dropdown__menu" *ngIf="languageMenuOpen()" role="listbox">
@@ -91,7 +98,7 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
                 (click)="setLanguage(lang.code)" role="option"
                 [attr.aria-selected]="currentLang() === lang.code">
                 <span class="language-flag" aria-hidden="true">{{ lang.flag }}</span>
-                <span>{{ lang.label }}</span>
+                <span>{{ lang.labelKey | translate }}</span>
                 <i class="bi bi-check2 language-option__check" *ngIf="currentLang() === lang.code" aria-hidden="true"></i>
               </button>
             </div>
@@ -121,7 +128,8 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
             [class.bi-exclamation-triangle-fill]="toast.kind === 'warning'"
             [class.bi-info-circle-fill]="toast.kind === 'info'" aria-hidden="true"></i>
           <span>{{ toast.message }}</span>
-          <button type="button" class="app-toast__close" (click)="dismissToast(toast.id)" aria-label="Cerrar">
+          <button type="button" class="app-toast__close" (click)="dismissToast(toast.id)"
+            [attr.aria-label]="'common.close' | translate">
             <i class="bi bi-x" aria-hidden="true"></i>
           </button>
         </div>
@@ -142,7 +150,7 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
     .brand-link { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--color-text); }
     .brand-icon { font-size: 1.4rem; }
     .brand-name {
-      font-weight: 700; font-size: 1.05rem;
+      font-weight: 700; font-size: 1.05rem; white-space: nowrap;
       color: var(--color-text);
       letter-spacing: -0.02em;
     }
@@ -212,17 +220,18 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
     }
     .app-toast {
       display: flex; align-items: center; gap: 0.65rem; padding: 0.8rem 0.9rem;
-      border: 1px solid; border-radius: 0.65rem; background: var(--color-surface);
+      border: 2px solid; border-radius: 0.65rem; background: var(--color-surface);
       box-shadow: var(--shadow-md); font-size: 0.875rem; font-weight: 600;
     }
-    .app-toast--success { border-color: var(--color-success); color: var(--color-success); }
-    .app-toast--danger { border-color: var(--color-danger); color: var(--color-danger); }
-    .app-toast--warning { border-color: var(--color-warning); color: var(--color-warning); }
-    .app-toast--info { border-color: var(--color-primary); color: var(--color-primary); }
+    .app-toast--success { border-color: var(--color-success); background: color-mix(in srgb, var(--color-success) 14%, var(--color-surface)); color: var(--color-success); }
+    .app-toast--danger { border-color: var(--color-danger); background: color-mix(in srgb, var(--color-danger) 14%, var(--color-surface)); color: var(--color-danger); }
+    .app-toast--warning { border-color: var(--color-warning); background: color-mix(in srgb, var(--color-warning) 16%, var(--color-surface)); color: var(--color-warning); }
+    .app-toast--info { border-color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)); color: var(--color-primary); }
     .app-toast span { color: var(--color-text); flex: 1; }
     .app-toast__close { border: 0; background: transparent; color: var(--color-text-muted); cursor: pointer; font-size: 1.1rem; }
     @media (max-width: 900px) {
       .topbar { gap: 0.5rem; padding: 0 1rem; }
+      .brand-name { font-size: 0.95rem; }
       .nav-link { padding: 0.45rem 0.55rem; }
       .nav-link__label { display: none; }
       .topbar__nav { gap: 0; }
@@ -242,6 +251,12 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
       .highlight-menu__panel { position: fixed; top: 4.25rem; right: 0.75rem; left: 0.75rem; width: auto; max-height: calc(100dvh - 5rem); overflow-y: auto; }
       .language-dropdown__menu { right: 0; }
     }
+    @media (min-width: 641px) and (max-width: 820px) {
+      .topbar { padding: 0 0.75rem; }
+      .brand-link { gap: 0.35rem; }
+      .brand-icon { font-size: 1.2rem; }
+      .topbar__actions { gap: 0.25rem; }
+    }
   `],
 })
 export class App {
@@ -257,21 +272,21 @@ export class App {
   toasts = this.toast.messages;
   highlightMenuOpen = signal(false);
   pronunciationPatterns = this.vocab.pronunciationPatterns;
-  highlightOptions: { rule: HighlightRule; label: string }[] = [
-    { rule: { id: 'long-vowel', color: '#f59e0b' }, label: 'Vocal larga' },
-    { rule: { id: 'short-vowel', color: '#3b82f6' }, label: 'Vocal corta' },
+  highlightOptions: { rule: HighlightRule; labelKey: string }[] = [
+    { rule: { id: 'long-vowel', color: '#f59e0b' }, labelKey: 'word_detail.vowel_long' },
+    { rule: { id: 'short-vowel', color: '#3b82f6' }, labelKey: 'word_detail.vowel_short' },
   ];
   darkMode = signal(this.getInitialTheme());
 
   languageMenuOpen = signal(false);
 
-  languages: { code: AppLanguage; label: string; flag: string }[] = [
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  languages: { code: AppLanguage; labelKey: string; flag: string }[] = [
+    { code: 'es', labelKey: 'common.spanish', flag: '🇪🇸' },
+    { code: 'en', labelKey: 'common.english', flag: '🇬🇧' },
+    { code: 'de', labelKey: 'common.german', flag: '🇩🇪' },
   ];
 
-  get selectedLanguage(): { code: AppLanguage; label: string; flag: string } {
+  get selectedLanguage(): { code: AppLanguage; labelKey: string; flag: string } {
     return this.languages.find(lang => lang.code === this.currentLang()) ?? this.languages[0];
   }
 

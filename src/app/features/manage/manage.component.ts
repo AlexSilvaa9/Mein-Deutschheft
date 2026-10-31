@@ -6,6 +6,7 @@ import { VocabularyService } from '../../core/services/vocabulary.service';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WordFormComponent } from '../../shared/components/word-form.component';
 import { ToastService } from '../../core/services/toast.service';
+import { TranslatorService } from '../../core/services/translator.service';
 import { Word, Domain, VocabSet, PronunciationPattern } from '../../core/models/vocabulary.models';
 
 type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
@@ -32,14 +33,14 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
 
       <!-- ── WORDS tab ─────────────────────────────── -->
       <div *ngIf="activeTab() === 'words'">
-        <div class="new-word-panel" *ngIf="isNewWordPage">
+        <div class="new-word-panel" *ngIf="showWordForm()">
           <div class="new-word-panel__header">
             <div>
-              <h2>{{ 'vocabulary.add_word' | translate }}</h2>
-              <p class="muted">Añade una palabra al vocabulario.</p>
+              <h2>{{ editingWord() ? ('vocabulary.edit_word' | translate) : ('vocabulary.add_word' | translate) }}</h2>
+              <p class="muted">{{ 'manage.word_form_hint' | translate }}</p>
             </div>
-            <button class="btn btn--ghost btn--sm" type="button" (click)="goToManage()">
-              <i class="bi bi-arrow-left" aria-hidden="true"></i> Volver
+            <button class="btn btn--ghost btn--sm" type="button" (click)="closeWordForm()">
+              <i class="bi bi-arrow-left" aria-hidden="true"></i> {{ 'common.back' | translate }}
             </button>
           </div>
           <app-word-form
@@ -51,36 +52,18 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
           />
         </div>
 
-        <div class="section-header" *ngIf="!isNewWordPage">
+        <div class="section-header" *ngIf="!showWordForm()">
           <h2>{{ 'manage.words_section' | translate }}</h2>
           <button class="btn btn--primary btn--sm" (click)="showWordForm.set(true); editingWord.set(undefined)">
             <i class="bi bi-plus-lg" aria-hidden="true"></i> {{ 'vocabulary.add_word' | translate }}
           </button>
         </div>
 
-        <!-- Word form modal -->
-        <div class="app-modal-overlay" *ngIf="showWordForm() && !isNewWordPage" (click)="showWordForm.set(false)">
-          <div class="app-modal app-modal--lg" (click)="$event.stopPropagation()">
-            <div class="app-modal__header">
-              <h3>{{ editingWord() ? ('vocabulary.edit_word' | translate) : ('vocabulary.add_word' | translate) }}</h3>
-              <button class="btn-icon" (click)="showWordForm.set(false)" aria-label="Cerrar"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-            </div>
-            <app-word-form
-              [word]="editingWord()"
-              [domains]="domains()"
-              [sets]="sets()"
-              [pronunciationPatterns]="patterns()"
-              (saved)="onWordSaved($event)"
-              (cancelled)="showWordForm.set(false)"
-            />
-          </div>
-        </div>
-
         <!-- Word list -->
-        <div class="manage-word-list" *ngIf="!isNewWordPage">
+        <div class="manage-word-list" *ngIf="!showWordForm()">
           <div class="manage-word-item" *ngFor="let w of words()">
             <div class="manage-word-item__info">
-              <span class="article-badge article-badge--{{ w.article }}">{{ w.article }}</span>
+              <span *ngIf="w.article" class="article-badge article-badge--{{ w.article }}">{{ w.article }}</span>
               <strong>{{ w.lemma }}</strong>
               <span class="muted">{{ primaryTranslation(w) }}</span>
             </div>
@@ -125,13 +108,36 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
           </div>
         </div>
 
-        <div class="manage-list">
-          <div class="manage-item" *ngFor="let d of domains()">
-            <span class="manage-item__name">{{ d.name }}</span>
-            <span class="muted" *ngIf="d.parentId">↳ {{ getParentName(d.parentId) }}</span>
-            <button class="icon-btn icon-btn--danger" (click)="deleteDomain(d.id)" [attr.aria-label]="'Eliminar ' + d.name" title="Eliminar"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+        <div class="domain-manager">
+          <div class="domain-manager__intro">
+            <div class="domain-manager__icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
+            <div>
+              <strong>Mapa semántico</strong>
+              <p class="muted">Organiza las palabras desde una idea amplia hasta temas concretos. Los dominios padre agrupan automáticamente todos sus subdominios.</p>
+            </div>
+            <span class="domain-manager__count">{{ domains().length }} dominios</span>
+          </div>
+          <div class="domain-tree" role="tree">
+            <ng-container *ngTemplateOutlet="domainBranch; context: { parentId: null, level: 0 }"></ng-container>
           </div>
         </div>
+        <ng-template #domainBranch let-parentId="parentId" let-level="level">
+          <div class="domain-tree__branch" *ngFor="let d of domainsFor(parentId)" role="treeitem">
+            <div class="domain-tree__row" [class.domain-tree__row--root]="level === 0" [style.--level]="level">
+              <span class="domain-tree__line" *ngIf="level > 0" aria-hidden="true"></span>
+              <span class="domain-tree__marker" aria-hidden="true"><i class="bi" [class.bi-folder2]="hasDomainChildren(d.id)" [class.bi-tag]="!hasDomainChildren(d.id)"></i></span>
+              <div class="domain-tree__label">
+                <strong>{{ d.name }}</strong>
+                <span class="domain-tree__meta">{{ domainWordCount(d.id) }} palabras<span *ngIf="hasDomainChildren(d.id)"> · {{ domainsFor(d.id).length }} subdominios</span></span>
+              </div>
+              <div class="domain-tree__actions">
+                <button class="icon-btn icon-btn--small" type="button" (click)="addChildDomain(d)" title="Añadir subdominio" aria-label="Añadir subdominio"><i class="bi bi-node-plus" aria-hidden="true"></i></button>
+                <button class="icon-btn icon-btn--small icon-btn--danger" type="button" (click)="deleteDomain(d.id)" [attr.aria-label]="'Eliminar ' + d.name" title="Eliminar"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <ng-container *ngTemplateOutlet="domainBranch; context: { parentId: d.id, level: level + 1 }"></ng-container>
+          </div>
+        </ng-template>
       </div>
 
       <!-- ── SETS tab ─────────────────────────────── -->
@@ -283,6 +289,46 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
     .manage-item__name { font-weight: 500; }
     .manage-item__content { min-width: 0; display: flex; align-items: baseline; gap: 0.5rem; }
     .muted { color: var(--color-text-muted); font-size: 0.875rem; }
+    .domain-manager {
+      background: linear-gradient(145deg, var(--color-surface), var(--color-surface-hover));
+      border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+      padding: 1rem; box-shadow: var(--shadow-sm);
+    }
+    .domain-manager__intro {
+      display: flex; align-items: center; gap: .75rem; padding: .25rem .25rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .domain-manager__intro p { margin: .2rem 0 0; line-height: 1.4; }
+    .domain-manager__icon {
+      display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+      border-radius: var(--radius-lg); background: var(--color-primary-light);
+      color: var(--color-primary); font-size: 1.2rem; flex: 0 0 auto;
+    }
+    .domain-manager__count {
+      margin-left: auto; white-space: nowrap; color: var(--color-primary);
+      background: var(--color-primary-light); border-radius: 999px;
+      padding: .3rem .6rem; font-size: .75rem; font-weight: 600;
+    }
+    .domain-tree { padding: .9rem 0 .25rem; }
+    .domain-tree__branch { position: relative; }
+    .domain-tree__row {
+      position: relative; display: flex; align-items: center; gap: .55rem;
+      min-height: 3rem; margin-left: calc(var(--level) * 1.5rem);
+      padding: .45rem .55rem .45rem calc(.55rem + var(--level) * .15rem);
+      border-radius: var(--radius-md); transition: background .15s, transform .15s;
+    }
+    .domain-tree__row:hover { background: var(--color-surface); transform: translateX(2px); }
+    .domain-tree__row--root { margin-top: .25rem; background: color-mix(in srgb, var(--color-primary-light) 35%, transparent); }
+    .domain-tree__line {
+      position: absolute; left: -1rem; top: -1.1rem; width: 1rem; height: 2.2rem;
+      border-left: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);
+      border-bottom-left-radius: .45rem;
+    }
+    .domain-tree__marker { color: var(--color-primary); font-size: 1rem; width: 1.25rem; text-align: center; }
+    .domain-tree__label { min-width: 0; display: flex; flex-direction: column; gap: .1rem; }
+    .domain-tree__meta { color: var(--color-text-muted); font-size: .72rem; }
+    .domain-tree__actions { display: flex; gap: .15rem; margin-left: auto; opacity: .7; }
+    .domain-tree__row:hover .domain-tree__actions { opacity: 1; }
     .article-badge {
       font-size: 0.75rem; font-weight: 700; padding: 0.1rem 0.4rem;
       border-radius: var(--radius-sm); color: white;
@@ -291,13 +337,13 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
     .article-badge--die { background: var(--color-die); }
     .article-badge--das { background: var(--color-das); }
     .app-modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-      display: flex; align-items: center; justify-content: center; z-index: 1000;
+      position: static; background: transparent;
+      display: block; margin: 0 0 1rem;
     }
     .app-modal {
-      background: var(--color-surface); border-radius: var(--radius-xl);
+      background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl);
       padding: 1.5rem 2rem; width: min(700px, calc(100vw - 2rem)); min-width: 0; max-width: 100%;
-      box-shadow: var(--shadow-xl); max-height: 90vh; overflow-y: auto;
+      box-shadow: var(--shadow-sm); max-height: none; overflow-y: visible;
     }
     .app-modal--lg { width: 700px; }
     .app-modal__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
@@ -347,6 +393,9 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
       .form-actions { flex-direction: column-reverse; }
       .form-actions .btn { width: 100%; }
       .new-word-panel { padding: 0.75rem; }
+      .domain-manager__intro { align-items: flex-start; flex-wrap: wrap; }
+      .domain-manager__count { margin-left: 3.25rem; margin-top: -.5rem; }
+      .domain-tree__row { margin-left: calc(var(--level) * .8rem); }
       .new-word-panel__header { padding: 0 0 0.75rem; align-items: flex-start; flex-direction: column; }
       .tab-nav { gap: 0.15rem; }
       .tab-btn { flex: 1 1 calc(50% - 0.15rem); padding: 0.55rem 0.4rem; font-size: 0.78rem; }
@@ -358,6 +407,7 @@ export class ManageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toast = inject(ToastService);
+  private translator = inject(TranslatorService);
 
   activeTab = signal<ManageTab>('words');
   showWordForm = signal(false);
@@ -396,7 +446,8 @@ export class ManageComponent implements OnInit {
   }
 
   primaryTranslation(w: Word): string {
-    return w.translations.find(t => t.language === 'es')?.text ?? w.translations[0]?.text ?? '';
+    const language = this.translator.language();
+    return w.translations.find(t => t.language === language)?.text ?? w.translations[0]?.text ?? '';
   }
 
   editWord(w: Word): void {
@@ -415,6 +466,15 @@ export class ManageComponent implements OnInit {
     if (this.isNewWordPage) this.goToManage();
   }
 
+  closeWordForm(): void {
+    if (this.isNewWordPage) {
+      this.goToManage();
+      return;
+    }
+    this.showWordForm.set(false);
+    this.editingWord.set(undefined);
+  }
+
   goToManage(): void {
     this.router.navigate(['/manage']);
   }
@@ -429,7 +489,7 @@ export class ManageComponent implements OnInit {
   // Domains
   resetDomainForm(): void { this.domainForm = { name: '', parentId: null }; }
   saveDomain(): void {
-    const id = this.domainForm.name.toLowerCase().replace(/\s+/g, '_');
+    const id = this.domainForm.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') + '_' + Date.now();
     this.vocab.addDomain({ id, name: this.domainForm.name, parentId: this.domainForm.parentId });
     this.showDomainForm.set(false);
     this.toast.show('Dominio creado.', 'success');
@@ -439,6 +499,25 @@ export class ManageComponent implements OnInit {
     this.toast.show('Dominio eliminado.', 'success');
   }
   getParentName(id: string): string { return this.domains().find(d => d.id === id)?.name ?? id; }
+  domainsFor(parentId: string | null): Domain[] {
+    return this.domains()
+      .filter(domain => domain.parentId === parentId)
+      .sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  }
+  hasDomainChildren(id: string): boolean { return this.domainsFor(id).length > 0; }
+  domainWordCount(id: string): number {
+    const ids = [id, ...this.descendantDomainIds(id)];
+    return this.words().filter(word => word.domains.some(domainId => ids.includes(domainId))).length;
+  }
+  private descendantDomainIds(parentId: string): string[] {
+    const children = this.domainsFor(parentId);
+    return children.flatMap(child => [child.id, ...this.descendantDomainIds(child.id)]);
+  }
+  addChildDomain(parent: Domain): void {
+    this.resetDomainForm();
+    this.domainForm.parentId = parent.id;
+    this.showDomainForm.set(true);
+  }
 
   // Sets
   resetSetForm(): void { this.setForm = { name: '', description: '' }; }

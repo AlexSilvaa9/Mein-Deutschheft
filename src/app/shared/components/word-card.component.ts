@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Word, Domain, VocabSet, PronunciationPattern } from '../../core/models/vocabulary.models';
 import { TranslatePipe } from '../pipes/translate.pipe';
 import { HighlightService } from '../../core/services/highlight.service';
+import { TranslatorService } from '../../core/services/translator.service';
 
 @Component({
   selector: 'app-word-card',
@@ -12,7 +13,7 @@ import { HighlightService } from '../../core/services/highlight.service';
   template: `
     <div class="word-card" [class.compact]="compact">
       <div class="word-card__header">
-        <span class="article-badge article-badge--{{ word.article }}">{{ word.article }}</span>
+        <span *ngIf="word.article" class="article-badge article-badge--{{ word.article }}">{{ word.article }}</span>
         <h3 class="word-card__lemma">
           <span *ngFor="let letter of highlightedLetters(word)" [style.color]="letter.color">{{ letter.character }}</span>
         </h3>
@@ -149,6 +150,7 @@ import { HighlightService } from '../../core/services/highlight.service';
 })
 export class WordCardComponent {
   private highlights = inject(HighlightService);
+  private translator = inject(TranslatorService);
   @Input({ required: true }) word!: Word;
   @Input() domains: Domain[] = [];
   @Input() patterns: PronunciationPattern[] = [];
@@ -157,7 +159,8 @@ export class WordCardComponent {
   @Output() deleted = new EventEmitter<string>();
 
   get primaryTranslation(): string {
-    return this.word.translations.find(t => t.language === 'es')?.text
+    const language = this.translator.language();
+    return this.word.translations.find(t => t.language === language)?.text
       ?? this.word.translations[0]?.text ?? '';
   }
 

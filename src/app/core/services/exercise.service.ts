@@ -4,16 +4,33 @@ import {
   Article, FilterState,
 } from '../models/vocabulary.models';
 import { VocabularyService } from './vocabulary.service';
+import { TranslatorService } from './translator.service';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseService {
   private _session = signal<ExerciseSession | null>(null);
   readonly session = this._session.asReadonly();
 
-  constructor(private vocab: VocabularyService) {}
+  constructor(private vocab: VocabularyService, private translator: TranslatorService) {}
+
+  getEligibleWords(type: ExerciseType, filter: FilterState): Word[] {
+    return this.vocab.getWordsForFilter(filter).filter(word => {
+      switch (type) {
+        case 'article':
+        case 'indefinite-article':
+          return word.article !== null;
+        case 'plural':
+          return word.wordType === 'noun' && !!word.plural.form;
+        case 'pronunciation':
+          return word.pronunciation.vowels.length > 0;
+        case 'translation':
+          return word.translations.length > 0;
+      }
+    });
+  }
 
   startSession(type: ExerciseType, filter: FilterState): boolean {
-    const words = this.vocab.getWordsForFilter(filter);
+    const words = this.getEligibleWords(type, filter);
     if (words.length < 2) return false;
 
     const shuffled = this.shuffle([...words]);
@@ -32,6 +49,29 @@ export class ExerciseService {
     const s = this._session();
     if (!s) return null;
     return s.words[s.currentIndex] ?? null;
+  }
+
+  isPluralQuestion(): boolean {
+    const session = this._session();
+    if (session?.type === 'indefinite-article') {
+      return session.currentIndex % 4 >= 2;
+    }
+    return (session?.currentIndex ?? 0) % 2 === 1;
+  }
+
+  isNegativeArticleQuestion(): boolean {
+    const session = this._session();
+    return session?.type === 'indefinite-article'
+      ? session.currentIndex % 2 === 1
+      : false;
+  }
+
+  getDisplayLemma(word: Word): string {
+    return this.isPluralQuestion() ? word.plural.form : word.lemma;
+  }
+
+  getDisplayArticle(word: Word): Article {
+    return this.isPluralQuestion() ? 'die' : word.article ?? 'der';
   }
 
   submitAnswer(userAnswer: string): ExerciseAnswer | null {
@@ -87,11 +127,14 @@ export class ExerciseService {
   private getExpectedAnswer(type: ExerciseType, word: Word): string {
     switch (type) {
       case 'translation':
-        return word.translations.find(t => t.language === 'es')?.text ?? word.translations[0]?.text ?? '';
+        return word.translations.find(t => t.language === this.translator.language())?.text
+          ?? word.translations[0]?.text ?? '';
       case 'article':
-        return word.article;
+        return this.getDisplayArticle(word);
+      case 'indefinite-article':
+        return this.getIndefiniteArticle(word);
       case 'plural':
-        return word.plural.form;
+        return this.isPluralQuestion() ? word.lemma : word.plural.form;
       case 'pronunciation':
         return this.getPronunciationAnswer(word);
       default:
@@ -110,6 +153,8 @@ export class ExerciseService {
       }
       case 'article':
         return user.trim().toLowerCase() === expected.trim().toLowerCase();
+      case 'indefinite-article':
+        return user.trim().toLowerCase() === expected.trim().toLowerCase();
       case 'plural':
         return user.trim().toLowerCase() === expected.trim().toLowerCase();
       case 'pronunciation':
@@ -123,12 +168,21 @@ export class ExerciseService {
     const session = this._session();
     const questionType = (session?.currentIndex ?? 0) % 3;
     if (questionType === 0) {
-      return word.pronunciation.vowels.some(vowel => vowel.quantity === 'long') ? 'Sí' : 'No';
+      return word.pronunciation.vowels.some(vowel => vowel.quantity === 'long') ? 'long' : 'short';
     }
+
     if (questionType === 1) {
-      return word.plural.umlaut ? 'Sí' : 'No';
+      return word.plural.umlaut ? 'umlaut' : 'no_umlaut';
     }
-    return word.pronunciation.vowels.some(vowel => vowel.quantity === 'short') ? 'Sí' : 'No';
+    return word.pronunciation.vowels.some(vowel => vowel.quantity === 'short') ? 'short' : 'no_short';
+  }
+
+  private getIndefiniteArticle(word: Word): string {
+    const negative = this.isNegativeArticleQuestion();
+    if (negative && this.isPluralQuestion()) return 'keine';
+    if (this.isPluralQuestion()) return '—';
+    if (word.article === 'die') return negative ? 'keine' : 'eine';
+    return negative ? 'kein' : 'ein';
   }
 
   private shuffle<T>(arr: T[]): T[] {

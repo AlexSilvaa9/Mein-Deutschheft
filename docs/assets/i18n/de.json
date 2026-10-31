@@ -3,11 +3,30 @@
     "vocabulary": "Mein Wortschatz",
     "explore": "Erkunden",
     "exercises": "Übungen",
-    "manage": "Verwalten"
+    "lessons": "Lektionen",
+    "manage": "Verwalten",
+    "info": "Info"
+  },
+  "word_types": {
+    "noun": "Substantiv",
+    "verb": "Verb",
+    "adjective": "Adjektiv/Adverb",
+    "phrase": "Satz",
+    "number": "Zahl"
   },
   "app": {
     "title": "Mein Deutschheft",
     "subtitle": "Persönliches deutsches Vokabelheft"
+    ,"enable_light_mode": "Hellen Modus aktivieren"
+    ,"enable_dark_mode": "Dunklen Modus aktivieren"
+    ,"light_mode": "Heller Modus"
+    ,"dark_mode": "Dunkler Modus"
+    ,"configure_highlights": "Markierungen konfigurieren"
+    ,"highlights": "Markierungen"
+    ,"persistent_highlights": "Dauerhafte Markierungen"
+    ,"highlights_hint": "Gilt für Karten, Details und Übungen."
+    ,"highlight_color": "Farbe der Markierung"
+    ,"unsaved_changes": "Ungespeicherte Änderungen"
   },
   "articles": {
     "der": "der",
@@ -32,6 +51,7 @@
   "word_detail": {
     "morphology": "Morphologie",
     "pronunciation": "Aussprache",
+    "indefinite_article": "ein / kein",
     "syllables": "Silbentrennung",
     "stress": "Betonung",
     "syllable_stress": "Silbe {{n}}",
@@ -41,6 +61,8 @@
     "vowel_long": "Langer Vokal",
     "vowel_short": "Kurzer Vokal",
     "syllable_count": "{{n}} Silbe(n)"
+    ,"compound_parts": "Zusammengesetzt aus"
+    ,"not_in_vocabulary": "im Vokabular nicht definiert"
   },
   "explore": {
     "title": "Erkunden",
@@ -53,16 +75,21 @@
     "filter_pattern": "Aussprachepattern",
     "filter_syllables": "Silbenanzahl",
     "filter_level": "GER-Niveau",
+    "filter_word_type": "Wortart",
     "include_subdomains": "Unterdomänen einschließen",
     "clear_filters": "Filter zurücksetzen",
     "results": "Ergebnisse",
-    "any": "Beliebig"
+    "any": "Beliebig",
+    "show_subdomains": "Unterdomänen anzeigen",
+    "hide_subdomains": "Unterdomänen ausblenden"
   },
   "exercises": {
     "title": "Übungen",
     "select_type": "Übungstyp",
     "translation": "Übersetzung",
     "article": "Artikel",
+    "word_type": "Wortart",
+    "indefinite_article": "ein / kein",
     "plural": "Plural",
     "pronunciation": "Aussprache",
     "start": "Starten",
@@ -77,14 +104,69 @@
     "your_answer": "Deine Antwort",
     "type_answer": "Antwort eingeben...",
     "translation_prompt": "Was bedeutet dieses Wort?",
+    "translation_plural_prompt": "Ergänze die Bedeutung dieses Wortes im Plural:",
+    "article_fill_prompt": "Ergänze den richtigen bestimmten Artikel:",
     "article_prompt": "Welcher Artikel ist richtig?",
+    "indefinite_article_prompt": "Wähle den richtigen unbestimmten Artikel (ein/eine):",
+    "negative_article_prompt": "Wähle den richtigen negativen Artikel (kein/keine):",
     "plural_prompt": "Wie lautet der Plural?",
+    "singular_to_plural_prompt": "Schreibe den Plural, um den Satz zu ergänzen:",
+    "plural_to_singular_prompt": "Schreibe den Singular, um den Satz zu ergänzen:",
     "pronunciation_long": "Hat es einen langen Vokal?",
     "pronunciation_short": "Hat es einen kurzen Vokal?",
     "pronunciation_umlaut": "Hat es Umlaut im Plural?",
     "pronunciation_pattern": "Enthält es das Muster «{{pattern}}»?",
+    "pronunciation_long_fill": "Ergänze: Der Hauptvokal ist ___:",
+    "pronunciation_umlaut_fill": "Ergänze: Der Plural hat ___:",
+    "pronunciation_short_fill": "Ergänze: Das Wort hat ___:",
+    "word_selection": "Wortauswahl",
+    "singular_sentence": "Das ist {{article}}",
+    "plural_sentence": "Das sind {{article}}",
+    "indefinite_singular_sentence": "Das ist",
+    "indefinite_plural_sentence": "Das sind",
+    "plural_sentence_start": "Das sind",
+    "pronunciation_option_long": "lang",
+    "pronunciation_option_short": "kurz",
+    "pronunciation_option_umlaut": "Umlaut",
+    "pronunciation_option_no_umlaut": "kein Umlaut",
+    "pronunciation_option_no_short": "kein kurzer Vokal",
     "no_words": "Nicht genügend Wörter mit den gewählten Filtern",
     "restart": "Neu starten"
+  },
+  "lessons": {
+    "title": "Meine Lektionen",
+    "subtitle": "Ordne deine Deutschnotizen in einer Hierarchie mit zwei Ebenen.",
+    "new_lesson": "Neue Lektion",
+    "edit_lesson": "Lektion bearbeiten",
+    "structure": "Struktur",
+    "add_category": "Kategorie hinzufügen",
+    "add_subcategory": "Unterkategorie hinzufügen",
+    "delete_category": "Kategorie löschen",
+    "delete_subcategory": "Unterkategorie löschen",
+    "category_name": "Kategoriename",
+    "subcategory_name": "Name der Unterkategorie",
+    "no_categories": "Erstelle eine Kategorie, zum Beispiel „Verben“.",
+    "no_subcategories": "Füge eine zweite Ebene hinzu.",
+    "no_lessons": "Hier gibt es noch keine Lektionen.",
+    "filter_level": "Niveau",
+    "all_levels": "Alle",
+    "category": "Kategorie",
+    "subcategory": "Unterkategorie",
+    "choose_category": "Kategorie auswählen",
+    "choose_subcategory": "Unterkategorie auswählen",
+    "level": "GER-Niveau",
+    "lesson_title": "Titel",
+    "summary": "Zusammenfassung",
+    "content": "Inhalt",
+    "editor_hint": "Schreibe deine Notizen; Zeilenumbrüche sind möglich.",
+    "saved": "Lektion gespeichert."
+    ,"clear_filters": "Filter löschen"
+    ,"delete_lesson": "Lektion löschen"
+    ,"confirm_delete": "„{{title}}“ löschen?"
+    ,"confirm_delete_category": "„{{name}}“ und die Lektionen löschen?"
+    ,"confirm_delete_subcategory": "„{{name}}“ und die Lektionen löschen?"
+    ,"feature_info": "Information zur Vokabelhervorhebung"
+    ,"feature_info_text": "Wörter aus deinen Lektionen, die auch in meinem Vokabelheft stehen, werden automatisch hervorgehoben."
   },
   "manage": {
     "title": "Verwalten",
@@ -96,6 +178,7 @@
     "reset": "Auf Anfangsdaten zurücksetzen",
     "confirm_reset": "Alle Daten zurücksetzen? Lokale Änderungen gehen verloren.",
     "unsaved_changes": "Ungespeicherte Änderungen vorhanden",
+    "word_form_hint": "Vervollständige die Wortdaten und speichere die Änderungen.",
     "add_domain": "Domäne hinzufügen",
     "add_set": "Set hinzufügen",
     "patterns": "Aussprachemuster",
@@ -117,22 +200,36 @@
     "level": "GER-Niveau",
     "plural_form": "Pluralform",
     "plural_suffix": "Endung",
+    "plural_suffix_placeholder": "-e, -er, -en...",
     "plural_umlaut": "Umlaut im Plural?",
     "syllables": "Silben (mit · getrennt)",
+    "syllables_placeholder": "Ap·fel",
+    "syllables_hint": "Mit · (Mittelpunkt) trennen",
     "stress": "Betonte Silbe (Nr.)",
     "notes": "Notizen",
     "domains": "Domänen",
     "sets": "Sets",
     "patterns": "Aussprachepattern",
+    "vowels_quantity": "Vokale und Quantität",
+    "vowels_placeholder": "a:kurz, au:lang",
+    "vowels_hint": "Jeden Vokal als Graphem:Quantität schreiben, durch Kommas trennen. Kurz oder lang verwenden.",
     "required": "Pflichtfeld",
     "save": "Speichern",
     "cancel": "Abbrechen"
   },
   "common": {
+    "add": "Hinzufügen",
     "loading": "Lädt...",
     "error": "Fehler beim Laden der Daten",
     "close": "Schließen",
     "back": "Zurück",
-    "language": "Sprache"
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "language": "Sprache",
+    "spanish": "Spanisch",
+    "english": "Englisch",
+    "german": "Deutsch"
   }
 }

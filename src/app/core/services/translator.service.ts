@@ -9,16 +9,18 @@ const STORAGE_KEY = 'mein-deutschheft-lang';
 export class TranslatorService {
   private translations: Record<string, Record<string, unknown>> = {};
   private _language = signal<AppLanguage>(this.loadSavedLanguage());
+  private _translationsVersion = signal(0);
 
   readonly language = this._language.asReadonly();
 
   constructor(private http: HttpClient) {
     this.loadTranslations(this._language());
+    if (this._language() !== 'es') this.loadTranslations('es');
   }
 
   private loadSavedLanguage(): AppLanguage {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return (saved as AppLanguage) || 'es';
+    return saved === 'en' || saved === 'de' || saved === 'es' ? saved : 'es';
   }
 
   setLanguage(lang: AppLanguage): void {
@@ -31,7 +33,10 @@ export class TranslatorService {
 
   private loadTranslations(lang: AppLanguage): void {
     this.http.get<Record<string, unknown>>(`assets/i18n/${lang}.json`).subscribe({
-      next: data => { this.translations[lang] = data; },
+      next: data => {
+        this.translations[lang] = data;
+        this._translationsVersion.update(version => version + 1);
+      },
       error: err => console.error(`Failed to load translations for ${lang}`, err),
     });
   }
@@ -41,6 +46,7 @@ export class TranslatorService {
    * Example: t('exercises.score', { correct: 3, total: 5 })
    */
   t(key: string, params?: Record<string, string | number>): string {
+    void this._translationsVersion();
     const lang = this._language();
     const dict = this.translations[lang] || this.translations['es'] || {};
     const parts = key.split('.');

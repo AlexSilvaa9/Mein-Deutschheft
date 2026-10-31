@@ -4,6 +4,7 @@ export type Article = 'der' | 'die' | 'das';
 export type VowelQuantity = 'short' | 'long';
 export type Language = 'es' | 'en' | 'de';
 export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+export type WordType = 'noun' | 'verb' | 'adjective' | 'phrase' | 'number';
 
 // ─── Translation ──────────────────────────────────────────────────────────────
 export interface Translation {
@@ -14,6 +15,8 @@ export interface Translation {
 // ─── Vowel info inside a word ─────────────────────────────────────────────────
 export interface VowelInfo {
   grapheme: string;
+  start: number; // 1-indexed, inclusive
+  end: number;   // 1-indexed, inclusive
   syllable: number; // 1-indexed
   quantity: VowelQuantity;
 }
@@ -47,11 +50,16 @@ export interface PluralInfo {
   vowelChanges: VowelChange[];
 }
 
+export interface CompoundPart {
+  lemma: string;
+  meaning?: string;
+}
+
 // ─── Word ─────────────────────────────────────────────────────────────────────
 export interface Word {
   id: string;
   lemma: string;
-  article: Article;
+  article: Article | null;
   translations: Translation[];
   domains: string[];   // domain ids
   sets: string[];      // set ids
@@ -59,6 +67,8 @@ export interface Word {
   plural: PluralInfo;
   pronunciation: Pronunciation;
   notes: string;
+  wordType?: WordType;
+  compoundParts?: CompoundPart[];
 }
 
 // ─── Domain ───────────────────────────────────────────────────────────────────
@@ -75,6 +85,31 @@ export interface VocabSet {
   id: string;
   name: string;
   description: string;
+}
+
+// ─── Lessons ────────────────────────────────────────────────────────────────
+export interface LessonCategory {
+  id: string;
+  name: string;
+  order: number;
+}
+
+export interface LessonSubcategory {
+  id: string;
+  categoryId: string;
+  name: string;
+  order: number;
+}
+
+export interface Lesson {
+  id: string;
+  categoryId: string;
+  subcategoryId: string;
+  title: string;
+  summary: string;
+  content: string;
+  level: CefrLevel;
+  order: number;
 }
 
 // ─── Pronunciation Pattern (catalogue) ───────────────────────────────────────
@@ -94,6 +129,9 @@ export interface VocabularyData {
   domains: Domain[];
   sets: VocabSet[];
   pronunciationPatterns: PronunciationPattern[];
+  lessonCategories?: LessonCategory[];
+  lessonSubcategories?: LessonSubcategory[];
+  lessons?: Lesson[];
 }
 
 // ─── Filter state ─────────────────────────────────────────────────────────────
@@ -107,6 +145,7 @@ export interface FilterState {
   vowelQuantity: VowelQuantity | null;
   patternIds: string[];
   syllableCount: number | null;
+  wordTypes: WordType[];
   includeSubdomains: boolean;
 }
 
@@ -120,11 +159,12 @@ export const DEFAULT_FILTER: FilterState = {
   vowelQuantity: null,
   patternIds: [],
   syllableCount: null,
+  wordTypes: [],
   includeSubdomains: true,
 };
 
 // ─── Exercise types ───────────────────────────────────────────────────────────
-export type ExerciseType = 'translation' | 'article' | 'plural' | 'pronunciation';
+export type ExerciseType = 'translation' | 'article' | 'plural' | 'pronunciation' | 'indefinite-article';
 
 export interface ExerciseSession {
   type: ExerciseType;

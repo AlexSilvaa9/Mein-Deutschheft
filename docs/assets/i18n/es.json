@@ -3,11 +3,30 @@
     "vocabulary": "Mi vocabulario",
     "explore": "Explorar",
     "exercises": "Ejercicios",
-    "manage": "Gestionar"
+    "lessons": "Lecciones",
+    "manage": "Gestionar",
+    "info": "Info"
+  },
+  "word_types": {
+    "noun": "Sustantivo",
+    "verb": "Verbo",
+    "adjective": "Adjetivo/adverbio",
+    "phrase": "Frase",
+    "number": "Número"
   },
   "app": {
     "title": "Mein Deutschheft",
     "subtitle": "Cuaderno personal de vocabulario alemán"
+    ,"enable_light_mode": "Activar modo claro"
+    ,"enable_dark_mode": "Activar modo oscuro"
+    ,"light_mode": "Modo claro"
+    ,"dark_mode": "Modo oscuro"
+    ,"configure_highlights": "Configurar resaltados"
+    ,"highlights": "Resaltados"
+    ,"persistent_highlights": "Resaltado persistente"
+    ,"highlights_hint": "Se aplica a tarjetas, detalle y ejercicios."
+    ,"highlight_color": "Color del resaltado"
+    ,"unsaved_changes": "Cambios sin guardar"
   },
   "articles": {
     "der": "der",
@@ -32,6 +51,7 @@
   "word_detail": {
     "morphology": "Morfología",
     "pronunciation": "Pronunciación",
+    "indefinite_article": "ein / kein",
     "syllables": "Separación silábica",
     "stress": "Acento",
     "syllable_stress": "Sílaba {{n}}",
@@ -41,6 +61,8 @@
     "vowel_long": "Vocal larga",
     "vowel_short": "Vocal corta",
     "syllable_count": "{{n}} sílaba(s)"
+    ,"compound_parts": "Palabra compuesta por"
+    ,"not_in_vocabulary": "no definida en el vocabulario"
   },
   "explore": {
     "title": "Explorar",
@@ -53,16 +75,21 @@
     "filter_pattern": "Patrón de pronunciación",
     "filter_syllables": "Número de sílabas",
     "filter_level": "Nivel MCER",
+    "filter_word_type": "Tipo de palabra",
     "include_subdomains": "Incluir subdominios",
     "clear_filters": "Limpiar filtros",
     "results": "Resultados",
-    "any": "Cualquiera"
+    "any": "Cualquiera",
+    "show_subdomains": "Mostrar subdominios",
+    "hide_subdomains": "Ocultar subdominios"
   },
   "exercises": {
     "title": "Ejercicios",
     "select_type": "Tipo de ejercicio",
     "translation": "Traducción",
     "article": "Artículo",
+    "word_type": "Tipo de palabra",
+    "indefinite_article": "ein / kein",
     "plural": "Plural",
     "pronunciation": "Pronunciación",
     "start": "Comenzar",
@@ -77,14 +104,69 @@
     "your_answer": "Tu respuesta",
     "type_answer": "Escribe la respuesta...",
     "translation_prompt": "¿Qué significa esta palabra?",
+    "translation_plural_prompt": "Rellena el significado de esta palabra en plural:",
+    "article_fill_prompt": "Rellena el hueco con el artículo definido correcto:",
     "article_prompt": "¿Qué artículo corresponde?",
+    "indefinite_article_prompt": "Completa con el artículo indefinido correcto (ein/eine):",
+    "negative_article_prompt": "Completa con el artículo negativo correcto (kein/keine):",
     "plural_prompt": "¿Cuál es el plural?",
+    "singular_to_plural_prompt": "Escribe el plural para completar la frase:",
+    "plural_to_singular_prompt": "Escribe el singular para completar la frase:",
     "pronunciation_long": "¿Tiene vocal larga?",
     "pronunciation_short": "¿Tiene vocal corta?",
     "pronunciation_umlaut": "¿Tiene Umlaut en el plural?",
     "pronunciation_pattern": "¿Contiene el patrón «{{pattern}}»?",
+    "pronunciation_long_fill": "Rellena el hueco: la vocal principal es ___:",
+    "pronunciation_umlaut_fill": "Rellena el hueco: el plural lleva ___:",
+    "pronunciation_short_fill": "Rellena el hueco: la palabra tiene ___:",
+    "word_selection": "Selección de palabras",
+    "singular_sentence": "Das ist {{article}}",
+    "plural_sentence": "Das sind {{article}}",
+    "indefinite_singular_sentence": "Das ist",
+    "indefinite_plural_sentence": "Das sind",
+    "plural_sentence_start": "Das sind",
+    "pronunciation_option_long": "larga",
+    "pronunciation_option_short": "corta",
+    "pronunciation_option_umlaut": "Umlaut",
+    "pronunciation_option_no_umlaut": "sin Umlaut",
+    "pronunciation_option_no_short": "sin vocal corta",
     "no_words": "No hay palabras suficientes con los filtros seleccionados",
     "restart": "Volver a empezar"
+  },
+  "lessons": {
+    "title": "Mis lecciones",
+    "subtitle": "Organiza tus apuntes de alemán en dos niveles jerárquicos.",
+    "new_lesson": "Nueva lección",
+    "edit_lesson": "Editar lección",
+    "structure": "Estructura",
+    "add_category": "Añadir categoría",
+    "add_subcategory": "Añadir subcategoría",
+    "delete_category": "Eliminar categoría",
+    "delete_subcategory": "Eliminar subcategoría",
+    "category_name": "Nombre de la categoría",
+    "subcategory_name": "Nombre de la subcategoría",
+    "no_categories": "Crea una categoría, por ejemplo «Verbos».",
+    "no_subcategories": "Añade un segundo nivel.",
+    "no_lessons": "Todavía no hay lecciones aquí.",
+    "filter_level": "Nivel",
+    "all_levels": "Todos",
+    "category": "Categoría",
+    "subcategory": "Subcategoría",
+    "choose_category": "Elige una categoría",
+    "choose_subcategory": "Elige una subcategoría",
+    "level": "Nivel MCER",
+    "lesson_title": "Título",
+    "summary": "Resumen",
+    "content": "Contenido",
+    "editor_hint": "Escribe tus apuntes; puedes usar saltos de línea.",
+    "saved": "Lección guardada."
+    ,"clear_filters": "Limpiar filtros"
+    ,"delete_lesson": "Eliminar lección"
+    ,"confirm_delete": "¿Eliminar «{{title}}»?"
+    ,"confirm_delete_category": "¿Eliminar «{{name}}» y sus lecciones?"
+    ,"confirm_delete_subcategory": "¿Eliminar «{{name}}» y sus lecciones?"
+    ,"feature_info": "Información sobre el resaltado de vocabulario"
+    ,"feature_info_text": "Las palabras de tus lecciones que también están en Mi vocabulario se resaltan automáticamente."
   },
   "manage": {
     "title": "Gestionar",
@@ -96,6 +178,7 @@
     "reset": "Restaurar datos iniciales",
     "confirm_reset": "¿Restaurar todos los datos? Perderás los cambios locales.",
     "unsaved_changes": "Tienes cambios sin exportar",
+    "word_form_hint": "Completa los datos de la palabra y guarda los cambios.",
     "add_domain": "Añadir dominio",
     "add_set": "Añadir conjunto",
     "patterns": "Patrones de pronunciación",
@@ -117,22 +200,36 @@
     "level": "Nivel MCER",
     "plural_form": "Forma plural",
     "plural_suffix": "Sufijo",
+    "plural_suffix_placeholder": "-e, -er, -en...",
     "plural_umlaut": "¿Umlaut en plural?",
     "syllables": "Sílabas (separadas por ·)",
+    "syllables_placeholder": "Ap·fel",
+    "syllables_hint": "Separa con · (punto medio)",
     "stress": "Sílaba tónica (nº)",
     "notes": "Notas",
     "domains": "Dominios",
     "sets": "Conjuntos",
     "patterns": "Patrones de pronunciación",
+    "vowels_quantity": "Vocales y cantidad",
+    "vowels_placeholder": "a:corta, au:larga",
+    "vowels_hint": "Escribe cada vocal como grafema:cantidad, separada por comas. Usa corta o larga.",
     "required": "Campo obligatorio",
     "save": "Guardar",
     "cancel": "Cancelar"
   },
   "common": {
+    "add": "Añadir",
     "loading": "Cargando...",
     "error": "Error al cargar los datos",
     "close": "Cerrar",
     "back": "Volver",
-    "language": "Idioma"
+    "save": "Guardar",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "language": "Idioma",
+    "spanish": "Español",
+    "english": "Inglés",
+    "german": "Alemán"
   }
 }
