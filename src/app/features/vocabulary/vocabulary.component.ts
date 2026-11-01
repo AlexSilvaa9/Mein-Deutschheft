@@ -41,15 +41,9 @@ import { ToastService } from '../../core/services/toast.service';
 
       <!-- Word grid -->
       <div class="word-grid" *ngIf="filteredWords().length > 0; else empty">
-        <app-word-card
-          *ngFor="let word of filteredWords()"
-          [word]="word"
-          [domains]="domains()"
-          [patterns]="patterns()"
-          [showActions]="true"
-          (deleted)="onDelete($event)"
-          [routerLink]="['/vocabulary', word.id]"
-        />
+        <app-word-card *ngFor="let word of filteredWords()"
+          [word]="word" [domains]="domains()" [patterns]="patterns()" [showActions]="true"
+          (deleted)="onDelete($event)" [routerLink]="['/vocabulary', word.id]" />
       </div>
 
       <ng-template #empty>

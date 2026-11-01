@@ -72,9 +72,10 @@ src/
 
 ```json
 {
-  "version": 7,
-  "words": [{ "id", "lemma", "article|null", "wordType", "translations",
-              "domains", "sets", "level", "plural", "pronunciation",
+  "version": 8,
+  "wordBases": [{ "id", "lemma" }],
+  "words": [{ "id", "createdAt", "lemma", "article|null", "wordType", "translations",
+              "baseId", "domains", "sets", "level", "plural", "pronunciation",
               "compoundParts", "notes" }],
   "domains": [{ "id", "name", "parentId" }],
   "sets": [{ "id", "name", "description" }],
@@ -88,6 +89,9 @@ src/
 ```
 
 `article` es `null` para palabras sin género gramatical, como verbos, adjetivos, números e interjecciones. Los dominios son agrupaciones semánticas; `wordType` clasifica la función gramatical por separado.
+`createdAt` es un timestamp ISO-8601 de alta. La aplicación muestra las palabras ordenadas de más reciente a más antigua sin cambiar ese valor al editarlas.
+`wordBases` describe bases visibles del vocabulario. Una base es también un `Word` con `isBase: true`; sus acepciones reales son palabras hijas con `baseId` e `isRelated: true`. Las hijas conservan su propio género, plural, pronunciación y traducciones, pero solo se muestran dentro del detalle de la base. La base agrega los artículos de sus hijas en `articles`, por lo que puede mostrar uno o dos géneros.
+En el catálogo, Explorar y Gestión se muestra una sola tarjeta por base; al abrirla, el detalle agrupa las variantes relacionadas. Actualmente se usan grupos para lemas con acepciones separadas como `See` (der See = lago / die See = mar), `Bahn` (ferrocarril / pista o carril) y `Karte` (tarjeta / mapa).
 
 El esquema JSON formal está en [`schemas/vocabulary.schema.json`](./schemas/vocabulary.schema.json). En palabras con `wordType: "noun"` se permiten artículo y datos de plural; para el resto deben ser `null` o estar vacíos. Las traducciones pueden estar en español, inglés o alemán.
 

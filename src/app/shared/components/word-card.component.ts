@@ -13,7 +13,7 @@ import { TranslatorService } from '../../core/services/translator.service';
   template: `
     <div class="word-card" [class.compact]="compact">
       <div class="word-card__header">
-        <span *ngIf="word.article" class="article-badge article-badge--{{ word.article }}">{{ word.article }}</span>
+        <span *ngFor="let article of displayArticles" class="article-badge article-badge--{{ article }}">{{ article }}</span>
         <h3 class="word-card__lemma">
           <span *ngFor="let letter of highlightedLetters(word)" [style.color]="letter.color">{{ letter.character }}</span>
         </h3>
@@ -162,6 +162,10 @@ export class WordCardComponent {
     const language = this.translator.language();
     return this.word.translations.find(t => t.language === language)?.text
       ?? this.word.translations[0]?.text ?? '';
+  }
+
+  get displayArticles(): string[] {
+    return this.word.articles?.length ? this.word.articles : (this.word.article ? [this.word.article] : []);
   }
 
   get domainLabels(): string[] {

@@ -1,4 +1,4 @@
-import { Component, inject, computed, OnInit } from '@angular/core';
+import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -39,6 +39,7 @@ import { TranslatorService } from '../../core/services/translator.service';
           [domains]="domains()"
           [sets]="sets()"
           [pronunciationPatterns]="patterns()"
+          [wordBases]="wordBases()"
           (saved)="onSaved($event)"
           (cancelled)="editing = false"
         />
@@ -48,7 +49,9 @@ import { TranslatorService } from '../../core/services/translator.service';
       <div *ngIf="!editing" class="detail-content">
         <!-- Header -->
         <section class="detail-hero">
-          <span *ngIf="word()!.article" class="article-badge-lg article-badge-lg--{{ word()!.article }}">{{ word()!.article }}</span>
+          <ng-container *ngFor="let article of displayArticles(word()!)">
+            <span class="article-badge-lg article-badge-lg--{{ article }}">{{ article }}</span>
+          </ng-container>
           <div class="detail-hero__main">
             <div class="detail-hero__title">
               <h1 class="detail-lemma">
@@ -65,6 +68,20 @@ import { TranslatorService } from '../../core/services/translator.service';
             <span class="tag tag--structure word-type">{{ ('word_types.' + word()!.wordType) | translate }}</span>
           </div>
         </section>
+        <section class="meaning-tabs detail-card" *ngIf="relatedWords().length">
+          <h2 class="detail-card__title">Significados de {{ word()!.lemma }}</h2>
+          <div class="meaning-tabs__list" role="tablist">
+            <button type="button" class="meaning-tab"
+              *ngFor="let meaning of meaningWords(); let i = index"
+              [class.meaning-tab--active]="activeMeaningId() === meaning.id"
+              [attr.aria-selected]="activeMeaningId() === meaning.id"
+              role="tab" (click)="selectMeaning(meaning.id)">
+              <span *ngIf="meaning.article" class="article-badge article-badge--{{ meaning.article }}">{{ meaning.article }}</span>
+              <span>{{ compoundTranslation(meaning) }}</span>
+              <small>{{ meaning.lemma }}</small>
+            </button>
+          </div>
+        </section>
 
         <div class="detail-grid">
           <!-- Morphology -->
@@ -73,17 +90,17 @@ import { TranslatorService } from '../../core/services/translator.service';
             <dl class="detail-dl">
               <dt>{{ 'vocabulary.plural' | translate }}</dt>
               <dd>
-                <span *ngIf="word()!.plural.form; else noPlural" class="tag tag--morphology">
-                  {{ word()!.plural.form }}
-                  <span *ngIf="word()!.plural.suffix"> (-{{ word()!.plural.suffix }})</span>
+                <span *ngIf="detailWord()!.plural.form; else noPlural" class="tag tag--morphology">
+                  {{ detailWord()!.plural.form }}
+                  <span *ngIf="detailWord()!.plural.suffix"> (-{{ detailWord()!.plural.suffix }})</span>
                 </span>
                 <ng-template #noPlural><span class="muted">{{ 'vocabulary.no_plural' | translate }}</span></ng-template>
               </dd>
 
               <dt>{{ 'word_detail.umlaut' | translate }}</dt>
               <dd>
-                <span class="tag" [class.tag--umlaut]="word()!.plural.umlaut" [class.tag--neutral]="!word()!.plural.umlaut">
-                  {{ word()!.plural.umlaut ? ('word_detail.yes' | translate) : ('word_detail.no' | translate) }}
+                <span class="tag" [class.tag--umlaut]="detailWord()!.plural.umlaut" [class.tag--neutral]="!detailWord()!.plural.umlaut">
+                  {{ detailWord()!.plural.umlaut ? ('word_detail.yes' | translate) : ('word_detail.no' | translate) }}
                 </span>
               </dd>
             </dl>
@@ -95,39 +112,39 @@ import { TranslatorService } from '../../core/services/translator.service';
             <dl class="detail-dl">
               <dt>{{ 'word_detail.syllables' | translate }}</dt>
               <dd class="syllables-display">
-                <span *ngFor="let s of word()!.pronunciation.syllables; let i = index">
+                <span *ngFor="let s of detailWord()!.pronunciation.syllables; let i = index">
                   <span class="syllable"
-                    [class.syllable--stressed]="i + 1 === word()!.pronunciation.stress.primary"
-                    [class.syllable--secondary-stressed]="word()!.pronunciation.stress.secondary.includes(i + 1)">{{ s }}</span>
-                  <span class="syllable-sep" *ngIf="i < word()!.pronunciation.syllables.length - 1"> · </span>
+                    [class.syllable--stressed]="i + 1 === detailWord()!.pronunciation.stress.primary"
+                    [class.syllable--secondary-stressed]="detailWord()!.pronunciation.stress.secondary.includes(i + 1)">{{ s }}</span>
+                  <span class="syllable-sep" *ngIf="i < detailWord()!.pronunciation.syllables.length - 1"> · </span>
                 </span>
               </dd>
 
               <dt>{{ 'word_detail.stress' | translate }}</dt>
-              <dd>{{ 'word_detail.syllable_stress' | translate:{ n: word()!.pronunciation.stress.primary } }}</dd>
-              <ng-container *ngIf="word()!.pronunciation.stress.secondary.length > 0">
+              <dd>{{ 'word_detail.syllable_stress' | translate:{ n: detailWord()!.pronunciation.stress.primary } }}</dd>
+              <ng-container *ngIf="detailWord()!.pronunciation.stress.secondary.length > 0">
                 <dt>{{ 'word_detail.secondary_stress' | translate }}</dt>
-                <dd>{{ word()!.pronunciation.stress.secondary.join(', ') }}</dd>
+                <dd>{{ detailWord()!.pronunciation.stress.secondary.join(', ') }}</dd>
               </ng-container>
 
-              <dt>{{ 'word_detail.syllable_count' | translate:{ n: word()!.pronunciation.syllables.length } }}</dt>
-              <dd></dd>
+              <dt>{{ 'word_detail.syllable_count' | translate:{ n: detailWord()!.pronunciation.syllables.length } }}</dt>
+              <dd>{{ detailWord()!.pronunciation.syllables.length }}</dd>
 
               <!-- Vowels -->
-              <ng-container *ngIf="word()!.pronunciation.vowels.length > 0">
+              <ng-container *ngIf="detailWord()!.pronunciation.vowels.length > 0">
                 <dt>Vocales</dt>
                 <dd>
-                  <span *ngFor="let v of word()!.pronunciation.vowels" class="tag" [class.tag--pronunciation]="v.quantity === 'long'" [class.tag--structure]="v.quantity === 'short'">
+                  <span *ngFor="let v of detailWord()!.pronunciation.vowels" class="tag" [class.tag--pronunciation]="v.quantity === 'long'" [class.tag--structure]="v.quantity === 'short'">
                     {{ v.grapheme }} ({{ v.quantity === 'long' ? ('word_detail.vowel_long' | translate) : ('word_detail.vowel_short' | translate) }})
                   </span>
                 </dd>
               </ng-container>
 
               <!-- Patterns -->
-              <ng-container *ngIf="word()!.pronunciation.patterns.length > 0">
+              <ng-container *ngIf="detailWord()!.pronunciation.patterns.length > 0">
                 <dt>{{ 'word_form.patterns' | translate }}</dt>
                 <dd>
-                  <span *ngFor="let p of word()!.pronunciation.patterns" class="tag tag--pattern">
+                  <span *ngFor="let p of detailWord()!.pronunciation.patterns" class="tag tag--pattern">
                     {{ getPatternLabel(p.patternId) }}
                   </span>
                 </dd>
@@ -139,26 +156,26 @@ import { TranslatorService } from '../../core/services/translator.service';
           <div class="detail-card detail-card--classification">
             <h2 class="detail-card__title">{{ 'vocabulary.domains' | translate }}</h2>
             <div class="tag-cloud">
-              <span *ngFor="let d of word()!.domains" class="tag tag--domain">{{ getDomainName(d) }}</span>
-              <span class="muted" *ngIf="word()!.domains.length === 0">—</span>
+              <span *ngFor="let d of detailWord()!.domains" class="tag tag--domain">{{ getDomainName(d) }}</span>
+              <span class="muted" *ngIf="detailWord()!.domains.length === 0">—</span>
             </div>
 
             <h2 class="detail-card__title" style="margin-top:1rem">{{ 'vocabulary.sets' | translate }}</h2>
             <div class="tag-cloud">
-              <span *ngFor="let s of word()!.sets" class="tag tag--domain">{{ getSetName(s) }}</span>
-              <span class="muted" *ngIf="word()!.sets.length === 0">—</span>
+              <span *ngFor="let s of detailWord()!.sets" class="tag tag--domain">{{ getSetName(s) }}</span>
+              <span class="muted" *ngIf="detailWord()!.sets.length === 0">—</span>
             </div>
           </div>
 
           <!-- Notes -->
-          <div class="detail-card detail-card--notes" *ngIf="word()!.notes">
+          <div class="detail-card detail-card--notes" *ngIf="detailWord()!.notes">
             <h2 class="detail-card__title">{{ 'vocabulary.notes' | translate }}</h2>
-            <p class="notes-text">{{ word()!.notes }}</p>
+            <p class="notes-text">{{ detailWord()!.notes }}</p>
           </div>
-          <div class="detail-card detail-card--notes" *ngIf="word()!.compoundParts?.length">
+          <div class="detail-card detail-card--notes" *ngIf="detailWord()!.compoundParts?.length">
             <h2 class="detail-card__title">{{ 'word_detail.compound_parts' | translate }}</h2>
             <div class="compound-parts">
-              <ng-container *ngFor="let part of word()!.compoundParts; let last = last">
+              <ng-container *ngFor="let part of detailWord()!.compoundParts; let last = last">
                 <a class="tag tag--structure compound-part compound-part--link"
                   *ngIf="findCompoundWord(part.lemma) as linkedWord; else undefinedPart"
                   [routerLink]="['/vocabulary', linkedWord.id]"
@@ -219,6 +236,15 @@ import { TranslatorService } from '../../core/services/translator.service';
     .detail-translations { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
     .translation-item { align-items: center; background: var(--color-surface-hover); border: 1px solid var(--color-border); border-radius: 999px; display: flex; gap: 0.4rem; font-size: 0.9rem; padding: 0.3rem 0.65rem; }
     .lang-flag { color: var(--color-primary); font-size: 0.7rem; font-weight: 700; }
+    .meaning-tabs { margin-bottom: 1rem; }
+    .meaning-tabs__list { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .meaning-tab {
+      align-items: center; background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text); cursor: pointer; display: inline-flex;
+      flex-wrap: wrap; gap: .4rem; padding: .55rem .7rem; text-align: left;
+    }
+    .meaning-tab small { color: var(--color-text-muted); width: 100%; }
+    .meaning-tab--active { background: var(--color-primary-light); border-color: var(--color-primary); }
     .detail-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -232,6 +258,12 @@ import { TranslatorService } from '../../core/services/translator.service';
     }
     .detail-card--pronunciation { grid-row: span 2; }
     .detail-card--notes { grid-column: 1 / -1; }
+    .related-meanings { margin-bottom: 1rem; }
+    .related-meanings__hint { color: var(--color-text-muted); margin: -.5rem 0 .75rem; }
+    .related-meanings__list { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .related-meaning { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .65rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); text-decoration: none; }
+    .related-meaning:hover { border-color: var(--color-primary); background: var(--color-primary-light); }
+    .related-meaning > span:last-child { color: var(--color-text-muted); font-size: .85rem; }
     .compound-parts { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
     .compound-part { text-decoration: none; }
     .compound-part--link:hover { filter: brightness(.95); text-decoration: underline; }
@@ -284,6 +316,7 @@ export class WordDetailComponent implements OnInit {
   private translator = inject(TranslatorService);
 
   editing = false;
+  activeMeaningId = signal<string | null>(null);
 
   private routeWordId = toSignal(
     this.route.paramMap.pipe(map(params => params.get('id'))),
@@ -294,6 +327,24 @@ export class WordDetailComponent implements OnInit {
     const id = this.routeWordId();
     return id ? this.vocab.getWordById(id) : undefined;
   });
+  relatedWords = computed(() => {
+    const current = this.word();
+    const baseId = current?.isBase ? current.id : current?.baseId;
+    return baseId
+      ? this.vocab.words().filter(word => word.baseId === baseId)
+      : [];
+  });
+  meaningWords = computed(() => this.relatedWords());
+  detailWord = computed(() => {
+    const current = this.word();
+    const meanings = this.meaningWords();
+    const selected = meanings.find(meaning => meaning.id === this.activeMeaningId());
+    return selected ?? meanings[0] ?? current;
+  });
+
+  displayArticles(word: Word): string[] {
+    return word.articles?.length ? word.articles : (word.article ? [word.article] : []);
+  }
 
   orderedTranslations(): Word['translations'] {
     const currentWord = this.word();
@@ -306,9 +357,17 @@ export class WordDetailComponent implements OnInit {
 
   domains = this.vocab.domains;
   sets = this.vocab.sets;
+  wordBases = this.vocab.wordBases;
   patterns = this.vocab.pronunciationPatterns;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const firstMeaning = this.relatedWords()[0];
+    if (firstMeaning) this.activeMeaningId.set(firstMeaning.id);
+  }
+
+  selectMeaning(id: string): void {
+    this.activeMeaningId.set(id);
+  }
 
   getDomainName(id: string): string { return this.domains().find(d => d.id === id)?.name ?? id; }
   getSetName(id: string): string { return this.sets().find(s => s.id === id)?.name ?? id; }

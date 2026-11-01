@@ -1,13 +1,13 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
-  VocabularyData, Word, Domain, VocabSet,
+  VocabularyData, Word, Domain, VocabSet, WordBase,
   PronunciationPattern, FilterState, DEFAULT_FILTER,
   Article, CefrLevel, VowelQuantity, Lesson, LessonCategory, LessonSubcategory, LessonDoubt,
 } from '../models/vocabulary.models';
 
 const STORAGE_KEY = 'mein-deutschheft-data';
-const RESET_MARKER = 'mein-deutschheft-data-reset-2026-10-v7';
+const RESET_MARKER = 'mein-deutschheft-data-reset-2026-11-v8';
 const INITIAL_DATA_URL = 'assets/data/vocabulary.json';
 
 @Injectable({ providedIn: 'root' })
@@ -28,7 +28,11 @@ export class VocabularyService {
   readonly loading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
 
-  readonly words = computed(() => this._data()?.words ?? []);
+  readonly words = computed(() => [...(this._data()?.words ?? [])].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt),
+  ));
+  readonly visibleWords = computed(() => this.words().filter(word => !word.isRelated));
+  readonly wordBases = computed(() => this._data()?.wordBases ?? []);
   readonly domains = computed(() => this._data()?.domains ?? []);
   readonly sets = computed(() => this._data()?.sets ?? []);
   readonly pronunciationPatterns = computed(() => this._data()?.pronunciationPatterns ?? []);
@@ -39,11 +43,15 @@ export class VocabularyService {
 
   // ─── Filtered words ───────────────────────────────────────────────────────
   readonly filteredWords = computed(() => {
-    const words = this.words();
+    const words = this.words().filter(word => !word.isRelated);
+    const allWords = this.words();
     const f = this._filter();
-    return words.filter(w => this.matchesFilter(w, f));
+    return words.filter(word => {
+      if (this.matchesFilter(word, f)) return true;
+      return word.isBase === true
+        && allWords.some(child => child.baseId === word.id && this.matchesFilter(child, f));
+    });
   });
-
   constructor() {
     this.loadData();
   }
@@ -83,26 +91,85 @@ export class VocabularyService {
   }
 
   private normalizeData(data: VocabularyData): VocabularyData {
+    const normalizedWords = data.words.map((word, index) => this.normalizeWord(word, index));
+    const groups = new Map<string, Word[]>();
+    for (const word of normalizedWords) {
+      if (word.isBase) continue;
+      const legacyBaseId = word.baseId ?? this.slugBaseId(word.lemma);
+      if (data.wordBases.some(base => base.id === word.baseId)
+        || normalizedWords.filter(item => item.lemma.toLocaleLowerCase() === word.lemma.toLocaleLowerCase()).length > 1) {
+        const group = groups.get(legacyBaseId) ?? [];
+        group.push(word);
+        groups.set(legacyBaseId, group);
+      }
+    }
+
+    const existingBases = normalizedWords.filter(word => word.isBase);
+    const generatedBases = [...groups.entries()]
+      .filter(([legacyId]) => !existingBases.some(base => base.id === legacyId))
+      .map(([legacyId, children]) => {
+      const representative = children[0];
+      const baseId = legacyId.startsWith('base_word_')
+        ? legacyId
+        : `base_word_${legacyId.replace(/^base_/, '')}`;
+      const articles = [...new Set(children.map(child => child.article).filter((article): article is Article => !!article))];
+      return {
+        ...representative,
+        id: baseId,
+        baseId: undefined,
+        isBase: true,
+        isRelated: false,
+        article: articles[0] ?? representative.article,
+        articles,
+        translations: representative.translations,
+        createdAt: children.reduce((date, child) => child.createdAt < date ? child.createdAt : date, representative.createdAt),
+      } satisfies Word;
+    });
+    const baseByLegacyId = new Map(
+      [...groups.keys()].map(legacyId => [
+        legacyId,
+        legacyId.startsWith('base_word_') ? legacyId : `base_word_${legacyId.replace(/^base_/, '')}`,
+      ]),
+    );
+    const words = normalizedWords.map(word => {
+      const legacyId = word.baseId ?? this.slugBaseId(word.lemma);
+      const baseId = baseByLegacyId.get(legacyId);
+      return baseId ? { ...word, baseId, isRelated: true, isBase: false } : word;
+    });
+    const allWords = [...words.filter(word => !word.isBase), ...existingBases, ...generatedBases];
+    const wordBases = [...existingBases, ...generatedBases]
+      .map(base => ({ id: base.id, lemma: base.lemma, wordId: base.id }));
     return {
       ...data,
+      wordBases,
       lessonCategories: data.lessonCategories ?? [],
       lessonSubcategories: data.lessonSubcategories ?? [],
       lessons: data.lessons ?? [],
       lessonDoubts: data.lessonDoubts ?? [],
-      words: data.words.map(word => ({
-        ...word,
-        wordType: word.wordType ?? 'noun',
-        article: (word.wordType ?? 'noun') !== 'noun' ? null : word.article ?? null,
-        plural: (word.wordType ?? 'noun') !== 'noun'
-          ? { ...word.plural, form: '', suffix: '', umlaut: false, vowelChanges: [] }
-          : word.plural,
-        pronunciation: {
-          ...word.pronunciation,
-          stress: this.normalizeStress(word.pronunciation.stress),
-          vowels: this.normalizeVowels(word.lemma, word.pronunciation.syllables, word.pronunciation.vowels),
-        },
-      })),
+      words: allWords,
     };
+  }
+
+  private normalizeWord(word: Word, index: number): Word {
+    const wordType = word.wordType ?? 'noun';
+    return {
+      ...word,
+      createdAt: word.createdAt ?? new Date(index).toISOString(),
+      wordType,
+      article: wordType !== 'noun' ? null : word.article ?? null,
+      plural: wordType !== 'noun'
+        ? { ...word.plural, form: '', suffix: '', umlaut: false, vowelChanges: [] }
+        : word.plural,
+      pronunciation: {
+        ...word.pronunciation,
+        stress: this.normalizeStress(word.pronunciation.stress),
+        vowels: this.normalizeVowels(word.lemma, word.pronunciation.syllables, word.pronunciation.vowels),
+      },
+    };
+  }
+
+  private slugBaseId(lemma: string): string {
+    return `base_${lemma.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')}`;
   }
 
   private normalizeStress(stress: Word['pronunciation']['stress'] | number): Word['pronunciation']['stress'] {
@@ -273,7 +340,52 @@ export class VocabularyService {
   addWord(word: Word): void {
     const data = this._data();
     if (!data) return;
-    this._data.set({ ...data, words: [...data.words, word] });
+    const sameLemma = data.words.filter(item =>
+      item.lemma.toLocaleLowerCase() === word.lemma.toLocaleLowerCase() && !item.isBase,
+    );
+    const existingBase = data.words.find(item =>
+      item.isBase && item.lemma.toLocaleLowerCase() === word.lemma.toLocaleLowerCase(),
+    );
+    const baseId = word.baseId;
+    const base = baseId && !existingBase && sameLemma.length > 0
+      ? {
+          ...sameLemma[0],
+          id: baseId,
+          baseId: undefined,
+          isBase: true,
+          isRelated: false,
+          articles: [...new Set(sameLemma.map(item => item.article).filter((article): article is Article => !!article))],
+        }
+      : existingBase;
+    const words = base
+      ? data.words.map(item => sameLemma.some(existing => existing.id === item.id)
+        ? { ...item, baseId, isRelated: true, isBase: false }
+        : item)
+      : data.words;
+    const relatedBase = existingBase && baseId
+      ? {
+          ...existingBase,
+          articles: [...new Set([
+            ...(existingBase.articles ?? (existingBase.article ? [existingBase.article] : [])),
+            ...(word.article ? [word.article] : []),
+          ])],
+        }
+      : base;
+    const newBase = word.isBase ? word : undefined;
+    const updatedWords = relatedBase && existingBase
+      ? words.map(item => item.id === existingBase.id ? relatedBase : item)
+      : words;
+    this._data.set({
+      ...data,
+      wordBases: (relatedBase ?? newBase) && !this.wordBases().some(item => item.id === (relatedBase ?? newBase)!.id)
+        ? [...this.wordBases(), { id: (relatedBase ?? newBase)!.id, lemma: (relatedBase ?? newBase)!.lemma, wordId: (relatedBase ?? newBase)!.id }]
+        : this.wordBases(),
+      words: [...updatedWords, ...(base && !existingBase ? [base] : []), {
+        ...word,
+        ...(baseId ? { baseId, isRelated: true, isBase: false } : {}),
+        createdAt: new Date().toISOString(),
+      }],
+    });
     this.persist();
   }
 

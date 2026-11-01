@@ -47,6 +47,7 @@ type ManageTab = 'words' | 'domains' | 'sets' | 'patterns' | 'io';
             [domains]="domains()"
             [sets]="sets()"
             [pronunciationPatterns]="patterns()"
+            [wordBases]="wordBases()"
             (saved)="onWordSaved($event)"
             (cancelled)="goToManage()"
           />
@@ -418,7 +419,8 @@ export class ManageComponent implements OnInit {
   importError = signal<string | null>(null);
   isNewWordPage = false;
 
-  words = this.vocab.words;
+  words = this.vocab.visibleWords;
+  wordBases = this.vocab.wordBases;
   domains = this.vocab.domains;
   sets = this.vocab.sets;
   patterns = this.vocab.pronunciationPatterns;

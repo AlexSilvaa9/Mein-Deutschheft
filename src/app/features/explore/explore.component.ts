@@ -143,13 +143,9 @@ import {
           </div>
 
           <div class="word-grid" *ngIf="filteredWords().length > 0; else empty">
-            <app-word-card
-              *ngFor="let word of filteredWords()"
-              [word]="word"
-              [domains]="domains()"
-              [patterns]="patterns()"
-              [routerLink]="['/vocabulary', word.id]"
-            />
+            <app-word-card *ngFor="let word of filteredWords()"
+              [word]="word" [domains]="domains()" [patterns]="patterns()"
+              [routerLink]="['/vocabulary', word.id]" />
           </div>
 
           <ng-template #empty>

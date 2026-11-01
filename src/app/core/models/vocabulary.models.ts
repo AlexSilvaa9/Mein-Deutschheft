@@ -63,8 +63,13 @@ export interface CompoundPart {
 // ─── Word ─────────────────────────────────────────────────────────────────────
 export interface Word {
   id: string;
+  baseId?: string;
+  isBase?: boolean;
+  isRelated?: boolean;
+  createdAt: string;
   lemma: string;
   article: Article | null;
+  articles?: Article[];
   translations: Translation[];
   domains: string[];   // domain ids
   sets: string[];      // set ids
@@ -74,6 +79,12 @@ export interface Word {
   notes: string;
   wordType: WordType;
   compoundParts?: CompoundPart[];
+}
+
+export interface WordBase {
+  id: string;
+  lemma: string;
+  wordId?: string;
 }
 
 // ─── Domain ───────────────────────────────────────────────────────────────────
@@ -136,6 +147,7 @@ export interface PronunciationPattern {
 // ─── Root JSON structure ──────────────────────────────────────────────────────
 export interface VocabularyData {
   version: number;
+  wordBases: WordBase[];
   words: Word[];
   domains: Domain[];
   sets: VocabSet[];

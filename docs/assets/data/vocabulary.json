@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "words": [
     {
       "id": "word_001",
@@ -62,7 +62,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "word_002",
@@ -144,7 +145,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-02T00:00:00.000Z"
     },
     {
       "id": "word_003",
@@ -211,7 +213,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-03T00:00:00.000Z"
     },
     {
       "id": "word_004",
@@ -286,7 +289,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-04T00:00:00.000Z"
     },
     {
       "id": "word_005",
@@ -372,7 +376,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-05T00:00:00.000Z"
     },
     {
       "id": "word_006",
@@ -464,7 +469,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-06T00:00:00.000Z"
     },
     {
       "id": "word_007",
@@ -584,7 +590,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-07T00:00:00.000Z"
     },
     {
       "id": "word_008",
@@ -640,7 +647,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-08T00:00:00.000Z"
     },
     {
       "id": "word_009",
@@ -696,7 +704,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-09T00:00:00.000Z"
     },
     {
       "id": "word_010",
@@ -800,7 +809,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-10T00:00:00.000Z"
     },
     {
       "id": "word_011",
@@ -900,7 +910,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-11T00:00:00.000Z"
     },
     {
       "id": "word_012",
@@ -988,7 +999,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-01-12T00:00:00.000Z"
     },
     {
       "id": "word_013",
@@ -1052,7 +1064,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-13T00:00:00.000Z"
     },
     {
       "id": "word_014",
@@ -1124,7 +1137,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-14T00:00:00.000Z"
     },
     {
       "id": "word_015",
@@ -1224,7 +1238,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-15T00:00:00.000Z"
     },
     {
       "id": "word_016",
@@ -1332,7 +1347,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-16T00:00:00.000Z"
     },
     {
       "id": "word_017",
@@ -1408,7 +1424,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-17T00:00:00.000Z"
     },
     {
       "id": "word_018",
@@ -1492,7 +1509,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-18T00:00:00.000Z"
     },
     {
       "id": "word_019",
@@ -1554,7 +1572,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-19T00:00:00.000Z"
     },
     {
       "id": "word_020",
@@ -1630,7 +1649,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-20T00:00:00.000Z"
     },
     {
       "id": "word_021",
@@ -1722,7 +1742,401 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-21T00:00:00.000Z"
+    },
+    {
+      "id": "word_144",
+      "lemma": "Koch",
+      "article": "der",
+      "translations": [
+        {
+          "text": "el cocinero",
+          "language": "es"
+        },
+        {
+          "text": "cook",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Köche",
+        "suffix": "",
+        "umlaut": true,
+        "vowelChanges": [
+          {
+            "from": "o",
+            "to": "ö"
+          }
+        ]
+      },
+      "pronunciation": {
+        "syllables": [
+          "Koch"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "o",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-01T00:00:00.000Z"
+    },
+    {
+      "id": "word_145",
+      "lemma": "Köchin",
+      "article": "die",
+      "translations": [
+        {
+          "text": "la cocinera",
+          "language": "es"
+        },
+        {
+          "text": "female cook",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Köchinnen",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Kö",
+          "chin"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "ö",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 5,
+            "end": 5,
+            "syllable": 2,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-02T00:00:00.000Z"
+    },
+    {
+      "id": "word_146",
+      "lemma": "Polizist",
+      "article": "der",
+      "translations": [
+        {
+          "text": "el policía",
+          "language": "es"
+        },
+        {
+          "text": "police officer",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Polizisten",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Po",
+          "li",
+          "zist"
+        ],
+        "stress": {
+          "primary": 3,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "o",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 4,
+            "end": 4,
+            "syllable": 2,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 7,
+            "end": 7,
+            "syllable": 3,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-03T00:00:00.000Z"
+    },
+    {
+      "id": "word_147",
+      "lemma": "Polizistin",
+      "article": "die",
+      "translations": [
+        {
+          "text": "la policía",
+          "language": "es"
+        },
+        {
+          "text": "female police officer",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Polizistinnen",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Po",
+          "li",
+          "zis",
+          "tin"
+        ],
+        "stress": {
+          "primary": 3,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "o",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 4,
+            "end": 4,
+            "syllable": 2,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 7,
+            "end": 7,
+            "syllable": 3,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 10,
+            "end": 10,
+            "syllable": 4,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-04T00:00:00.000Z"
+    },
+    {
+      "id": "word_148",
+      "lemma": "Verkäufer",
+      "article": "der",
+      "translations": [
+        {
+          "text": "el vendedor",
+          "language": "es"
+        },
+        {
+          "text": "salesperson",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Verkäufer",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Ver",
+          "käu",
+          "fer"
+        ],
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "e",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "äu",
+            "start": 4,
+            "end": 5,
+            "syllable": 2,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 8,
+            "end": 8,
+            "syllable": 3,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-05T00:00:00.000Z"
+    },
+    {
+      "id": "word_149",
+      "lemma": "Verkäuferin",
+      "article": "die",
+      "translations": [
+        {
+          "text": "la vendedora",
+          "language": "es"
+        },
+        {
+          "text": "female salesperson",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "jobs"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Verkäuferinnen",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Ver",
+          "käu",
+          "fe",
+          "rin"
+        ],
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "e",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "äu",
+            "start": 4,
+            "end": 5,
+            "syllable": 2,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 8,
+            "end": 8,
+            "syllable": 3,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "i",
+            "start": 10,
+            "end": 10,
+            "syllable": 4,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-06-06T00:00:00.000Z"
     },
     {
       "id": "word_022",
@@ -1792,7 +2206,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-22T00:00:00.000Z"
     },
     {
       "id": "word_023",
@@ -1862,7 +2277,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-23T00:00:00.000Z"
     },
     {
       "id": "word_024",
@@ -1925,7 +2341,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-24T00:00:00.000Z"
     },
     {
       "id": "word_025",
@@ -1974,7 +2391,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-25T00:00:00.000Z"
     },
     {
       "id": "word_026",
@@ -2062,7 +2480,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-26T00:00:00.000Z"
     },
     {
       "id": "word_027",
@@ -2148,7 +2567,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-27T00:00:00.000Z"
     },
     {
       "id": "word_028",
@@ -2229,7 +2649,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-28T00:00:00.000Z"
     },
     {
       "id": "word_029",
@@ -2316,7 +2737,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-01-29T00:00:00.000Z"
     },
     {
       "id": "word_030",
@@ -2373,7 +2795,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-01-30T00:00:00.000Z"
     },
     {
       "id": "word_031",
@@ -2443,7 +2866,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-01-31T00:00:00.000Z"
     },
     {
       "id": "word_032",
@@ -2499,7 +2923,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-01T00:00:00.000Z"
     },
     {
       "id": "word_033",
@@ -2563,7 +2988,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-02T00:00:00.000Z"
     },
     {
       "id": "word_034",
@@ -2633,7 +3059,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-03T00:00:00.000Z"
     },
     {
       "id": "word_035",
@@ -2721,7 +3148,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-04T00:00:00.000Z"
     },
     {
       "id": "word_036",
@@ -2797,7 +3225,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-05T00:00:00.000Z"
     },
     {
       "id": "word_037",
@@ -2873,7 +3302,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-06T00:00:00.000Z"
     },
     {
       "id": "word_038",
@@ -2949,7 +3379,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": "word_039",
@@ -3006,7 +3437,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-08T00:00:00.000Z"
     },
     {
       "id": "word_040",
@@ -3070,7 +3502,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-09T00:00:00.000Z"
     },
     {
       "id": "word_041",
@@ -3134,7 +3567,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-10T00:00:00.000Z"
     },
     {
       "id": "word_042",
@@ -3222,7 +3656,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-11T00:00:00.000Z"
     },
     {
       "id": "word_043",
@@ -3292,7 +3727,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-12T00:00:00.000Z"
     },
     {
       "id": "word_044",
@@ -3356,7 +3792,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-13T00:00:00.000Z"
     },
     {
       "id": "word_045",
@@ -3456,7 +3893,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-14T00:00:00.000Z"
     },
     {
       "id": "word_046",
@@ -3526,7 +3964,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-15T00:00:00.000Z"
     },
     {
       "id": "word_047",
@@ -3583,7 +4022,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-16T00:00:00.000Z"
     },
     {
       "id": "word_048",
@@ -3677,7 +4117,8 @@
         ]
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-02-17T00:00:00.000Z"
     },
     {
       "id": "word_049",
@@ -3739,7 +4180,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-02-18T00:00:00.000Z"
     },
     {
       "id": "word_050",
@@ -3817,7 +4259,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-02-19T00:00:00.000Z"
     },
     {
       "id": "word_051",
@@ -3891,7 +4334,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-02-20T00:00:00.000Z"
     },
     {
       "id": "word_052",
@@ -3971,7 +4415,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-02-21T00:00:00.000Z"
     },
     {
       "id": "word_053",
@@ -4081,7 +4526,8 @@
         ]
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-02-22T00:00:00.000Z"
     },
     {
       "id": "word_054",
@@ -4138,7 +4584,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-23T00:00:00.000Z"
     },
     {
       "id": "word_055",
@@ -4222,7 +4669,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-24T00:00:00.000Z"
     },
     {
       "id": "word_056",
@@ -4272,7 +4720,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-25T00:00:00.000Z"
     },
     {
       "id": "word_057",
@@ -4344,7 +4793,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-26T00:00:00.000Z"
     },
     {
       "id": "word_058",
@@ -4428,7 +4878,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-27T00:00:00.000Z"
     },
     {
       "id": "word_059",
@@ -4493,7 +4944,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-02-28T00:00:00.000Z"
     },
     {
       "id": "word_060",
@@ -4591,7 +5043,8 @@
           "lemma": "Bad",
           "meaning": "baño"
         }
-      ]
+      ],
+      "createdAt": "2026-03-01T00:00:00.000Z"
     },
     {
       "id": "word_061",
@@ -4653,7 +5106,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-02T00:00:00.000Z"
     },
     {
       "id": "word_062",
@@ -4741,7 +5195,8 @@
           "lemma": "Haus",
           "meaning": "casa"
         }
-      ]
+      ],
+      "createdAt": "2026-03-03T00:00:00.000Z"
     },
     {
       "id": "word_063",
@@ -4837,7 +5292,8 @@
           "lemma": "Haus",
           "meaning": "casa"
         }
-      ]
+      ],
+      "createdAt": "2026-03-04T00:00:00.000Z"
     },
     {
       "id": "word_064",
@@ -4945,7 +5401,8 @@
           "lemma": "Haus",
           "meaning": "casa"
         }
-      ]
+      ],
+      "createdAt": "2026-03-05T00:00:00.000Z"
     },
     {
       "id": "word_065",
@@ -5027,7 +5484,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-06T00:00:00.000Z"
     },
     {
       "id": "word_066",
@@ -5083,7 +5541,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-07T00:00:00.000Z"
     },
     {
       "id": "word_067",
@@ -5147,7 +5606,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-08T00:00:00.000Z"
     },
     {
       "id": "word_068",
@@ -5217,7 +5677,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-09T00:00:00.000Z"
     },
     {
       "id": "word_069",
@@ -5273,7 +5734,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-10T00:00:00.000Z"
     },
     {
       "id": "word_070",
@@ -5329,7 +5791,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-11T00:00:00.000Z"
     },
     {
       "id": "word_071",
@@ -5395,7 +5858,18 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-12T00:00:00.000Z",
+      "compoundParts": [
+        {
+          "lemma": "Bahn",
+          "meaning": "ferrocarril"
+        },
+        {
+          "lemma": "Hof",
+          "meaning": "patio o recinto"
+        }
+      ]
     },
     {
       "id": "word_072",
@@ -5459,7 +5933,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-13T00:00:00.000Z"
     },
     {
       "id": "word_073",
@@ -5515,7 +5990,11 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-14T00:00:00.000Z",
+      "baseId": "base_word_see",
+      "isBase": false,
+      "isRelated": true
     },
     {
       "id": "word_074",
@@ -5571,7 +6050,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-15T00:00:00.000Z"
     },
     {
       "id": "word_075",
@@ -5640,7 +6120,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-16T00:00:00.000Z"
     },
     {
       "id": "word_076",
@@ -5703,7 +6184,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-17T00:00:00.000Z"
     },
     {
       "id": "word_077",
@@ -5779,7 +6261,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-18T00:00:00.000Z"
     },
     {
       "id": "word_078",
@@ -5828,7 +6311,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-19T00:00:00.000Z"
     },
     {
       "id": "word_079",
@@ -5910,7 +6394,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-20T00:00:00.000Z"
     },
     {
       "id": "word_080",
@@ -5988,7 +6473,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-21T00:00:00.000Z"
     },
     {
       "id": "word_081",
@@ -6037,7 +6523,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-03-22T00:00:00.000Z"
     },
     {
       "id": "word_082",
@@ -6111,7 +6598,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-03-23T00:00:00.000Z"
     },
     {
       "id": "word_083",
@@ -6203,7 +6691,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-03-24T00:00:00.000Z"
     },
     {
       "id": "word_084",
@@ -6275,7 +6764,18 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-25T00:00:00.000Z",
+      "compoundParts": [
+        {
+          "lemma": "Fahr",
+          "meaning": "desplazamiento o marcha"
+        },
+        {
+          "lemma": "Rad",
+          "meaning": "rueda"
+        }
+      ]
     },
     {
       "id": "word_085",
@@ -6324,7 +6824,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-26T00:00:00.000Z"
     },
     {
       "id": "word_086",
@@ -6426,7 +6927,8 @@
           "lemma": "Bahn",
           "meaning": "ferrocarril"
         }
-      ]
+      ],
+      "createdAt": "2026-03-27T00:00:00.000Z"
     },
     {
       "id": "word_087",
@@ -6482,7 +6984,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-28T00:00:00.000Z"
     },
     {
       "id": "word_088",
@@ -6545,7 +7048,18 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-29T00:00:00.000Z",
+      "compoundParts": [
+        {
+          "lemma": "U",
+          "meaning": "subterráneo"
+        },
+        {
+          "lemma": "Bahn",
+          "meaning": "ferrocarril"
+        }
+      ]
     },
     {
       "id": "word_089",
@@ -6601,7 +7115,18 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-30T00:00:00.000Z",
+      "compoundParts": [
+        {
+          "lemma": "S",
+          "meaning": "tren urbano"
+        },
+        {
+          "lemma": "Bahn",
+          "meaning": "ferrocarril"
+        }
+      ]
     },
     {
       "id": "word_090",
@@ -6675,7 +7200,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-03-31T00:00:00.000Z"
     },
     {
       "id": "word_091",
@@ -6754,7 +7280,8 @@
           "lemma": "Zeug",
           "meaning": "cosa/objeto"
         }
-      ]
+      ],
+      "createdAt": "2026-04-01T00:00:00.000Z"
     },
     {
       "id": "word_092",
@@ -6842,7 +7369,8 @@
           "lemma": "Karte",
           "meaning": "tarjeta"
         }
-      ]
+      ],
+      "createdAt": "2026-04-02T00:00:00.000Z"
     },
     {
       "id": "word_093",
@@ -6910,7 +7438,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-04-03T00:00:00.000Z"
     },
     {
       "id": "word_094",
@@ -6966,7 +7495,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-04-04T00:00:00.000Z"
     },
     {
       "id": "word_095",
@@ -7025,7 +7555,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-05T00:00:00.000Z"
     },
     {
       "id": "word_096",
@@ -7097,7 +7628,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-06T00:00:00.000Z"
     },
     {
       "id": "word_097",
@@ -7181,7 +7713,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-07T00:00:00.000Z"
     },
     {
       "id": "word_098",
@@ -7267,7 +7800,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-08T00:00:00.000Z"
     },
     {
       "id": "word_099",
@@ -7339,7 +7873,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-09T00:00:00.000Z"
     },
     {
       "id": "word_100",
@@ -7405,7 +7940,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-10T00:00:00.000Z"
     },
     {
       "id": "word_101",
@@ -7464,7 +8000,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-04-11T00:00:00.000Z"
     },
     {
       "id": "word_102",
@@ -7534,7 +8071,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-04-12T00:00:00.000Z"
     },
     {
       "id": "word_103",
@@ -7598,7 +8136,8 @@
         ]
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-04-13T00:00:00.000Z"
     },
     {
       "id": "word_104",
@@ -7647,7 +8186,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "phrase"
+      "wordType": "phrase",
+      "createdAt": "2026-04-14T00:00:00.000Z"
     },
     {
       "id": "word_105",
@@ -7696,7 +8236,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-15T00:00:00.000Z"
     },
     {
       "id": "word_106",
@@ -7752,7 +8293,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-16T00:00:00.000Z"
     },
     {
       "id": "word_107",
@@ -7820,7 +8362,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-17T00:00:00.000Z"
     },
     {
       "id": "word_108",
@@ -7882,7 +8425,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-18T00:00:00.000Z"
     },
     {
       "id": "word_109",
@@ -7956,7 +8500,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-19T00:00:00.000Z"
     },
     {
       "id": "word_110",
@@ -8012,7 +8557,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-20T00:00:00.000Z"
     },
     {
       "id": "word_111",
@@ -8080,7 +8626,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-21T00:00:00.000Z"
     },
     {
       "id": "word_112",
@@ -8144,7 +8691,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-22T00:00:00.000Z"
     },
     {
       "id": "word_113",
@@ -8212,7 +8760,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-23T00:00:00.000Z"
     },
     {
       "id": "word_114",
@@ -8268,7 +8817,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-24T00:00:00.000Z"
     },
     {
       "id": "word_115",
@@ -8330,7 +8880,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-25T00:00:00.000Z"
     },
     {
       "id": "word_116",
@@ -8379,7 +8930,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-26T00:00:00.000Z"
     },
     {
       "id": "word_117",
@@ -8447,7 +8999,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-27T00:00:00.000Z"
     },
     {
       "id": "word_118",
@@ -8531,7 +9084,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-28T00:00:00.000Z"
     },
     {
       "id": "word_119",
@@ -8601,7 +9155,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-29T00:00:00.000Z"
     },
     {
       "id": "word_120",
@@ -8677,7 +9232,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-04-30T00:00:00.000Z"
     },
     {
       "id": "word_121",
@@ -8741,7 +9297,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-05-01T00:00:00.000Z"
     },
     {
       "id": "word_122",
@@ -8831,7 +9388,8 @@
         ]
       },
       "notes": "",
-      "wordType": "number"
+      "wordType": "number",
+      "createdAt": "2026-05-02T00:00:00.000Z"
     },
     {
       "id": "word_123",
@@ -8887,7 +9445,8 @@
         ]
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-03T00:00:00.000Z"
     },
     {
       "id": "word_124",
@@ -8987,7 +9546,8 @@
           "lemma": "Zeug",
           "meaning": "cosa/objeto"
         }
-      ]
+      ],
+      "createdAt": "2026-05-04T00:00:00.000Z"
     },
     {
       "id": "word_125",
@@ -9081,7 +9641,8 @@
           "lemma": "Zeug",
           "meaning": "cosa/objeto"
         }
-      ]
+      ],
+      "createdAt": "2026-05-05T00:00:00.000Z"
     },
     {
       "id": "word_126",
@@ -9183,7 +9744,8 @@
           "lemma": "Zeug",
           "meaning": "cosa/objeto"
         }
-      ]
+      ],
+      "createdAt": "2026-05-06T00:00:00.000Z"
     },
     {
       "id": "word_127",
@@ -9271,7 +9833,8 @@
           "lemma": "Zeit",
           "meaning": "tiempo"
         }
-      ]
+      ],
+      "createdAt": "2026-05-07T00:00:00.000Z"
     },
     {
       "id": "word_128",
@@ -9328,7 +9891,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-08T00:00:00.000Z"
     },
     {
       "id": "word_129",
@@ -9385,7 +9949,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-09T00:00:00.000Z"
     },
     {
       "id": "word_130",
@@ -9434,7 +9999,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-10T00:00:00.000Z"
     },
     {
       "id": "word_131",
@@ -9491,7 +10057,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-11T00:00:00.000Z"
     },
     {
       "id": "word_132",
@@ -9548,7 +10115,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-12T00:00:00.000Z"
     },
     {
       "id": "word_133",
@@ -9597,7 +10165,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-13T00:00:00.000Z"
     },
     {
       "id": "word_134",
@@ -9646,7 +10215,11 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-14T00:00:00.000Z",
+      "baseId": "base_word_bahn",
+      "isBase": false,
+      "isRelated": true
     },
     {
       "id": "word_135",
@@ -9695,7 +10268,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-15T00:00:00.000Z"
     },
     {
       "id": "word_136",
@@ -9744,7 +10318,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-16T00:00:00.000Z"
     },
     {
       "id": "word_137",
@@ -9801,7 +10376,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "verb"
+      "wordType": "verb",
+      "createdAt": "2026-05-17T00:00:00.000Z"
     },
     {
       "id": "word_138",
@@ -9858,7 +10434,11 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-18T00:00:00.000Z",
+      "baseId": "base_word_karte",
+      "isBase": false,
+      "isRelated": true
     },
     {
       "id": "word_139",
@@ -9907,7 +10487,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-19T00:00:00.000Z"
     },
     {
       "id": "word_140",
@@ -9956,7 +10537,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-20T00:00:00.000Z"
     },
     {
       "id": "word_141",
@@ -10013,7 +10595,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-21T00:00:00.000Z"
     },
     {
       "id": "word_142",
@@ -10062,7 +10645,8 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "adjective"
+      "wordType": "adjective",
+      "createdAt": "2026-05-22T00:00:00.000Z"
     },
     {
       "id": "word_143",
@@ -10111,7 +10695,363 @@
         "patterns": []
       },
       "notes": "",
-      "wordType": "noun"
+      "wordType": "noun",
+      "createdAt": "2026-05-23T00:00:00.000Z"
+    },
+    {
+      "id": "word_150",
+      "lemma": "See",
+      "article": "die",
+      "translations": [
+        {
+          "text": "el mar",
+          "language": "es"
+        },
+        {
+          "text": "sea",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "landscape"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Seen",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "See"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "e",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 3,
+            "end": 3,
+            "syllable": 1,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "Homónima de der See (el lago). El significado se reconoce por el artículo y el contexto.",
+      "wordType": "noun",
+      "createdAt": "2026-06-07T00:00:00.000Z",
+      "baseId": "base_word_see",
+      "isBase": false,
+      "isRelated": true
+    },
+    {
+      "id": "word_151",
+      "lemma": "Bahn",
+      "article": "die",
+      "translations": [
+        {
+          "text": "la pista / el carril",
+          "language": "es"
+        },
+        {
+          "text": "track / lane",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "transport"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Bahnen",
+        "suffix": "en",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Bahn"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "a",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "Mismo lema que die Bahn (ferrocarril), usado para una pista, carril o recorrido.",
+      "wordType": "noun",
+      "createdAt": "2026-06-08T00:00:00.000Z",
+      "baseId": "base_word_bahn",
+      "isBase": false,
+      "isRelated": true
+    },
+    {
+      "id": "word_152",
+      "lemma": "Karte",
+      "article": "die",
+      "translations": [
+        {
+          "text": "el mapa",
+          "language": "es"
+        },
+        {
+          "text": "map",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "objects"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Karten",
+        "suffix": "n",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Kar",
+          "te"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "a",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 5,
+            "end": 5,
+            "syllable": 2,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "Mismo lema que die Karte (tarjeta); el contexto determina el significado.",
+      "wordType": "noun",
+      "createdAt": "2026-06-09T00:00:00.000Z",
+      "baseId": "base_word_karte",
+      "isBase": false,
+      "isRelated": true
+    },
+    {
+      "id": "base_word_see",
+      "lemma": "See",
+      "article": "der",
+      "translations": [
+        {
+          "text": "el lago",
+          "language": "es"
+        },
+        {
+          "text": "lake",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "landscape"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Seen",
+        "suffix": "",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "See"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "e",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 3,
+            "end": 3,
+            "syllable": 1,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-03-14T00:00:00.000Z",
+      "isBase": true,
+      "isRelated": false,
+      "articles": [
+        "der",
+        "die"
+      ]
+    },
+    {
+      "id": "base_word_bahn",
+      "lemma": "Bahn",
+      "article": "die",
+      "translations": [
+        {
+          "text": "ferrocarril",
+          "language": "es"
+        },
+        {
+          "text": "railway",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "transport"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Bahne",
+        "suffix": "e",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Bahn"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "a",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-05-14T00:00:00.000Z",
+      "isBase": true,
+      "isRelated": false,
+      "articles": [
+        "die"
+      ]
+    },
+    {
+      "id": "base_word_karte",
+      "lemma": "Karte",
+      "article": "die",
+      "translations": [
+        {
+          "text": "tarjeta",
+          "language": "es"
+        },
+        {
+          "text": "card",
+          "language": "en"
+        }
+      ],
+      "domains": [
+        "objects"
+      ],
+      "sets": [
+        "a1_core"
+      ],
+      "level": "A1",
+      "plural": {
+        "form": "Kartee",
+        "suffix": "e",
+        "umlaut": false,
+        "vowelChanges": []
+      },
+      "pronunciation": {
+        "syllables": [
+          "Kar",
+          "te"
+        ],
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
+        "vowels": [
+          {
+            "grapheme": "a",
+            "start": 2,
+            "end": 2,
+            "syllable": 1,
+            "quantity": "short"
+          },
+          {
+            "grapheme": "e",
+            "start": 5,
+            "end": 5,
+            "syllable": 2,
+            "quantity": "short"
+          }
+        ],
+        "patterns": []
+      },
+      "notes": "",
+      "wordType": "noun",
+      "createdAt": "2026-05-18T00:00:00.000Z",
+      "isBase": true,
+      "isRelated": false,
+      "articles": [
+        "die"
+      ]
     }
   ],
   "domains": [
@@ -11034,6 +11974,23 @@
       "id": "doubt_stress_long_vowel",
       "question": "¿El acento y las vocales largas tienen que coincidir?",
       "answer": ""
+    }
+  ],
+  "wordBases": [
+    {
+      "id": "base_word_see",
+      "lemma": "See",
+      "wordId": "base_word_see"
+    },
+    {
+      "id": "base_word_bahn",
+      "lemma": "Bahn",
+      "wordId": "base_word_bahn"
+    },
+    {
+      "id": "base_word_karte",
+      "lemma": "Karte",
+      "wordId": "base_word_karte"
     }
   ]
 }

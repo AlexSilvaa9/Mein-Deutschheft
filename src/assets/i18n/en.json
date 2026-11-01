@@ -239,6 +239,7 @@
     "primary_stress": "Primary stress (syllable no.)",
     "secondary_stress": "Secondary stress (syllable numbers)",
     "secondary_stress_placeholder": "E.g. 1, 3",
+    "related_meanings": "Other meanings",
     "notes": "Notes",
     "domains": "Domains",
     "sets": "Sets",

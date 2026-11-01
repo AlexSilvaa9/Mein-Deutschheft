@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Word, Article, CefrLevel, Domain, VocabSet, PronunciationPattern, WordType } from '../../core/models/vocabulary.models';
+import { Word, WordBase, Article, CefrLevel, Domain, VocabSet, PronunciationPattern, WordType } from '../../core/models/vocabulary.models';
 import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
@@ -33,15 +33,32 @@ import { TranslatePipe } from '../pipes/translate.pipe';
           </select>
         </div>
 
+        <div class="form-group">
+          <label>Tipo de entrada</label>
+          <select formControlName="entryType" class="form-select">
+            <option value="normal">Palabra normal</option>
+            <option value="base">Base con significados relacionados</option>
+            <option value="related">Significado relacionado</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="form.get('entryType')?.value === 'related'">
+          <label>Palabra base</label>
+          <select formControlName="relatedBaseId" class="form-select">
+            <option value="">Selecciona una base</option>
+            <option *ngFor="let base of wordBases" [value]="base.id">{{ base.lemma }}</option>
+          </select>
+        </div>
+
         <!-- Translations -->
         <div class="form-group">
           <label>{{ 'word_form.translation_es' | translate }}</label>
-          <input formControlName="translationEs" class="form-input" />
+          <input formControlName="translationEs" class="form-input" required />
         </div>
 
         <div class="form-group">
           <label>{{ 'word_form.translation_en' | translate }}</label>
-          <input formControlName="translationEn" class="form-input" />
+          <input formControlName="translationEn" class="form-input" required />
         </div>
 
         <div class="form-group">
@@ -206,6 +223,7 @@ export class WordFormComponent implements OnInit {
   @Input() domains: Domain[] = [];
   @Input() sets: VocabSet[] = [];
   @Input() pronunciationPatterns: PronunciationPattern[] = [];
+  @Input() wordBases: WordBase[] = [];
   @Output() saved = new EventEmitter<Word>();
   @Output() cancelled = new EventEmitter<void>();
 
@@ -229,8 +247,10 @@ export class WordFormComponent implements OnInit {
       lemma: [this.word?.lemma ?? '', Validators.required],
       article: [this.word?.article ?? null],
       wordType: [this.word?.wordType ?? 'noun', Validators.required],
-      translationEs: [this.word?.translations.find(t => t.language === 'es')?.text ?? ''],
-      translationEn: [this.word?.translations.find(t => t.language === 'en')?.text ?? ''],
+      entryType: [this.word?.isBase ? 'base' : this.word?.isRelated ? 'related' : 'normal'],
+      relatedBaseId: [this.word?.baseId ?? ''],
+      translationEs: [this.word?.translations.find(t => t.language === 'es')?.text ?? '', Validators.required],
+      translationEn: [this.word?.translations.find(t => t.language === 'en')?.text ?? '', Validators.required],
       translationDe: [this.word?.translations.find(t => t.language === 'de')?.text ?? ''],
       level: [this.word?.level ?? 'A1'],
       pluralForm: [this.word?.plural.form ?? ''],
@@ -306,8 +326,16 @@ export class WordFormComponent implements OnInit {
       : [];
     const vowels = this.parseVowels(v.vowels, syllables, v.lemma);
 
+    const entryType = v.entryType as 'normal' | 'base' | 'related';
+    if (entryType === 'related' && !v.relatedBaseId) {
+      this.form.get('relatedBaseId')?.markAsTouched();
+      return;
+    }
     const word: Word = {
       id: this.word?.id ?? '',
+      ...(entryType === 'related' && v.relatedBaseId ? { baseId: v.relatedBaseId, isRelated: true, isBase: false } : {}),
+      ...(entryType === 'base' ? { isBase: true, isRelated: false } : {}),
+      createdAt: this.word?.createdAt ?? '',
       lemma: v.lemma,
       article: isNoun ? v.article ?? null : null,
       translations,

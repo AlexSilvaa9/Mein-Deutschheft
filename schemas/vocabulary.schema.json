@@ -5,6 +5,7 @@
   "type": "object",
   "required": [
     "version",
+    "wordBases",
     "words",
     "domains",
     "sets",
@@ -16,7 +17,11 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "version": { "const": 7 },
+    "version": { "const": 8 },
+    "wordBases": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/wordBase" }
+    },
     "words": {
       "type": "array",
       "items": { "$ref": "#/$defs/word" }
@@ -144,10 +149,14 @@
     },
     "word": {
       "type": "object",
-      "required": ["id", "lemma", "article", "translations", "domains", "sets", "level", "plural", "pronunciation", "notes", "wordType"],
+      "required": ["id", "createdAt", "lemma", "article", "translations", "domains", "sets", "level", "plural", "pronunciation", "notes", "wordType"],
       "additionalProperties": false,
       "properties": {
         "id": { "$ref": "#/$defs/id" },
+        "baseId": { "$ref": "#/$defs/id" },
+        "isBase": { "type": "boolean" },
+        "isRelated": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
         "lemma": { "type": "string", "minLength": 1 },
         "article": {
           "anyOf": [
@@ -155,10 +164,19 @@
             { "type": "null" }
           ]
         },
+        "articles": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/article" },
+          "uniqueItems": true
+        },
         "translations": {
           "type": "array",
-          "minItems": 1,
-          "items": { "$ref": "#/$defs/translation" }
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/translation" },
+          "allOf": [
+            { "contains": { "properties": { "language": { "const": "es" } } } },
+            { "contains": { "properties": { "language": { "const": "en" } } } }
+          ]
         },
         "domains": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "sets": { "type": "array", "items": { "$ref": "#/$defs/id" } },
@@ -188,6 +206,16 @@
           }
         }
       ]
+    },
+    "wordBase": {
+      "type": "object",
+      "required": ["id", "lemma"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "lemma": { "type": "string", "minLength": 1 },
+        "wordId": { "$ref": "#/$defs/id" }
+      }
     },
     "domain": {
       "type": "object",
