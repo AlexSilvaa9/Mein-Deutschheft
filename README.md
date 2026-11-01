@@ -72,7 +72,7 @@ src/
 
 ```json
 {
-  "version": 6,
+  "version": 7,
   "words": [{ "id", "lemma", "article|null", "wordType", "translations",
               "domains", "sets", "level", "plural", "pronunciation",
               "compoundParts", "notes" }],
@@ -82,11 +82,16 @@ src/
   "lessonCategories": [{ "id", "name", "order" }],
   "lessonSubcategories": [{ "id", "categoryId", "name", "order" }],
   "lessons": [{ "id", "categoryId", "subcategoryId", "title",
-                "summary", "content", "level", "order" }]
+                "summary", "content", "level", "order" }],
+  "lessonDoubts": [{ "id", "question", "answer" }]
 }
 ```
 
 `article` es `null` para palabras sin género gramatical, como verbos, adjetivos, números e interjecciones. Los dominios son agrupaciones semánticas; `wordType` clasifica la función gramatical por separado.
+
+El esquema JSON formal está en [`schemas/vocabulary.schema.json`](./schemas/vocabulary.schema.json). En palabras con `wordType: "noun"` se permiten artículo y datos de plural; para el resto deben ser `null` o estar vacíos. Las traducciones pueden estar en español, inglés o alemán.
+
+`pronunciation.stress` contiene `primary` para el acento principal y `secondary` para los acentos secundarios. El alemán tiene normalmente un solo acento principal por palabra, pero los compuestos pueden tener acentos secundarios.
 
 ## Sistema de colores
 

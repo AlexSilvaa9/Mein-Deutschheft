@@ -18,11 +18,13 @@ export class ExerciseService {
       switch (type) {
         case 'article':
         case 'indefinite-article':
-          return word.article !== null;
+          return word.wordType === 'noun' && word.article !== null;
         case 'plural':
           return word.wordType === 'noun' && !!word.plural.form;
         case 'pronunciation':
-          return word.pronunciation.vowels.length > 0;
+          return word.wordType === 'noun'
+            && word.pronunciation.vowels.length > 0
+            && !!word.plural.form;
         case 'translation':
           return word.translations.length > 0;
       }
@@ -53,10 +55,14 @@ export class ExerciseService {
 
   isPluralQuestion(): boolean {
     const session = this._session();
+    const word = this.getCurrentWord();
+    if (!session || !word) return false;
+    if (session.type === 'article' || session.type === 'pronunciation') return false;
+    if (session.type === 'translation' && (word.wordType !== 'noun' || !word.plural.form)) return false;
     if (session?.type === 'indefinite-article') {
       return session.currentIndex % 4 >= 2;
     }
-    return (session?.currentIndex ?? 0) % 2 === 1;
+    return session.currentIndex % 2 === 1;
   }
 
   isNegativeArticleQuestion(): boolean {

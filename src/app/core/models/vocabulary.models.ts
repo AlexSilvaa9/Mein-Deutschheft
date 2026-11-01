@@ -32,9 +32,14 @@ export interface PatternOccurrence {
 // ─── Pronunciation ────────────────────────────────────────────────────────────
 export interface Pronunciation {
   syllables: string[];        // e.g. ['Ap', 'fel']
-  stress: number;             // 1-indexed syllable
+  stress: StressInfo;
   vowels: VowelInfo[];
   patterns: PatternOccurrence[];
+}
+
+export interface StressInfo {
+  primary: number;            // 1-indexed syllable
+  secondary: number[];        // 1-indexed syllables
 }
 
 // ─── Plural morphology ────────────────────────────────────────────────────────
@@ -67,7 +72,7 @@ export interface Word {
   plural: PluralInfo;
   pronunciation: Pronunciation;
   notes: string;
-  wordType?: WordType;
+  wordType: WordType;
   compoundParts?: CompoundPart[];
 }
 
@@ -112,6 +117,12 @@ export interface Lesson {
   order: number;
 }
 
+export interface LessonDoubt {
+  id: string;
+  question: string;
+  answer: string;
+}
+
 // ─── Pronunciation Pattern (catalogue) ───────────────────────────────────────
 export interface PronunciationPattern {
   id: string;
@@ -132,6 +143,7 @@ export interface VocabularyData {
   lessonCategories?: LessonCategory[];
   lessonSubcategories?: LessonSubcategory[];
   lessons?: Lesson[];
+  lessonDoubts?: LessonDoubt[];
 }
 
 // ─── Filter state ─────────────────────────────────────────────────────────────

@@ -26,6 +26,7 @@
     ,"persistent_highlights": "Dauerhafte Markierungen"
     ,"highlights_hint": "Gilt für Karten, Details und Übungen."
     ,"highlight_color": "Farbe der Markierung"
+    ,"primary_stress_highlight": "Betonte Silbe"
     ,"unsaved_changes": "Ungespeicherte Änderungen"
   },
   "articles": {
@@ -55,6 +56,7 @@
     "syllables": "Silbentrennung",
     "stress": "Betonung",
     "syllable_stress": "Silbe {{n}}",
+    "secondary_stress": "Nebenakzente",
     "umlaut": "Umlaut",
     "yes": "Ja",
     "no": "Nein",
@@ -167,6 +169,33 @@
     ,"confirm_delete_subcategory": "„{{name}}“ und die Lektionen löschen?"
     ,"feature_info": "Information zur Vokabelhervorhebung"
     ,"feature_info_text": "Wörter aus deinen Lektionen, die auch in meinem Vokabelheft stehen, werden automatisch hervorgehoben."
+    ,"topic": "Thema"
+    ,"select_topic": "Wähle ein Thema, um seine Lektionen zu sehen."
+    ,"loading": "Lektionen werden geladen"
+    ,"pagination": "Seitennavigation der Lektionen"
+    ,"previous_page": "Vorherige Seite"
+    ,"next_page": "Nächste Seite"
+    ,"page_of": "Seite {{current}} von {{total}}"
+    ,"sections": "Lektionsbereiche"
+    ,"section_lessons": "Lektionen"
+    ,"section_doubts": "Fragen an den Lehrer"
+    ,"doubts_title": "Fragen an den Lehrer"
+    ,"doubts_hint": "Speichere hier Fragen und ergänze die Antwort, sobald du sie hast."
+    ,"new_doubt": "Neue Frage"
+    ,"question": "Frage"
+    ,"answer": "Antwort"
+    ,"answer_placeholder": "Schreibe hier später die Antwort des Lehrers..."
+    ,"answered": "Beantwortet"
+    ,"pending": "Offen"
+    ,"waiting_answer": "Antwort steht noch aus."
+    ,"no_doubts": "Du hast noch keine Fragen gespeichert."
+    ,"delete_doubt": "Frage löschen"
+    ,"confirm_delete_doubt": "Diese Frage löschen?"
+    ,"suggestions_title": "Vorschlagsbox"
+    ,"suggestions_hint": "Schreibe eine Idee oder Korrektur; dein E-Mail-Programm wird geöffnet."
+    ,"suggestions_placeholder": "Dein Vorschlag..."
+    ,"send_suggestion": "Per E-Mail senden"
+    ,"suggestions_subject": "Vorschlag für Mein Deutschheft"
   },
   "manage": {
     "title": "Verwalten",
@@ -197,6 +226,7 @@
     "article": "Artikel",
     "translation_es": "Übersetzung (ES)",
     "translation_en": "Übersetzung (EN)",
+    "translation_de": "Übersetzung (DE)",
     "level": "GER-Niveau",
     "plural_form": "Pluralform",
     "plural_suffix": "Endung",
@@ -206,6 +236,9 @@
     "syllables_placeholder": "Ap·fel",
     "syllables_hint": "Mit · (Mittelpunkt) trennen",
     "stress": "Betonte Silbe (Nr.)",
+    "primary_stress": "Hauptakzent (Silbennummer)",
+    "secondary_stress": "Nebenakzente (Silbennummern)",
+    "secondary_stress_placeholder": "z. B. 1, 3",
     "notes": "Notizen",
     "domains": "Domänen",
     "sets": "Sets",

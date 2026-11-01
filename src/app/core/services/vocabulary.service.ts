@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   VocabularyData, Word, Domain, VocabSet,
   PronunciationPattern, FilterState, DEFAULT_FILTER,
-  Article, CefrLevel, VowelQuantity, Lesson, LessonCategory, LessonSubcategory,
+  Article, CefrLevel, VowelQuantity, Lesson, LessonCategory, LessonSubcategory, LessonDoubt,
 } from '../models/vocabulary.models';
 
 const STORAGE_KEY = 'mein-deutschheft-data';
@@ -35,6 +35,7 @@ export class VocabularyService {
   readonly lessonCategories = computed(() => this._data()?.lessonCategories ?? []);
   readonly lessonSubcategories = computed(() => this._data()?.lessonSubcategories ?? []);
   readonly lessons = computed(() => this._data()?.lessons ?? []);
+  readonly lessonDoubts = computed(() => this._data()?.lessonDoubts ?? []);
 
   // ─── Filtered words ───────────────────────────────────────────────────────
   readonly filteredWords = computed(() => {
@@ -87,14 +88,28 @@ export class VocabularyService {
       lessonCategories: data.lessonCategories ?? [],
       lessonSubcategories: data.lessonSubcategories ?? [],
       lessons: data.lessons ?? [],
+      lessonDoubts: data.lessonDoubts ?? [],
       words: data.words.map(word => ({
         ...word,
-        article: word.wordType && word.wordType !== 'noun' ? null : word.article ?? null,
+        wordType: word.wordType ?? 'noun',
+        article: (word.wordType ?? 'noun') !== 'noun' ? null : word.article ?? null,
+        plural: (word.wordType ?? 'noun') !== 'noun'
+          ? { ...word.plural, form: '', suffix: '', umlaut: false, vowelChanges: [] }
+          : word.plural,
         pronunciation: {
           ...word.pronunciation,
+          stress: this.normalizeStress(word.pronunciation.stress),
           vowels: this.normalizeVowels(word.lemma, word.pronunciation.syllables, word.pronunciation.vowels),
         },
       })),
+    };
+  }
+
+  private normalizeStress(stress: Word['pronunciation']['stress'] | number): Word['pronunciation']['stress'] {
+    if (typeof stress === 'number') return { primary: stress, secondary: [] };
+    return {
+      primary: stress?.primary ?? 1,
+      secondary: stress?.secondary ?? [],
     };
   }
 
@@ -154,6 +169,27 @@ export class VocabularyService {
     const data = this._data();
     if (!data) return;
     this._data.set({ ...data, lessons: this.lessons().filter(item => item.id !== id) });
+    this.persist();
+  }
+
+  addLessonDoubt(doubt: LessonDoubt): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessonDoubts: [...this.lessonDoubts(), doubt] });
+    this.persist();
+  }
+
+  updateLessonDoubt(doubt: LessonDoubt): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessonDoubts: this.lessonDoubts().map(item => item.id === doubt.id ? doubt : item) });
+    this.persist();
+  }
+
+  deleteLessonDoubt(id: string): void {
+    const data = this._data();
+    if (!data) return;
+    this._data.set({ ...data, lessonDoubts: this.lessonDoubts().filter(item => item.id !== id) });
     this.persist();
   }
 

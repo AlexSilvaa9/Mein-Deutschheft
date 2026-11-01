@@ -62,7 +62,7 @@ import { TranslatorService } from '../../core/services/translator.service';
                 {{ t.text }}
               </span>
             </div>
-            <span class="tag tag--structure word-type">{{ ('word_types.' + (word()!.wordType ?? 'noun')) | translate }}</span>
+            <span class="tag tag--structure word-type">{{ ('word_types.' + word()!.wordType) | translate }}</span>
           </div>
         </section>
 
@@ -96,13 +96,19 @@ import { TranslatorService } from '../../core/services/translator.service';
               <dt>{{ 'word_detail.syllables' | translate }}</dt>
               <dd class="syllables-display">
                 <span *ngFor="let s of word()!.pronunciation.syllables; let i = index">
-                  <span class="syllable" [class.syllable--stressed]="i + 1 === word()!.pronunciation.stress">{{ s }}</span>
+                  <span class="syllable"
+                    [class.syllable--stressed]="i + 1 === word()!.pronunciation.stress.primary"
+                    [class.syllable--secondary-stressed]="word()!.pronunciation.stress.secondary.includes(i + 1)">{{ s }}</span>
                   <span class="syllable-sep" *ngIf="i < word()!.pronunciation.syllables.length - 1"> · </span>
                 </span>
               </dd>
 
               <dt>{{ 'word_detail.stress' | translate }}</dt>
-              <dd>{{ 'word_detail.syllable_stress' | translate:{ n: word()!.pronunciation.stress } }}</dd>
+              <dd>{{ 'word_detail.syllable_stress' | translate:{ n: word()!.pronunciation.stress.primary } }}</dd>
+              <ng-container *ngIf="word()!.pronunciation.stress.secondary.length > 0">
+                <dt>{{ 'word_detail.secondary_stress' | translate }}</dt>
+                <dd>{{ word()!.pronunciation.stress.secondary.join(', ') }}</dd>
+              </ng-container>
 
               <dt>{{ 'word_detail.syllable_count' | translate:{ n: word()!.pronunciation.syllables.length } }}</dt>
               <dd></dd>
@@ -242,6 +248,7 @@ import { TranslatorService } from '../../core/services/translator.service';
     .syllables-display { font-size: 1.1rem; }
     .syllable { font-weight: 600; }
     .syllable--stressed { color: var(--color-primary); text-decoration: underline; }
+    .syllable--secondary-stressed { color: var(--color-primary-dark); text-decoration: dotted underline; }
     .syllable-sep { color: var(--color-text-muted); }
     .tag {
       font-size: 0.75rem; font-weight: 500;

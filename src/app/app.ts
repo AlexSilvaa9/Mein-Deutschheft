@@ -203,10 +203,10 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
     .language-option__check { margin-left: auto; }
     .language-flag { font-size: 1.1rem; line-height: 1; }
     .highlight-menu { position: relative; }
-    .highlight-menu__panel { position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 200; width: 18rem; padding: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .highlight-menu__panel { position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 200; width: min(22rem, calc(100vw - 1.5rem)); max-height: min(32rem, calc(100vh - 5rem)); overflow-y: auto; padding: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); scrollbar-color: var(--color-primary) var(--color-primary-light); scrollbar-width: thin; }
     .highlight-menu__hint { display: block; color: var(--color-text-muted); font-size: 0.75rem; margin: 0.25rem 0 0.75rem; }
     .highlight-option, .highlight-pattern { display: flex; align-items: center; gap: 0.5rem; color: var(--color-text); font-size: 0.8rem; padding: 0.35rem 0; }
-    .highlight-option span, .highlight-pattern span { flex: 1; }
+    .highlight-option span, .highlight-pattern span { flex: 1; min-width: 0; overflow-wrap: anywhere; white-space: normal; }
     .highlight-pattern { border-top: 1px solid var(--color-border); }
     .highlight-pattern small { color: var(--color-text-muted); }
     .highlight-color { width: 1.5rem; height: 1.5rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
@@ -248,7 +248,7 @@ import { HighlightRule, HighlightService } from './core/services/highlight.servi
       .nav-link { padding: 0.35rem 0.65rem; }
       .nav-link__icon { font-size: 1.05rem; }
       .theme-toggle { width: 2rem; height: 2rem; }
-      .highlight-menu__panel { position: fixed; top: 4.25rem; right: 0.75rem; left: 0.75rem; width: auto; max-height: calc(100dvh - 5rem); overflow-y: auto; }
+      .highlight-menu__panel { position: fixed; top: 4.25rem; right: 0.75rem; left: 0.75rem; width: auto; max-height: calc(100dvh - 5rem); }
       .language-dropdown__menu { right: 0; }
     }
     @media (min-width: 641px) and (max-width: 820px) {
@@ -275,6 +275,7 @@ export class App {
   highlightOptions: { rule: HighlightRule; labelKey: string }[] = [
     { rule: { id: 'long-vowel', color: '#f59e0b' }, labelKey: 'word_detail.vowel_long' },
     { rule: { id: 'short-vowel', color: '#3b82f6' }, labelKey: 'word_detail.vowel_short' },
+    { rule: { id: 'primary-stress', color: '#ef4444' }, labelKey: 'app.primary_stress_highlight' },
   ];
   darkMode = signal(this.getInitialTheme());
 

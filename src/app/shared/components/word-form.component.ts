@@ -20,7 +20,7 @@ import { TranslatePipe } from '../pipes/translate.pipe';
 
         <div class="form-group">
           <label>{{ 'word_form.article' | translate }}</label>
-          <select formControlName="article" class="form-select">
+          <select formControlName="article" class="form-select" [disabled]="selectedWordType() !== 'noun'">
             <option [ngValue]="null">—</option>
             <option *ngFor="let a of articles" [value]="a">{{ a }}</option>
           </select>
@@ -28,7 +28,7 @@ import { TranslatePipe } from '../pipes/translate.pipe';
 
         <div class="form-group">
           <label>{{ 'word_form.word_type' | translate }}</label>
-          <select formControlName="wordType" class="form-select">
+          <select formControlName="wordType" class="form-select" (change)="onWordTypeChange()">
             <option *ngFor="let type of wordTypes" [value]="type">{{ ('word_types.' + type) | translate }}</option>
           </select>
         </div>
@@ -44,6 +44,11 @@ import { TranslatePipe } from '../pipes/translate.pipe';
           <input formControlName="translationEn" class="form-input" />
         </div>
 
+        <div class="form-group">
+          <label>{{ 'word_form.translation_de' | translate }}</label>
+          <input formControlName="translationDe" class="form-input" />
+        </div>
+
         <!-- Level -->
         <div class="form-group">
           <label>{{ 'word_form.level' | translate }}</label>
@@ -55,17 +60,17 @@ import { TranslatePipe } from '../pipes/translate.pipe';
         <!-- Plural -->
         <div class="form-group">
           <label>{{ 'word_form.plural_form' | translate }}</label>
-          <input formControlName="pluralForm" class="form-input" />
+          <input formControlName="pluralForm" class="form-input" [disabled]="selectedWordType() !== 'noun'" />
         </div>
 
         <div class="form-group">
           <label>{{ 'word_form.plural_suffix' | translate }}</label>
-          <input formControlName="pluralSuffix" class="form-input" [placeholder]="'word_form.plural_suffix_placeholder' | translate" />
+          <input formControlName="pluralSuffix" class="form-input" [disabled]="selectedWordType() !== 'noun'" [placeholder]="'word_form.plural_suffix_placeholder' | translate" />
         </div>
 
         <div class="form-group form-group--checkbox">
           <label>
-            <input type="checkbox" formControlName="pluralUmlaut" />
+            <input type="checkbox" formControlName="pluralUmlaut" [disabled]="selectedWordType() !== 'noun'" />
             {{ 'word_form.plural_umlaut' | translate }}
           </label>
         </div>
@@ -78,8 +83,13 @@ import { TranslatePipe } from '../pipes/translate.pipe';
         </div>
 
         <div class="form-group">
-          <label>{{ 'word_form.stress' | translate }}</label>
-          <input type="number" formControlName="stress" class="form-input" min="1" />
+          <label>{{ 'word_form.primary_stress' | translate }}</label>
+          <input type="number" formControlName="primaryStress" class="form-input" min="1" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'word_form.secondary_stress' | translate }}</label>
+          <input formControlName="secondaryStress" class="form-input" [placeholder]="'word_form.secondary_stress_placeholder' | translate" />
         </div>
 
         <div class="form-group form-group--full">
@@ -148,6 +158,7 @@ import { TranslatePipe } from '../pipes/translate.pipe';
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
+
     .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
     .form-group--full { grid-column: 1 / -1; }
     .form-group--checkbox { flex-direction: row; align-items: center; gap: 0.5rem; }
@@ -220,12 +231,14 @@ export class WordFormComponent implements OnInit {
       wordType: [this.word?.wordType ?? 'noun', Validators.required],
       translationEs: [this.word?.translations.find(t => t.language === 'es')?.text ?? ''],
       translationEn: [this.word?.translations.find(t => t.language === 'en')?.text ?? ''],
+      translationDe: [this.word?.translations.find(t => t.language === 'de')?.text ?? ''],
       level: [this.word?.level ?? 'A1'],
       pluralForm: [this.word?.plural.form ?? ''],
       pluralSuffix: [this.word?.plural.suffix ?? ''],
       pluralUmlaut: [this.word?.plural.umlaut ?? false],
       syllables: [this.word?.pronunciation.syllables.join('·') ?? ''],
-      stress: [this.word?.pronunciation.stress ?? 1],
+      primaryStress: [this.word?.pronunciation.stress.primary ?? 1],
+      secondaryStress: [this.word?.pronunciation.stress.secondary.join(', ') ?? ''],
       vowels: [this.word?.pronunciation.vowels.map(vowel =>
         `${vowel.grapheme}:${vowel.quantity === 'long' ? 'larga' : 'corta'}`,
       ).join(', ') ?? ''],
@@ -236,6 +249,21 @@ export class WordFormComponent implements OnInit {
   hasError(field: string): boolean {
     const ctrl = this.form.get(field);
     return !!(ctrl?.invalid && ctrl.touched);
+  }
+
+  selectedWordType(): WordType {
+    return this.form.get('wordType')?.value ?? 'noun';
+  }
+
+  onWordTypeChange(): void {
+    if (this.selectedWordType() !== 'noun') {
+      this.form.patchValue({
+        article: null,
+        pluralForm: '',
+        pluralSuffix: '',
+        pluralUmlaut: false,
+      });
+    }
   }
 
   isDomainSelected(id: string): boolean { return this.selectedDomains.includes(id); }
@@ -270,6 +298,8 @@ export class WordFormComponent implements OnInit {
     const translations = [];
     if (v.translationEs) translations.push({ text: v.translationEs, language: 'es' as const });
     if (v.translationEn) translations.push({ text: v.translationEn, language: 'en' as const });
+    if (v.translationDe) translations.push({ text: v.translationDe, language: 'de' as const });
+    const isNoun = v.wordType === 'noun';
 
     const syllables = v.syllables
       ? v.syllables.split('·').map((s: string) => s.trim()).filter(Boolean)
@@ -279,20 +309,23 @@ export class WordFormComponent implements OnInit {
     const word: Word = {
       id: this.word?.id ?? '',
       lemma: v.lemma,
-      article: v.article ?? null,
+      article: isNoun ? v.article ?? null : null,
       translations,
       domains: this.selectedDomains,
       sets: this.selectedSets,
       level: v.level,
       plural: {
-        form: v.pluralForm,
-        suffix: v.pluralSuffix,
-        umlaut: v.pluralUmlaut,
-        vowelChanges: this.word?.plural.vowelChanges ?? [],
+        form: isNoun ? v.pluralForm : '',
+        suffix: isNoun ? v.pluralSuffix : '',
+        umlaut: isNoun ? v.pluralUmlaut : false,
+        vowelChanges: isNoun ? this.word?.plural.vowelChanges ?? [] : [],
       },
       pronunciation: {
         syllables,
-        stress: v.stress,
+        stress: {
+          primary: Number(v.primaryStress) || 1,
+          secondary: this.parseSecondaryStress(v.secondaryStress),
+        },
         vowels,
         patterns: this.buildPatternOccurrences(syllables),
       },
@@ -326,6 +359,15 @@ export class WordFormComponent implements OnInit {
         quantity: normalizedQuantity === 'larga' || normalizedQuantity === 'long' ? 'long' as const : 'short' as const,
       }];
     });
+  }
+
+  private parseSecondaryStress(value: string): number[] {
+    return [...new Set(
+      String(value ?? '')
+        .split(/[,\s]+/)
+        .map((item: string) => Number(item))
+        .filter((stress: number) => Number.isInteger(stress) && stress > 0),
+    )];
   }
 
   private buildPatternOccurrences(syllables: string[]): Word['pronunciation']['patterns'] {

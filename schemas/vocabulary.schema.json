@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mein-deutschheft.local/schemas/vocabulary.schema.json",
+  "title": "Mein Deutschheft vocabulary data",
+  "type": "object",
+  "required": [
+    "version",
+    "words",
+    "domains",
+    "sets",
+    "pronunciationPatterns",
+    "lessonCategories",
+    "lessonSubcategories",
+    "lessons"
+    ,"lessonDoubts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 7 },
+    "words": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/word" }
+    },
+    "domains": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/domain" }
+    },
+    "sets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/set" }
+    },
+    "pronunciationPatterns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/pronunciationPattern" }
+    },
+    "lessonCategories": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lessonCategory" }
+    },
+    "lessonSubcategories": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lessonSubcategory" }
+    },
+    "lessons": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lesson" }
+    },
+    "lessonDoubts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lessonDoubt" }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1 },
+    "level": { "enum": ["A1", "A2", "B1", "B2", "C1", "C2"] },
+    "wordType": { "enum": ["noun", "verb", "adjective", "phrase", "number"] },
+    "article": { "enum": ["der", "die", "das"] },
+    "translation": {
+      "type": "object",
+      "required": ["text", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "language": { "enum": ["es", "en", "de"] }
+      }
+    },
+    "vowel": {
+      "type": "object",
+      "required": ["grapheme", "start", "end", "syllable", "quantity"],
+      "additionalProperties": false,
+      "properties": {
+        "grapheme": { "type": "string", "minLength": 1 },
+        "start": { "type": "integer", "minimum": 1 },
+        "end": { "type": "integer", "minimum": 1 },
+        "syllable": { "type": "integer", "minimum": 1 },
+        "quantity": { "enum": ["short", "long"] }
+      }
+    },
+    "patternOccurrence": {
+      "type": "object",
+      "required": ["patternId", "start", "end", "syllable"],
+      "additionalProperties": false,
+      "properties": {
+        "patternId": { "$ref": "#/$defs/id" },
+        "start": { "type": "integer", "minimum": 1 },
+        "end": { "type": "integer", "minimum": 1 },
+        "syllable": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "plural": {
+      "type": "object",
+      "required": ["form", "suffix", "umlaut", "vowelChanges"],
+      "additionalProperties": false,
+      "properties": {
+        "form": { "type": "string" },
+        "suffix": { "type": "string" },
+        "umlaut": { "type": "boolean" },
+        "vowelChanges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "to"],
+            "additionalProperties": false,
+            "properties": {
+              "from": { "type": "string" },
+              "to": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "pronunciation": {
+      "type": "object",
+      "required": ["syllables", "stress", "vowels", "patterns"],
+      "additionalProperties": false,
+      "properties": {
+        "syllables": { "type": "array", "items": { "type": "string" } },
+        "stress": { "$ref": "#/$defs/stress" },
+        "vowels": { "type": "array", "items": { "$ref": "#/$defs/vowel" } },
+        "patterns": { "type": "array", "items": { "$ref": "#/$defs/patternOccurrence" } }
+      }
+    },
+    "stress": {
+      "type": "object",
+      "required": ["primary", "secondary"],
+      "additionalProperties": false,
+      "properties": {
+        "primary": { "type": "integer", "minimum": 1 },
+        "secondary": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "compoundPart": {
+      "type": "object",
+      "required": ["lemma"],
+      "additionalProperties": false,
+      "properties": {
+        "lemma": { "type": "string", "minLength": 1 },
+        "meaning": { "type": "string" }
+      }
+    },
+    "word": {
+      "type": "object",
+      "required": ["id", "lemma", "article", "translations", "domains", "sets", "level", "plural", "pronunciation", "notes", "wordType"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "lemma": { "type": "string", "minLength": 1 },
+        "article": {
+          "anyOf": [
+            { "$ref": "#/$defs/article" },
+            { "type": "null" }
+          ]
+        },
+        "translations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/translation" }
+        },
+        "domains": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "sets": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "level": { "$ref": "#/$defs/level" },
+        "plural": { "$ref": "#/$defs/plural" },
+        "pronunciation": { "$ref": "#/$defs/pronunciation" },
+        "notes": { "type": "string" },
+        "wordType": { "$ref": "#/$defs/wordType" },
+        "compoundParts": { "type": "array", "items": { "$ref": "#/$defs/compoundPart" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "wordType": { "const": "noun" } } },
+          "then": {},
+          "else": {
+            "properties": {
+              "article": { "type": "null" },
+              "plural": {
+                "properties": {
+                  "form": { "const": "" },
+                  "suffix": { "const": "" },
+                  "umlaut": { "const": false },
+                  "vowelChanges": { "maxItems": 0 }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "domain": {
+      "type": "object",
+      "required": ["id", "name", "parentId"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "nameEn": { "type": "string" },
+        "nameDe": { "type": "string" },
+        "parentId": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] }
+      }
+    },
+    "set": {
+      "type": "object",
+      "required": ["id", "name", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "pronunciationPattern": {
+      "type": "object",
+      "required": ["id", "grapheme", "sound", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "grapheme": { "type": "string", "minLength": 1 },
+        "sound": { "type": "string" },
+        "description": { "type": "string" },
+        "descriptionEn": { "type": "string" },
+        "descriptionDe": { "type": "string" }
+      }
+    },
+    "lessonCategory": {
+      "type": "object",
+      "required": ["id", "name", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "lessonSubcategory": {
+      "type": "object",
+      "required": ["id", "categoryId", "name", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "categoryId": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "required": ["id", "categoryId", "subcategoryId", "title", "summary", "content", "level", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "categoryId": { "$ref": "#/$defs/id" },
+        "subcategoryId": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "level": { "$ref": "#/$defs/level" },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "lessonDoubt": {
+      "type": "object",
+      "required": ["id", "question", "answer"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "question": { "type": "string", "minLength": 1 },
+        "answer": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 type InfoTab = 'guide' | 'technical';
 
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="page info-page">
       <header class="page__header">
@@ -93,6 +94,20 @@ type InfoTab = 'guide' | 'technical';
             <span>El navegador no es una copia de seguridad. Exporta el JSON antes de borrar los datos del sitio o cambiar de dispositivo.</span>
           </div>
         </article>
+
+        <article class="info-card suggestion-box">
+          <div class="info-card__icon"><i class="bi bi-envelope-paper" aria-hidden="true"></i></div>
+          <div class="suggestion-box__content">
+            <h2>Buzón de sugerencias</h2>
+            <p>Escribe una idea, corrección o mejora y se abrirá tu cliente de correo para enviarla.</p>
+            <textarea class="suggestion-box__input" [(ngModel)]="suggestionText" rows="4"
+              placeholder="Tu sugerencia..."></textarea>
+            <button class="btn btn--secondary btn--sm" type="button" (click)="sendSuggestion()" [disabled]="!suggestionText.trim()">
+              <i class="bi bi-send" aria-hidden="true"></i>Enviar por correo
+            </button>
+          </div>
+        </article>
+
       </section>
 
       <section *ngIf="activeTab() === 'technical'" class="info-content">
@@ -122,7 +137,7 @@ type InfoTab = 'guide' | 'technical';
           </article>
           <article class="info-card">
             <h2>Pronunciación</h2>
-            <p>Cada palabra guarda sílabas, posición del acento, vocales con cantidad corta/larga y ocurrencias de patrones. Las posiciones son 1-indexadas para que sean legibles y consistentes con las sílabas.</p>
+            <p>Cada palabra guarda sílabas, acento principal, acentos secundarios, vocales con cantidad corta/larga y ocurrencias de patrones. Una palabra puede tener varias vocales largas, pero la cantidad vocálica y el acento son propiedades independientes. Las posiciones son 1-indexadas.</p>
           </article>
           <article class="info-card">
             <h2>Persistencia local</h2>
@@ -153,6 +168,9 @@ type InfoTab = 'guide' | 'technical';
     .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .info-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 1.35rem 1.5rem; }
     .info-card--highlight { display: flex; align-items: flex-start; gap: 1rem; background: var(--color-surface-hover); box-shadow: inset 3px 0 var(--color-primary), var(--shadow-sm); }
+    .suggestion-box { display: flex; align-items: flex-start; gap: 1rem; }
+    .suggestion-box__content { flex: 1; }
+    .suggestion-box__input { display: block; width: 100%; min-height: 6rem; margin: .75rem 0; padding: .65rem .75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font: inherit; resize: vertical; }
     .info-card__icon { align-items: center; background: var(--color-primary-light); border: 0; border-radius: 0.7rem; color: var(--color-primary); display: flex; flex: 0 0 2.5rem; height: 2.5rem; justify-content: center; font-size: 1.1rem; }
     .info-card:not(.info-card--highlight) > .info-card__icon { margin-bottom: 0.9rem; }
     .info-card h2 { font-size: 1.05rem; margin: 0 0 0.55rem; }
@@ -174,11 +192,12 @@ type InfoTab = 'guide' | 'technical';
     .reason-list { display: grid; gap: 0.85rem; list-style: none; margin: 0.75rem 0 0; padding: 0; }
     .reason-list li { align-items: flex-start; display: flex; gap: 0.7rem; }
     .reason-list i { color: var(--color-primary); margin-top: 0.25rem; }
-    @media (max-width: 700px) { .info-tabs { display: flex; } .info-tab { flex: 1; justify-content: center; } .info-grid { grid-template-columns: 1fr; } .info-card--highlight { display: block; } .info-card--highlight .info-card__icon { margin-bottom: 0.9rem; } }
+    @media (max-width: 700px) { .info-tabs { display: flex; } .info-tab { flex: 1; justify-content: center; } .info-grid { grid-template-columns: 1fr; } .info-card--highlight, .suggestion-box { display: block; } .info-card--highlight .info-card__icon, .suggestion-box .info-card__icon { margin-bottom: 0.9rem; } }
   `],
 })
 export class InfoComponent {
   activeTab = signal<InfoTab>('guide');
+  suggestionText = '';
   dataModel = `{
   "version": 1,
   "words": [],
@@ -186,4 +205,11 @@ export class InfoComponent {
   "sets": [],
   "pronunciationPatterns": []
 }`;
+
+  sendSuggestion(): void {
+    const body = this.suggestionText.trim();
+    if (!body) return;
+    const subject = 'Sugerencia para Mein Deutschheft';
+    window.location.href = `mailto:alexsilvaebg9+mein.deutschheft@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
 }

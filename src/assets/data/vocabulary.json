@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "words": [
     {
       "id": "word_001",
@@ -32,7 +32,10 @@
         "syllables": [
           "Hallo"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -90,9 +93,17 @@
       },
       "pronunciation": {
         "syllables": [
-          "Morgen"
+          "Gu",
+          "ten",
+          "Mor",
+          "gen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 4,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -105,21 +116,21 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "o",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 11,
             "end": 11,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -164,9 +175,16 @@
       },
       "pronunciation": {
         "syllables": [
+          "Gu",
+          "ten",
           "Tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 3,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -179,14 +197,14 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -224,9 +242,17 @@
       },
       "pronunciation": {
         "syllables": [
-          "Abend"
+          "Gu",
+          "ten",
+          "A",
+          "bend"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 3,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -239,21 +265,21 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -291,9 +317,16 @@
       },
       "pronunciation": {
         "syllables": [
+          "Gu",
+          "te",
           "Nacht"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 3,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -306,14 +339,14 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -372,7 +405,10 @@
         "syllables": [
           "Tschüss"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -459,9 +495,18 @@
       },
       "pronunciation": {
         "syllables": [
-          "Wiedersehen"
+          "Auf",
+          "Wie",
+          "der",
+          "se",
+          "hen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "au",
@@ -474,28 +519,28 @@
             "grapheme": "ie",
             "start": 6,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 12,
             "end": 12,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 14,
             "end": 14,
-            "syllable": 1,
+            "syllable": 5,
             "quantity": "short"
           }
         ],
@@ -572,7 +617,10 @@
         "syllables": [
           "Danke"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -625,7 +673,10 @@
         "syllables": [
           "Bitte"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -676,9 +727,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Entschuldigung"
+          "Ent",
+          "schul",
+          "di",
+          "gung"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -691,21 +748,21 @@
             "grapheme": "u",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 10,
             "end": 10,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "u",
             "start": 12,
             "end": 12,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -774,9 +831,17 @@
       },
       "pronunciation": {
         "syllables": [
+          "Wie",
+          "geht",
+          "es",
           "dir"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -789,21 +854,21 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 10,
             "end": 10,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 14,
             "end": 14,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -866,9 +931,17 @@
       },
       "pronunciation": {
         "syllables": [
+          "Mir",
+          "geht",
+          "es",
           "gut"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -881,21 +954,21 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 10,
             "end": 10,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "u",
             "start": 14,
             "end": 14,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -946,9 +1019,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Student"
+          "Stu",
+          "dent"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -961,7 +1038,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1006,9 +1083,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Studentin"
+          "Stu",
+          "den",
+          "tin"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -1021,14 +1103,14 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -1073,9 +1155,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Schüler"
+          "Schü",
+          "ler"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -1088,7 +1174,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1169,9 +1255,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Schülerin"
+          "Schü",
+          "le",
+          "rin"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -1184,14 +1275,14 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -1272,9 +1363,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Lehrer"
+          "Leh",
+          "rer"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -1287,7 +1382,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1344,9 +1439,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Lehrerin"
+          "Leh",
+          "re",
+          "rin"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -1359,14 +1459,14 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -1425,7 +1525,10 @@
         "syllables": [
           "Arzt"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -1482,9 +1585,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Ärztin"
+          "Ärz",
+          "tin"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ä",
@@ -1497,7 +1604,7 @@
             "grapheme": "i",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1554,9 +1661,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Ingenieur"
+          "In",
+          "ge",
+          "ni",
+          "eur"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 4,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -1569,21 +1682,21 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "ie",
             "start": 6,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           },
           {
             "grapheme": "u",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           }
         ],
@@ -1640,9 +1753,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Arbeit"
+          "Ar",
+          "beit"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -1655,7 +1772,7 @@
             "grapheme": "ei",
             "start": 4,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -1706,9 +1823,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Beruf"
+          "Be",
+          "ruf"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -1721,7 +1842,7 @@
             "grapheme": "u",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1774,7 +1895,10 @@
         "syllables": [
           "Leute"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -1834,7 +1958,10 @@
         "syllables": [
           "Land"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -1878,9 +2005,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Sprache"
+          "Spra",
+          "che"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -1893,7 +2024,7 @@
             "grapheme": "e",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -1964,7 +2095,10 @@
         "syllables": [
           "Deutsch"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -2047,7 +2181,10 @@
         "syllables": [
           "Englisch"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -2125,7 +2262,10 @@
         "syllables": [
           "Spanisch"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -2207,9 +2347,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "kommen"
+          "kom",
+          "men"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -2222,7 +2366,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2260,9 +2404,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "wohnen"
+          "woh",
+          "nen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -2275,7 +2423,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2328,7 +2476,10 @@
         "syllables": [
           "sein"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -2379,9 +2530,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "haben"
+          "ha",
+          "ben"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -2394,7 +2549,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2439,9 +2594,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "lernen"
+          "ler",
+          "nen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -2454,7 +2613,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2505,9 +2664,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "sprechen"
+          "spre",
+          "chen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -2520,7 +2683,7 @@
             "grapheme": "e",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2589,9 +2752,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "hören"
+          "hö",
+          "ren"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ö",
@@ -2604,7 +2771,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2661,9 +2828,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "machen"
+          "ma",
+          "chen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -2676,7 +2847,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2733,9 +2904,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "kochen"
+          "ko",
+          "chen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -2748,7 +2923,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2805,9 +2980,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "singen"
+          "sin",
+          "gen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -2820,7 +2999,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2858,9 +3037,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "tanzen"
+          "tan",
+          "zen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -2873,7 +3056,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2918,9 +3101,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "joggen"
+          "jog",
+          "gen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -2933,7 +3120,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -2978,9 +3165,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "schwimmen"
+          "schwim",
+          "men"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -2993,7 +3184,7 @@
             "grapheme": "e",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3062,9 +3253,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "reisen"
+          "rei",
+          "sen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -3077,7 +3272,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3128,9 +3323,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "gehen"
+          "ge",
+          "hen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3143,7 +3342,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3188,9 +3387,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "fotografieren"
+          "fo",
+          "to",
+          "gra",
+          "fie",
+          "ren"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 4,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -3203,28 +3409,28 @@
             "grapheme": "o",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "ie",
             "start": 9,
             "end": 10,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 12,
             "end": 12,
-            "syllable": 1,
+            "syllable": 5,
             "quantity": "short"
           }
         ],
@@ -3281,9 +3487,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "spielen"
+          "spie",
+          "len"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -3296,7 +3506,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3347,9 +3557,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "lesen"
+          "le",
+          "sen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3362,7 +3576,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3400,9 +3614,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "schreiben"
+          "schrei",
+          "ben"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -3415,7 +3633,7 @@
             "grapheme": "e",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3492,7 +3710,10 @@
         "syllables": [
           "gern"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3549,9 +3770,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "gerade"
+          "ge",
+          "ra",
+          "de"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3564,14 +3790,14 @@
             "grapheme": "a",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -3624,7 +3850,10 @@
         "syllables": [
           "schnell"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3695,7 +3924,10 @@
         "syllables": [
           "schön"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ö",
@@ -3770,9 +4002,19 @@
       },
       "pronunciation": {
         "syllables": [
-          "gehen"
+          "ir",
+          "gend",
+          "wo",
+          "hin",
+          "ge",
+          "hen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 4,
+          "secondary": [
+            5
+          ]
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -3785,35 +4027,35 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "o",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           },
           {
             "grapheme": "i",
             "start": 10,
             "end": 10,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 14,
             "end": 14,
-            "syllable": 1,
+            "syllable": 5,
             "quantity": "long"
           },
           {
             "grapheme": "e",
             "start": 16,
             "end": 16,
-            "syllable": 1,
+            "syllable": 6,
             "quantity": "short"
           }
         ],
@@ -3870,9 +4112,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Kino"
+          "Ki",
+          "no"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -3885,7 +4131,7 @@
             "grapheme": "o",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -3923,9 +4169,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Restaurant"
+          "Res",
+          "tau",
+          "rant"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 3,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -3938,14 +4189,14 @@
             "grapheme": "au",
             "start": 5,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           },
           {
             "grapheme": "a",
             "start": 8,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -4002,9 +4253,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Café"
+          "Ca",
+          "fé"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -4048,9 +4303,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Stadion"
+          "Sta",
+          "di",
+          "on"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -4063,14 +4323,14 @@
             "grapheme": "i",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "o",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -4115,9 +4375,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Theater"
+          "The",
+          "a",
+          "ter"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -4130,14 +4395,14 @@
             "grapheme": "a",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -4194,9 +4459,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Museum"
+          "Mu",
+          "se",
+          "um"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -4209,7 +4479,7 @@
             "grapheme": "eu",
             "start": 4,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -4254,9 +4524,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Schwimmbad"
+          "Schwimm",
+          "bad"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -4269,7 +4543,7 @@
             "grapheme": "a",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -4350,7 +4624,10 @@
         "syllables": [
           "Haus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "au",
@@ -4407,9 +4684,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Rathaus"
+          "Rat",
+          "haus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -4422,7 +4705,7 @@
             "grapheme": "au",
             "start": 5,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -4489,9 +4772,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "Krankenhaus"
+          "Kran",
+          "ken",
+          "haus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            3
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -4504,14 +4794,14 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "au",
             "start": 9,
             "end": 10,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           }
         ],
@@ -4578,9 +4868,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "Konzerthaus"
+          "Kon",
+          "zert",
+          "haus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            3
+          ]
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -4593,14 +4890,14 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "au",
             "start": 9,
             "end": 10,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           }
         ],
@@ -4679,9 +4976,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Kirche"
+          "Kir",
+          "che"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -4694,7 +4995,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -4759,7 +5060,10 @@
         "syllables": [
           "Turm"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -4810,9 +5114,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Hotel"
+          "Ho",
+          "tel"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -4825,7 +5133,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -4870,9 +5178,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Brücke"
+          "Brü",
+          "cke"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -4885,7 +5197,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -4938,7 +5250,10 @@
         "syllables": [
           "Park"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -4991,7 +5306,10 @@
         "syllables": [
           "Markt"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5042,9 +5360,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Bahnhof"
+          "Bahn",
+          "hof"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5057,7 +5381,7 @@
             "grapheme": "o",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -5102,9 +5426,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Hafen"
+          "Ha",
+          "fen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5117,7 +5445,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -5164,7 +5492,10 @@
         "syllables": [
           "See"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -5217,7 +5548,10 @@
         "syllables": [
           "Fluss"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -5270,7 +5604,10 @@
         "syllables": [
           "Meer"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -5336,7 +5673,10 @@
         "syllables": [
           "Auto"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "au",
@@ -5394,9 +5734,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Straße"
+          "Stra",
+          "ße"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5409,7 +5753,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -5468,7 +5812,10 @@
         "syllables": [
           "Glas"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5512,9 +5859,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Wasser"
+          "Was",
+          "ser"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5527,7 +5878,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -5590,9 +5941,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Computer"
+          "Com",
+          "pu",
+          "ter"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -5605,14 +5961,14 @@
             "grapheme": "u",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -5665,7 +6021,10 @@
         "syllables": [
           "links"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -5711,7 +6070,10 @@
         "syllables": [
           "rechts"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -5780,9 +6142,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "geradeaus"
+          "ge",
+          "ra",
+          "de",
+          "aus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 4,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -5795,21 +6163,21 @@
             "grapheme": "a",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "au",
             "start": 7,
             "end": 8,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "long"
           }
         ],
@@ -5866,9 +6234,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Fahrrad"
+          "Fahr",
+          "rad"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5881,7 +6255,7 @@
             "grapheme": "a",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -5934,7 +6308,10 @@
         "syllables": [
           "Bus"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -5978,9 +6355,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "Straßenbahn"
+          "Stra",
+          "ßen",
+          "bahn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            3
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -5993,14 +6377,14 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           }
         ],
@@ -6075,7 +6459,10 @@
         "syllables": [
           "Zug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -6128,7 +6515,10 @@
         "syllables": [
           "U-Bahn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -6188,7 +6578,10 @@
         "syllables": [
           "S-Bahn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -6241,7 +6634,10 @@
         "syllables": [
           "Schiff"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -6312,7 +6708,10 @@
         "syllables": [
           "Flugzeug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -6386,9 +6785,14 @@
       },
       "pronunciation": {
         "syllables": [
-          "Fahrkarte"
+          "Fahr",
+          "kar",
+          "te"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -6401,14 +6805,14 @@
             "grapheme": "a",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "e",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -6471,7 +6875,10 @@
         "syllables": [
           "nach"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -6536,7 +6943,10 @@
         "syllables": [
           "zu"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -6587,9 +6997,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Montag"
+          "Mon",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -6602,7 +7018,7 @@
             "grapheme": "a",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -6640,9 +7056,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Dienstag"
+          "Diens",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -6655,7 +7077,7 @@
             "grapheme": "a",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -6706,9 +7128,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Mittwoch"
+          "Mitt",
+          "woch"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "i",
@@ -6721,7 +7149,7 @@
             "grapheme": "o",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -6784,9 +7212,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "Donnerstag"
+          "Don",
+          "ners",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            3
+          ]
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -6799,14 +7234,14 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "a",
             "start": 9,
             "end": 9,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           }
         ],
@@ -6863,9 +7298,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Freitag"
+          "Frei",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -6878,7 +7319,7 @@
             "grapheme": "a",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -6929,9 +7370,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Samstag"
+          "Sams",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -6944,7 +7391,7 @@
             "grapheme": "a",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -6989,9 +7436,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Sonntag"
+          "Sonn",
+          "tag"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -7004,7 +7457,7 @@
             "grapheme": "a",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -7042,9 +7495,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "heute"
+          "heu",
+          "te"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -7057,7 +7514,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -7108,9 +7565,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "morgen"
+          "mor",
+          "gen"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -7123,7 +7584,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -7170,7 +7631,10 @@
         "syllables": [
           "am"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -7216,7 +7680,10 @@
         "syllables": [
           "null"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -7262,7 +7729,10 @@
         "syllables": [
           "eins"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -7315,7 +7785,10 @@
         "syllables": [
           "zwei"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -7380,7 +7853,10 @@
         "syllables": [
           "drei"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -7439,7 +7915,10 @@
         "syllables": [
           "vier"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -7510,7 +7989,10 @@
         "syllables": [
           "fünf"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -7563,7 +8045,10 @@
         "syllables": [
           "sechs"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -7626,9 +8111,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "sieben"
+          "sie",
+          "ben"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -7641,7 +8130,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -7688,7 +8177,10 @@
         "syllables": [
           "acht"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -7753,7 +8245,10 @@
         "syllables": [
           "neun"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -7806,7 +8301,10 @@
         "syllables": [
           "zehn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -7865,7 +8363,10 @@
         "syllables": [
           "elf"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -7911,7 +8412,10 @@
         "syllables": [
           "zwölf"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ö",
@@ -7974,9 +8478,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "dreizehn"
+          "drei",
+          "zehn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -7989,7 +8499,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -8052,9 +8562,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "zwanzig"
+          "zwan",
+          "zig"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -8067,7 +8581,7 @@
             "grapheme": "i",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8118,9 +8632,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "hundert"
+          "hun",
+          "dert"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -8133,7 +8651,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8190,9 +8708,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "tausend"
+          "tau",
+          "send"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "au",
@@ -8205,7 +8727,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8250,9 +8772,18 @@
       },
       "pronunciation": {
         "syllables": [
-          "Million"
+          "ei",
+          "ne",
+          "Mil",
+          "li",
+          "on"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 3,
+          "secondary": [
+            1
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -8265,28 +8796,28 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 7,
             "end": 7,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "short"
           },
           {
             "grapheme": "i",
             "start": 10,
             "end": 10,
-            "syllable": 1,
+            "syllable": 4,
             "quantity": "short"
           },
           {
             "grapheme": "o",
             "start": 11,
             "end": 11,
-            "syllable": 1,
+            "syllable": 5,
             "quantity": "short"
           }
         ],
@@ -8333,7 +8864,10 @@
         "syllables": [
           "Glück"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ü",
@@ -8384,9 +8918,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Werkzeug"
+          "Werk",
+          "zeug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -8399,7 +8939,7 @@
             "grapheme": "eu",
             "start": 6,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -8478,9 +9018,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Spielzeug"
+          "Spiel",
+          "zeug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -8493,7 +9039,7 @@
             "grapheme": "eu",
             "start": 7,
             "end": 8,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -8566,9 +9112,16 @@
       },
       "pronunciation": {
         "syllables": [
-          "Feuerzeug"
+          "Feu",
+          "er",
+          "zeug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            3
+          ]
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -8581,14 +9134,14 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           },
           {
             "grapheme": "eu",
             "start": 7,
             "end": 8,
-            "syllable": 1,
+            "syllable": 3,
             "quantity": "long"
           }
         ],
@@ -8661,9 +9214,15 @@
       },
       "pronunciation": {
         "syllables": [
-          "Freizeit"
+          "Frei",
+          "zeit"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": [
+            2
+          ]
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -8676,7 +9235,7 @@
             "grapheme": "ei",
             "start": 6,
             "end": 7,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "long"
           }
         ],
@@ -8743,9 +9302,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Musik"
+          "Mu",
+          "sik"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 2,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -8758,7 +9321,7 @@
             "grapheme": "i",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8796,9 +9359,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Foto"
+          "Fo",
+          "to"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -8811,7 +9378,7 @@
             "grapheme": "o",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8851,7 +9418,10 @@
         "syllables": [
           "Rat"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -8895,9 +9465,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Kranken"
+          "Kran",
+          "ken"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -8910,7 +9484,7 @@
             "grapheme": "e",
             "start": 6,
             "end": 6,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -8948,9 +9522,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Konzert"
+          "Kon",
+          "zert"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "o",
@@ -8963,7 +9541,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -9003,7 +9581,10 @@
         "syllables": [
           "Bad"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -9049,7 +9630,10 @@
         "syllables": [
           "Bahn"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -9095,7 +9679,10 @@
         "syllables": [
           "Flug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "u",
@@ -9141,7 +9728,10 @@
         "syllables": [
           "Zeug"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -9185,9 +9775,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "fahren"
+          "fah",
+          "ren"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -9200,7 +9794,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -9238,9 +9832,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Karte"
+          "Kar",
+          "te"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "a",
@@ -9253,7 +9851,7 @@
             "grapheme": "e",
             "start": 5,
             "end": 5,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -9293,7 +9891,10 @@
         "syllables": [
           "Werk"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "e",
@@ -9339,7 +9940,10 @@
         "syllables": [
           "Spiel"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ie",
@@ -9383,9 +9987,13 @@
       },
       "pronunciation": {
         "syllables": [
-          "Feuer"
+          "Feu",
+          "er"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "eu",
@@ -9398,7 +10006,7 @@
             "grapheme": "e",
             "start": 4,
             "end": 4,
-            "syllable": 1,
+            "syllable": 2,
             "quantity": "short"
           }
         ],
@@ -9438,7 +10046,10 @@
         "syllables": [
           "frei"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -9484,7 +10095,10 @@
         "syllables": [
           "Zeit"
         ],
-        "stress": 1,
+        "stress": {
+          "primary": 1,
+          "secondary": []
+        },
         "vowels": [
           {
             "grapheme": "ei",
@@ -10095,7 +10709,7 @@
       "subcategoryId": "foundations_greetings",
       "title": "Saludos básicos",
       "summary": "Saludar, despedirse y agradecer según la situación.",
-      "content": "Hallo! Guten Morgen! Guten Tag! Guten Abend! Gute Nacht! Tschüss! Auf Wiedersehen! Danke! Bitte! Hallo es una forma general e informal; Guten Tag es más neutro.",
+      "content": "Usa el saludo según la hora y el grado de confianza:\n\n- **Hallo!** — saludo general e informal.\n- **Guten Morgen!** — por la mañana.\n- **Guten Tag!** — saludo neutro durante el día.\n- **Guten Abend!** — por la tarde-noche.\n- **Gute Nacht!** — al irse a dormir, no para llegar.\n\nPara cerrar la conversación: **Tschüss!** es informal y **Auf Wiedersehen!** es más neutro o formal. **Danke!** significa «gracias» y **Bitte!** puede significar «de nada» o «por favor» según el contexto.\n\n> Consejo: empieza con **Hallo!** si no sabes qué registro elegir.",
       "level": "A1",
       "order": 1
     },
@@ -10105,7 +10719,7 @@
       "subcategoryId": "foundations_greetings",
       "title": "Presentarse y preguntar cómo estás",
       "summary": "Construir una presentación corta y responder a Wie geht es dir?",
-      "content": "Ich heiße Alex. Ich komme aus Spanien. Ich wohne in Madrid. Wie geht es dir? Mir geht es gut. Danke!",
+      "content": "Una presentación A1 puede seguir este orden:\n\n1. Nombre: **Ich heiße Alex.**\n2. Procedencia: **Ich komme aus Spanien.**\n3. Residencia: **Ich wohne in Madrid.**\n4. Pregunta: **Wie geht es dir?**\n\nRespuesta habitual: **Mir geht es gut, danke!** También puedes decir **Sehr gut!**, **Ganz gut.** o **Nicht so gut.**\n\n> Fíjate en que **dir** significa «a ti» en esta expresión: literalmente, «¿cómo te va a ti?»",
       "level": "A1",
       "order": 2
     },
@@ -10115,7 +10729,7 @@
       "subcategoryId": "foundations_nouns",
       "title": "Los sustantivos empiezan en mayúscula",
       "summary": "Reconocer sustantivos aunque estén en mitad de la frase.",
-      "content": "En alemán se escribe der Student, die Sprache, das Haus y die Musik. En Ich lerne Deutsch, Deutsch también se escribe con mayúscula porque es un nombre de idioma.",
+      "content": "Todos los **sustantivos** empiezan con mayúscula, aunque estén en mitad de la frase:\n\n- **der Student**\n- **die Sprache**\n- **das Haus**\n- **die Musik**\n\nTambién se escriben con mayúscula los nombres de idiomas: **Ich lerne Deutsch.**\n\nNo confundas la mayúscula con el género: la mayúscula te dice que es un sustantivo; **der**, **die** o **das** te dicen su género gramatical.",
       "level": "A1",
       "order": 3
     },
@@ -10125,7 +10739,7 @@
       "subcategoryId": "foundations_gender",
       "title": "Género y plural: qué información guardar",
       "summary": "Distinguir género gramatical, número y palabras que no llevan artículo.",
-      "content": "Los sustantivos tienen der, die o das en singular. El plural usa die: der Student, die Studenten. Verbos como kommen, adjetivos como schön y expresiones como Hallo no tienen género; no se les debe inventar un artículo.",
+      "content": "En singular, cada sustantivo lleva un género: **der**, **die** o **das**. En plural, el artículo definido es siempre **die**:\n\n- **der Student** → **die Studenten**\n- **die Sprache** → **die Sprachen**\n- **das Haus** → **die Häuser**\n\nEl género pertenece al alemán, no a la traducción. Además, solo los sustantivos tienen artículo: **kommen** es un verbo, **schön** es un adjetivo y **Hallo** es un saludo. No hay que inventarles género.",
       "level": "A1",
       "order": 4
     },
@@ -10135,7 +10749,7 @@
       "subcategoryId": "grammar_articles",
       "title": "Der, die y das",
       "summary": "Aprender el artículo definido junto con cada sustantivo, no como una traducción literal.",
-      "content": "der Bahnhof, die Straße, das Haus. Para hablar de varios: die Bahnhöfe, die Straßen, die Häuser. El artículo depende del género alemán, no del género de la traducción española.",
+      "content": "No memorices una traducción aislada. Guarda cada palabra como un bloque:\n\n| Singular | Plural |\n| --- | --- |\n| **der Bahnhof** | **die Bahnhöfe** |\n| **die Straße** | **die Straßen** |\n| **das Haus** | **die Häuser** |\n\nEl artículo alemán no se puede deducir de forma fiable a partir del género de la palabra española. La mejor estrategia es repetir **artículo + sustantivo** desde el primer día.",
       "level": "A1",
       "order": 5
     },
@@ -10145,7 +10759,7 @@
       "subcategoryId": "grammar_indefinite",
       "title": "Ein, eine, kein y keine",
       "summary": "Elegir artículo indefinido o negación según género y número.",
-      "content": "Masculino y neutro: ein Student, ein Haus; negación: kein Student, kein Haus. Femenino: eine Straße, keine Straße. Plural: keine Studenten, nunca ein Studenten.",
+      "content": "En singular, el artículo indefinido depende del género:\n\n- Masculino: **ein Student** → **kein Student**\n- Neutro: **ein Haus** → **kein Haus**\n- Femenino: **eine Straße** → **keine Straße**\n\nEn plural no existe *ein*. Para negar usamos **keine**: **keine Studenten**.\n\n> Error frecuente: decir *ein Studenten*. Si es plural, usa **keine Studenten** o el artículo definido **die Studenten**.",
       "level": "A1",
       "order": 6
     },
@@ -10155,7 +10769,7 @@
       "subcategoryId": "grammar_possessives",
       "title": "Posesivos: mein, dein, sein e ihr",
       "summary": "Usar el posesivo y ajustar su terminación al sustantivo.",
-      "content": "mein Haus, meine Sprache, mein Auto. La forma cambia por género: mein para masculino/neutro y meine para femenino/plural en estos ejemplos. Pregunta: Ist das dein Auto? Respuesta: Ja, das ist mein Auto.",
+      "content": "El posesivo se adapta al sustantivo que viene después:\n\n- **mein Haus** — neutro\n- **meine Sprache** — femenino\n- **mein Auto** — neutro\n- **meine Freunde** — plural\n\nLa persona poseedora no cambia la regla: **mein** significa «mi» y **dein** significa «tu». Pregunta y respuesta:\n\n> **Ist das dein Auto?**  \n> **Ja, das ist mein Auto.**\n\nEn otros casos aparecerán más terminaciones; aquí nos centramos en estas formas básicas.",
       "level": "A1",
       "order": 7
     },
@@ -10165,7 +10779,7 @@
       "subcategoryId": "grammar_word_order",
       "title": "El verbo conjugado va en segunda posición",
       "summary": "Entender posición, no número de palabras: el primer bloque puede ser tiempo, lugar o sujeto.",
-      "content": "Ich lerne Deutsch. Heute lerne ich Deutsch. In meiner Freizeit koche ich gern. En las tres frases el verbo conjugado ocupa la segunda posición; si el tiempo va primero, el sujeto pasa después del verbo.",
+      "content": "En una oración principal, cuenta **bloques**, no palabras:\n\n- **Ich** **lerne** Deutsch.\n- **Heute** **lerne** ich Deutsch.\n- **In meiner Freizeit** **koche** ich gern.\n\nEn las tres frases, el verbo conjugado (**lerne**, **koche**) está en la segunda posición. Si colocas el tiempo o el lugar delante, el sujeto pasa después del verbo.\n\n> No digas *Heute ich lerne Deutsch*. La forma correcta es **Heute lerne ich Deutsch.**",
       "level": "A1",
       "order": 8
     },
@@ -10175,7 +10789,7 @@
       "subcategoryId": "grammar_word_order",
       "title": "Tiempo antes que lugar",
       "summary": "Colocar primero cuándo y después dónde en frases de rutina.",
-      "content": "Am Montag wohne ich in Berlin. Heute lerne ich im Café. Morgen gehe ich ins Kino. Am Montag es un bloque temporal; in Berlin, im Café e ins Kino expresan lugar o destino.",
+      "content": "Para contar una rutina, suele ser útil poner primero **cuándo** y después indicar **dónde** o **adónde**:\n\n- **Am Montag** wohne ich **in Berlin**.\n- **Heute** lerne ich **im Café**.\n- **Morgen** gehe ich **ins Kino**.\n\n**in Berlin** expresa lugar; **im Café** es la contracción de *in dem Café*; **ins Kino** es la contracción de *in das Kino* y expresa destino.\n\nLa estructura puede cambiar por énfasis, pero el verbo conjugado sigue en la posición 2.",
       "level": "A1",
       "order": 9
     },
@@ -10185,7 +10799,7 @@
       "subcategoryId": "grammar_compounds",
       "title": "Las palabras compuestas se leen por el final",
       "summary": "Identificar las partes y descubrir el género del compuesto.",
-      "content": "das Rathaus = Rat + Haus; das Krankenhaus = Kranken + Haus; die Fahrkarte = fahren + Karte. La última parte suele determinar el género y el significado principal: Haus hace que Rathaus sea neutro.",
+      "content": "En alemán se pueden unir palabras para crear una nueva:\n\n- **das Rathaus** = *Rat* + *Haus*\n- **das Krankenhaus** = *Kranken* + *Haus*\n- **die Fahrkarte** = *fahren* + *Karte*\n\nLa última parte suele decidir el **género** y el significado principal. Por eso **das Rathaus** es neutro: termina en **das Haus**. Lee la palabra de derecha a izquierda para encontrar su núcleo.",
       "level": "A1",
       "order": 10
     },
@@ -10195,7 +10809,7 @@
       "subcategoryId": "verbs_basics",
       "title": "Ich komme, ich wohne",
       "summary": "Conjugar kommen y wohnen para hablar de origen y residencia.",
-      "content": "kommen: ich komme, du kommst, er kommt. wohnen: ich wohne, du wohnst, er wohnt. Ich komme aus Spanien. Ich wohne in Madrid. Wo wohnst du?",
+      "content": "| Persona | `kommen` | `wohnen` |\n| --- | --- | --- |\n| ich | **komme** | **wohne** |\n| du | **kommst** | **wohnst** |\n| er/sie | **kommt** | **wohnt** |\n\nEjemplos:\n\n- **Ich komme aus Spanien.**\n- **Ich wohne in Madrid.**\n- **Wo wohnst du?**\n\nLa terminación cambia, pero la raíz se mantiene: `komm-` y `wohn-`.",
       "level": "A1",
       "order": 11
     },
@@ -10205,7 +10819,7 @@
       "subcategoryId": "verbs_basics",
       "title": "Sein, haben y lernen",
       "summary": "Usar tres verbos muy frecuentes en frases completas.",
-      "content": "sein: ich bin, du bist, er ist. haben: ich habe, du hast, er hat. lernen: ich lerne, du lernst, er lernt. Ich bin Student. Ich habe ein Buch. Ich lerne Deutsch.",
+      "content": "Aprende estos verbos dentro de frases, porque **sein** y **haben** son irregulares:\n\n- **sein**: *ich bin, du bist, er ist*\n- **haben**: *ich habe, du hast, er hat*\n- **lernen**: *ich lerne, du lernst, er lernt*\n\nEjemplos: **Ich bin Student. Ich habe ein Buch. Ich lerne Deutsch.**\n\n> No intentes aplicar la terminación regular de `lernen` a `sein`: *ich seine* no existe.",
       "level": "A1",
       "order": 12
     },
@@ -10215,7 +10829,7 @@
       "subcategoryId": "verbs_vowel_change",
       "title": "Cambio vocálico en du y er/sie/es",
       "summary": "Detectar cambios de e a ie o i en algunos verbos fuertes.",
-      "content": "El cambio aparece normalmente en du y er/sie/es, no en ich: sprechen — ich spreche, du sprichst, er spricht; sehen — ich sehe, du siehst; lesen — ich lese, du liest.",
+      "content": "Algunos verbos cambian la vocal de la raíz en **du** y **er/sie/es**, pero no en **ich**:\n\n- **sprechen** → ich **spreche**, du **sprichst**, er **spricht**\n- **sehen** → ich **sehe**, du **siehst**\n- **lesen** → ich **lese**, du **liest**\n\nNo añadas el cambio a todas las personas. La forma de **ich** suele conservar la vocal del infinitivo.",
       "level": "A1",
       "order": 13
     },
@@ -10225,7 +10839,7 @@
       "subcategoryId": "verbs_vowel_change",
       "title": "Lernen no cambia la vocal",
       "summary": "Comparar un verbo regular con uno de cambio vocálico para evitar generalizaciones.",
-      "content": "lernen es regular: ich lerne, du lernst, er lernt. No se dice du lernst ni se cambia la e. Contrasta con sprechen: du sprichst. Aprende cada verbo con sus formas clave.",
+      "content": "`lernen` es regular:\n\n- ich **lerne**\n- du **lernst**\n- er/sie/es **lernt**\n\nLa raíz es `lern-` y las terminaciones se añaden sin cambiar la vocal. Compáralo con `sprechen`: **du sprichst**. Aprende cada verbo con sus formas clave en vez de adivinar si cambia.",
       "level": "A1",
       "order": 14
     },
@@ -10235,7 +10849,7 @@
       "subcategoryId": "verbs_hobbies",
       "title": "Gern: decir que te gusta hacer algo",
       "summary": "Colocar gern después del verbo conjugado para expresar gusto.",
-      "content": "Ich koche gern. Ich höre gern Musik. Ich singe gern und ich tanze gern. Con un elemento inicial: In meiner Freizeit koche ich gern; el verbo sigue en segunda posición.",
+      "content": "Coloca **gern** después del verbo o del complemento que quieras presentar:\n\n- **Ich koche gern.**\n- **Ich höre gern Musik.**\n- **Ich singe gern und ich tanze gern.**\n\nSi empiezas con un bloque de tiempo, recuerda la posición 2: **In meiner Freizeit koche ich gern.** `gern` no significa «gustar» por sí solo; indica que haces algo con gusto.",
       "level": "A1",
       "order": 15
     },
@@ -10245,7 +10859,7 @@
       "subcategoryId": "pronunciation_vowels",
       "title": "Vocales largas y cortas",
       "summary": "Relacionar la vocal registrada con su cantidad y no confundir cantidad con letra.",
-      "content": "La vocal puede ser corta o larga según la palabra. En la ficha se guarda su posición exacta. ie suele representar una i larga: die; ei es un diptongo: mein; eu y äu son diptongos: Deutsch, Häuser.",
+      "content": "La cantidad vocálica forma parte de la pronunciación de cada palabra. No todas las grafías se leen letra por letra:\n\n- **ie** suele representar una *i* larga: **die**, **Liebe**.\n- **ei** es un diptongo: **mein**, **drei**.\n- **eu/äu** son diptongos: **Deutsch**, **Häuser**.\n\nUna palabra puede tener más de una vocal larga. La ficha guarda cada ocurrencia y su posición para no perder esa información.",
       "level": "A1",
       "order": 16
     },
@@ -10255,7 +10869,7 @@
       "subcategoryId": "pronunciation_vowels",
       "title": "Umlauts: ä, ö y ü",
       "summary": "Pronunciar y reconocer las tres vocales modificadas.",
-      "content": "ä se aproxima a una e abierta, ö se articula con labios redondeados y ü con labios redondeados manteniendo una posición anterior. Ejemplos: Häuser, schön, fünf. No son adornos: pueden distinguir palabras.",
+      "content": "El umlaut cambia el sonido y puede distinguir palabras:\n\n- **ä** se aproxima a una *e* abierta: **Häuser**.\n- **ö** se produce con la lengua de una *e* y los labios redondeados: **schön**.\n- **ü** mantiene una posición anterior con los labios redondeados: **fünf**.\n\nNo son adornos ortográficos. Conviene aprender la palabra completa y practicar la posición de los labios.",
       "level": "A1",
       "order": 17
     },
@@ -10265,7 +10879,7 @@
       "subcategoryId": "pronunciation_patterns",
       "title": "ie, ei, eu y au",
       "summary": "Separar las grafías parecidas por su sonido.",
-      "content": "ie: i larga, como Liebe. ei: /aɪ̯/, como drei. eu: /ɔʏ̯/, como Leute. au: /aʊ̯/, como Haus. Memoriza la grafía completa, no leas cada vocal por separado.",
+      "content": "| Grafía | Sonido aproximado | Ejemplo |\n| --- | --- | --- |\n| **ie** | `i` larga | **Liebe** |\n| **ei** | `/aɪ̯/` | **drei** |\n| **eu** | `/ɔʏ̯/` | **Leute** |\n| **au** | `/aʊ̯/` | **Haus** |\n\nMemoriza la grafía completa: en **drei**, `e` y `i` no se pronuncian como dos vocales separadas.",
       "level": "A1",
       "order": 18
     },
@@ -10408,6 +11022,18 @@
       "content": "Wie viel kostet das? — Das kostet zehn Euro. Ich habe zwei Fahrkarten. Lee el número, escríbelo en alemán y comprueba la respuesta en los ejercicios de traducción.",
       "level": "A1",
       "order": 32
+    }
+  ],
+  "lessonDoubts": [
+    {
+      "id": "doubt_long_vowels_multiple",
+      "question": "¿Puede una palabra tener dos vocales largas?",
+      "answer": ""
+    },
+    {
+      "id": "doubt_stress_long_vowel",
+      "question": "¿El acento y las vocales largas tienen que coincidir?",
+      "answer": ""
     }
   ]
 }

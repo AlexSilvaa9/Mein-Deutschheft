@@ -465,6 +465,8 @@ export class ExercisesComponent {
   }
 
   translationSentence(): string {
+    const word = this.currentWord();
+    if (!word?.article) return '';
     return this.translator.t(
       this.isPluralDisplay() ? 'exercises.plural_sentence' : 'exercises.singular_sentence',
       { article: this.displayArticle() },

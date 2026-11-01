@@ -26,6 +26,7 @@
     ,"persistent_highlights": "Resaltado persistente"
     ,"highlights_hint": "Se aplica a tarjetas, detalle y ejercicios."
     ,"highlight_color": "Color del resaltado"
+    ,"primary_stress_highlight": "Sílaba tónica"
     ,"unsaved_changes": "Cambios sin guardar"
   },
   "articles": {
@@ -55,6 +56,7 @@
     "syllables": "Separación silábica",
     "stress": "Acento",
     "syllable_stress": "Sílaba {{n}}",
+    "secondary_stress": "Acentos secundarios",
     "umlaut": "Umlaut",
     "yes": "Sí",
     "no": "No",
@@ -167,6 +169,33 @@
     ,"confirm_delete_subcategory": "¿Eliminar «{{name}}» y sus lecciones?"
     ,"feature_info": "Información sobre el resaltado de vocabulario"
     ,"feature_info_text": "Las palabras de tus lecciones que también están en Mi vocabulario se resaltan automáticamente."
+    ,"topic": "Tema"
+    ,"select_topic": "Selecciona un tema para ver sus lecciones."
+    ,"loading": "Cargando lecciones"
+    ,"pagination": "Paginación de lecciones"
+    ,"previous_page": "Página anterior"
+    ,"next_page": "Página siguiente"
+    ,"page_of": "Página {{current}} de {{total}}"
+    ,"sections": "Secciones de lecciones"
+    ,"section_lessons": "Lecciones"
+    ,"section_doubts": "Dudas para el profe"
+    ,"doubts_title": "Dudas para preguntar al profe"
+    ,"doubts_hint": "Guarda aquí preguntas y añade la respuesta cuando la tengas."
+    ,"new_doubt": "Nueva duda"
+    ,"question": "Pregunta"
+    ,"answer": "Respuesta"
+    ,"answer_placeholder": "Escribe la respuesta del profe cuando la tengas..."
+    ,"answered": "Respondida"
+    ,"pending": "Pendiente"
+    ,"waiting_answer": "Pendiente de respuesta."
+    ,"no_doubts": "Todavía no tienes dudas guardadas."
+    ,"delete_doubt": "Eliminar duda"
+    ,"confirm_delete_doubt": "¿Eliminar esta duda?"
+    ,"suggestions_title": "Buzón de sugerencias"
+    ,"suggestions_hint": "Escribe una idea, corrección o mejora y se abrirá tu correo para enviarla."
+    ,"suggestions_placeholder": "Tu sugerencia..."
+    ,"send_suggestion": "Enviar por correo"
+    ,"suggestions_subject": "Sugerencia para Mein Deutschheft"
   },
   "manage": {
     "title": "Gestionar",
@@ -197,6 +226,7 @@
     "article": "Artículo",
     "translation_es": "Traducción (ES)",
     "translation_en": "Traducción (EN)",
+    "translation_de": "Traducción (DE)",
     "level": "Nivel MCER",
     "plural_form": "Forma plural",
     "plural_suffix": "Sufijo",
@@ -206,6 +236,9 @@
     "syllables_placeholder": "Ap·fel",
     "syllables_hint": "Separa con · (punto medio)",
     "stress": "Sílaba tónica (nº)",
+    "primary_stress": "Acento principal (sílaba nº)",
+    "secondary_stress": "Acentos secundarios (nº de sílabas)",
+    "secondary_stress_placeholder": "Ej.: 1, 3",
     "notes": "Notas",
     "domains": "Dominios",
     "sets": "Conjuntos",

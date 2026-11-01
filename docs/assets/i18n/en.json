@@ -26,6 +26,7 @@
     ,"persistent_highlights": "Persistent highlighting"
     ,"highlights_hint": "Applied to cards, details and exercises."
     ,"highlight_color": "Highlight color"
+    ,"primary_stress_highlight": "Stressed syllable"
     ,"unsaved_changes": "Unsaved changes"
   },
   "articles": {
@@ -55,6 +56,7 @@
     "syllables": "Syllable breakdown",
     "stress": "Stress",
     "syllable_stress": "Syllable {{n}}",
+    "secondary_stress": "Secondary stress",
     "umlaut": "Umlaut",
     "yes": "Yes",
     "no": "No",
@@ -167,6 +169,33 @@
     ,"confirm_delete_subcategory": "Delete “{{name}}” and its lessons?"
     ,"feature_info": "Information about vocabulary highlighting"
     ,"feature_info_text": "Words in your lessons that are also in My vocabulary are highlighted automatically."
+    ,"topic": "Topic"
+    ,"select_topic": "Select a topic to see its lessons."
+    ,"loading": "Loading lessons"
+    ,"pagination": "Lesson pagination"
+    ,"previous_page": "Previous page"
+    ,"next_page": "Next page"
+    ,"page_of": "Page {{current}} of {{total}}"
+    ,"sections": "Lesson sections"
+    ,"section_lessons": "Lessons"
+    ,"section_doubts": "Questions for teacher"
+    ,"doubts_title": "Questions for the teacher"
+    ,"doubts_hint": "Save questions here and add the answer when you have it."
+    ,"new_doubt": "New question"
+    ,"question": "Question"
+    ,"answer": "Answer"
+    ,"answer_placeholder": "Write the teacher's answer when you have it..."
+    ,"answered": "Answered"
+    ,"pending": "Pending"
+    ,"waiting_answer": "Waiting for an answer."
+    ,"no_doubts": "You have no saved questions yet."
+    ,"delete_doubt": "Delete question"
+    ,"confirm_delete_doubt": "Delete this question?"
+    ,"suggestions_title": "Suggestion box"
+    ,"suggestions_hint": "Write an idea, correction or improvement and your email client will open."
+    ,"suggestions_placeholder": "Your suggestion..."
+    ,"send_suggestion": "Send by email"
+    ,"suggestions_subject": "Suggestion for Mein Deutschheft"
   },
   "manage": {
     "title": "Manage",
@@ -197,6 +226,7 @@
     "article": "Article",
     "translation_es": "Translation (ES)",
     "translation_en": "Translation (EN)",
+    "translation_de": "Translation (DE)",
     "level": "CEFR Level",
     "plural_form": "Plural form",
     "plural_suffix": "Suffix",
@@ -206,6 +236,9 @@
     "syllables_placeholder": "Ap·fel",
     "syllables_hint": "Separate with · (middle dot)",
     "stress": "Stressed syllable (number)",
+    "primary_stress": "Primary stress (syllable no.)",
+    "secondary_stress": "Secondary stress (syllable numbers)",
+    "secondary_stress_placeholder": "E.g. 1, 3",
     "notes": "Notes",
     "domains": "Domains",
     "sets": "Sets",
